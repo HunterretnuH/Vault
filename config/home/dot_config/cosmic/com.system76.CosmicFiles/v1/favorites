@@ -1,0 +1,8 @@
+[
+    Home,
+    Path("/"),
+    Path("/home/hunter/Desktop"),
+    Path("/home/hunter/Desktop/Multimedia"),
+    Downloads,
+    Path("/home/hunter/Desktop/Remote"),
+]

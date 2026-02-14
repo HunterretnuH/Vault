@@ -1,0 +1,30 @@
+############################### COMMON CONFIG BASHRC ###############################
+
+#####################    ENVIRONEMENT    #####################
+#--1
+export MY_ENV="WORK" # Set environement. Valid values: HOME, WORK.
+#++#++#++#++#++#++#++# ENVIRONEMENT END #++#++#++#++#++#++#++#
+
+########################    CONFIG    ########################
+#--1 XDG SESSION TYPE
+export XDG_SESSION_TYPE=X11
+
+#--1 WIKI PATHS
+WIKI_PATH=~/Desktop/Wiki/
+WIKI_NAS_PATH=/mnt/Remote/NAS/Wiki/
+
+#--1 SCRIPT PATH
+export MY_SCRIPTS_PATH=~/Desktop/Scripts
+
+#--1 PROGRAMS PATH
+export MY_PROGRAMS_PATH=~/Others/Programs
+
+#++#++#++#++#++#++#++#++# CONFIG END #++#++#++#++#++#++#++#++#
+
+####################    SOURCE BASHRC    #####################
+#--1 
+source .bashrc.common
+source .bashrc.custom
+#++#++#++#++#++#++#++# SOURCE BASHRC END #++#++#++#++#++#++#++#
+
+# vim: foldmethod=marker foldmarker=#--,#++ filetype=bash

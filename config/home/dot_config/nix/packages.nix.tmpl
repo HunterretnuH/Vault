@@ -1,0 +1,5 @@
+{{- if eq .machine "work_vm"             -}}
+{{-     include "dot_config/nix/.packages.work.nix" -}}
+{{- else if eq .machine "home_notebook"  -}}
+{{-     include "dot_config/nix/.packages.home.nix" -}}
+{{- end                                  -}}

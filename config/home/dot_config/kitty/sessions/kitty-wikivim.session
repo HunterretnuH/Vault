@@ -1,0 +1,2 @@
+cd ~/Desktop/Media/Documents/Wiki/IndexWiki
+launch nvim index.md

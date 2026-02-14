@@ -1,0 +1,10 @@
+[Unit]
+Description=NAS General Media Share (TrueNAS)
+OnFailure=automount-restarter@%N.service
+
+[Mount]
+What=//192.168.0.4/General
+Where=/mnt/Remote/NAS/Media/General
+Type=cifs
+Options=rw,credentials=/home/hunter/.smb-credentials/truenas-media-general,uid=1000,gid=1000,iocharset=utf8,file_mode=0770,dir_mode=0770
+TimeoutSec=30

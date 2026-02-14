@@ -1,0 +1,36 @@
+# -----------------------------------------------------------------------------
+# Rootmoi configuration
+# -----------------------------------------------------------------------------
+# Used when running chezmoi via the rootmoi wrapper.
+# This configuration:
+#   - Uses the "root/" subdirectory of the main repo
+#   - Deploys files directly to "/"
+#   - Keeps root execution isolated from user chezmoi state
+# -----------------------------------------------------------------------------
+
+# Preserve full chezmoi runtime data for reuse below
+{{- $chezmoiData := deepCopy . -}}
+{{- $chezmoiData = unset $chezmoiData "chezmoi" -}}
+
+# Root-specific source directory inside main working tree
+sourceDir: "{{ joinPath .chezmoi.workingTree "root" }}"
+
+# Deploy to filesystem root
+destDir: "/"
+
+# General behavior
+verbose: true
+
+diff:
+  exclude:
+    - scripts
+status:
+  exclude:
+    - always
+
+# Template data available for root-managed files
+data:
+  # The original (non-root) user invoking rootmoi
+  non_root_user: "{{ .chezmoi.username }}"
+# Re-inject original chezmoi runtime data
+{{ $chezmoiData | toYaml | indent 2 }}

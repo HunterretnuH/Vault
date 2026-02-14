@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Source: https://github.com/felipecrs/dotfiles/blob/296dbfddebc321f7ed9d14eea0269fd3de4dfd0d/root/.chezmoiscripts/run_after_90-fix-rootmoi-files-ownership.sh.tmpl
+
+chown --recursive '{{ .non_root_user }}' '{{ dir .chezmoi.configFile }}' '{{ .chezmoi.cacheDir }}'

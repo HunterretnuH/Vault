@@ -1,0 +1,44 @@
+############################### BASHRC HOME ################################
+
+#####################    GENERAL CONFIG    #####################
+    #--1 WIKI
+        #--2 WIKI NEXTCLOUD DIFF
+        WIKI_NEXTCLOUD_PATH=~/Nextcloud/Common/Wiki/
+
+        alias wdn="WikiDiffLocalWithNextcloud"
+
+        function WikiDiffLocalWithNextcloud {
+            echo "Local Changes (not present on remote):"
+            rsync -rnc --itemize-changes "$WIKI_PATH" "$WIKI_NEXTCLOUD_PATH"
+            echo "Remote Changes (not present locally):"
+            rsync -rnc --itemize-changes "$WIKI_NAS_PATH" "$WIKI_NEXTCLOUD_PATH"
+        }
+
+        #--2 WIKI HTML PUBLISH
+        #PATH_TO_HTML_WIKI=/home/$USER/Documents/MyWiki/htmlOutput/
+        #PATH_TO_WIKI_WEBSERVER_DIR=/srv/http
+        #alias wikiPublish='sudo rsync -r $PATH_TO_HTML_WIKI $PATH_TO_WIKI_WEBSERVER_DIR'
+
+    #--1 MSSH - My SSH 
+    function mssh() {
+        # My script for connecting to my devices using SSH
+        mssh_path="/home/$USER/.ssh/mssh"
+        filename=$(
+            for file in "$mssh_path"/*; do
+                helpline=$(head -n1 "$file")
+                echo -e "$(basename "$file") $helpline"
+            done | column -t -s '#' | fzf --border --height=30% | cut -d'#' -f1
+        )
+        source $mssh_path/$filename
+    }
+
+    #--1 OTHER - Consider removing
+    #alias vrg="nvim --listen godothost ."
+    #alias vrgn="cd ~/Documents/godot4-projects/Top-Down-2D-Game-Tutorial/;nvim --listen /tmp/godothost ."
+    alias musb="udisksctl mount -b \$(echo /dev/\$(lsblk --list|grep -v -e nvme -e cryptlvm -e MyVolGroup|fzf|cut -d ' ' -f 1))"
+    #alias nv="XDG_CONFIG_HOME=~/Others/Dev/Languages/LUA/nvim/nvim-exp/config XDG_DATA_HOME=~/Others/Dev/Languages/LUA/nvim/nvim-exp/data XDG_DATA_STATE=~/Others/Dev/Languages/LUA/nvim/nvim-exp/state nvim"
+    #alias tv="XDG_CONFIG_HOME=~/Others/Dev/nvim/nvim-test/config XDG_DATA_HOME=~/Others/Dev/nvim/nvim-test/data XDG_DATA_STATE=~/Others/Dev/nvim/nvim-test/state nvim"
+
+#++#++#++#++#++#++#++# END OF GENERAL CONFIG #++#++#++#++#++#++#++#
+
+# vim: foldmethod=marker foldmarker=#--,#++ filetype=bash

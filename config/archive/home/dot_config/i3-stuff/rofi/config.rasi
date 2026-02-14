@@ -1,0 +1,23 @@
+//@theme "/home/hunter/.local/share/rofi/themes/launchpad.rasi"
+//@theme "/home/hunter/.local/share/rofi/themes/rounded-blue-dark.rasi"
+@theme "/home/hunter/.local/share/rofi/themes/nord.rasi"
+
+
+configuration {
+    kb-row-up: "Up,Control+k";
+    kb-row-down: "Down,Control+j";
+  	kb-accept-entry: "Control+m,Return,KP_Enter";
+  	kb-remove-to-eol: "";
+}
+
+window {
+    width: 800;
+}
+
+element-icon {
+    size: 2em;
+}
+
+* {
+    font:   "Noto Sans 15";
+}

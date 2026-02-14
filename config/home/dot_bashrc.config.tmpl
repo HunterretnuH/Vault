@@ -1,0 +1,5 @@
+{{- if eq .machine "work_vm"             -}}
+{{-     include ".bashrc.config.work" -}}
+{{- else if eq .machine "home_notebook"  -}}
+{{-     include ".bashrc.config.home" -}}
+{{- end                                  -}}

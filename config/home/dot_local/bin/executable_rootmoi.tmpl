@@ -1,0 +1,32 @@
+#!/bin/bash
+# Source: https://github.com/felipecrs/dotfiles/blob/c3e0e400e544b3918a856cb10b55672c6ab4c827/home/dot_local/bin/executable_rootmoi.tmpl
+
+# INCLUDE SCRIPT LIBRARY
+# {{ include (joinPath .chezmoi.sourceDir ".chezmoitemplates/scripts-library.sh") }}
+
+# The following line is for ShellCheck to correctly identify the above include
+true || source ../../.chezmoitemplates/scripts-library.sh
+
+# {{ $configDir := joinPath .chezmoi.homeDir ".config/chezmoi" }}
+# {{ $configFile := joinPath $configDir "rootmoi.yaml" }}
+# {{ $persistentStateFile := joinPath $configDir "rootmoistate.boltdb" }}
+# {{ $cacheDir := joinPath .chezmoi.homeDir ".cache/rootmoi" }}
+
+# MAIN
+if [[ -f '{{ .chezmoi.executable }}' ]]; then
+  executable='{{ .chezmoi.executable }}'
+else
+  error "Chezmoi executable not found."
+fi
+
+# Ensure the folders are created, because otherwise they will be created as
+# root, including the ~/.cache and ~/.config, which can cause other programs
+# to stop working.
+# shellcheck disable=SC2016
+mkdir -p '{{ $configDir }}' '{{ $cacheDir }}'
+
+sudo exec --preserve-env=PATH -- \
+  "${executable}" "$@" \
+  --config='{{ $configFile }}' \
+  --persistent-state='{{ $persistentStateFile }}' \
+  --cache='{{ $cacheDir }}'

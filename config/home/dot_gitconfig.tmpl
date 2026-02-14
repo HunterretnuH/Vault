@@ -1,0 +1,5 @@
+{{- if eq .machine "work_vm"             -}}
+{{-     include ".gitconfig.work" -}}
+{{- else if eq .machine "home_notebook"  -}}
+{{-     include ".gitconfig.home" -}}
+{{- end                                  -}}

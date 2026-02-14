@@ -1,0 +1,10 @@
+[Unit]
+Description=NAS Wiki Share (TrueNAS)
+OnFailure=automount-restarter@%N.service
+
+[Mount]
+What=192.168.0.4:/mnt/NAS_main_storage/root/Wiki
+Where=/mnt/Remote/NAS/Wiki
+Type=nfs
+Options=defaults
+TimeoutSec=30

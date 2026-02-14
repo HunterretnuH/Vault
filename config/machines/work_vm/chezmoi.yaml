@@ -1,0 +1,21 @@
+# -----------------------------------------------------------------------------
+# Main chezmoi configuration (user)
+# -----------------------------------------------------------------------------
+
+# Location of your chezmoi source repository
+sourceDir: "/home/michalg/.Vault/config"
+
+# Custom data
+data:
+  machine: "work_vm"
+  packages:
+    cosmic: false
+    i3: true
+    keepassxc: true
+    kitty: true
+    nextcloud: false
+    nix: true
+    nvim: true
+    ranger: true
+    starship: true
+

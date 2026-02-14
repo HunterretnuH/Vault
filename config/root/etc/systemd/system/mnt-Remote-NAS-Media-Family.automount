@@ -1,0 +1,13 @@
+[Unit]
+Description=Automount NAS Family Media Share
+OnFailure=automount-restarter@%N.service
+
+# Network interface target dependancies `systemctl list-units --no-pager | grep net-device`
+After=sys-subsystem-net-devices-WGHome.device
+Requisite=sys-subsystem-net-devices-WGHome.device
+
+[Automount]
+Where=/mnt/Remote/NAS/Media/Family
+
+[Install]
+WantedBy=multi-user.target

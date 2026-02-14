@@ -1,0 +1,7 @@
+[Unit]
+Description=automount restarter for %i
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/sleep 10
+ExecStart=/usr/bin/systemctl restart %i.automount

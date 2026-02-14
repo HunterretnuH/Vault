@@ -1,0 +1,387 @@
+############################### MY BASHRC COMMON ################################
+
+#####################    GLOBAL VARIABLES    #####################
+
+#--1 XDG                - xdg SESSION_TYPE, config_home
+    export XDG_CONFIG_HOME="$HOME/.config" 
+    export XDG_DATA_HOME="$HOME/.local/share" 
+
+#--1 LOCALE
+    export LC_COLLATE=C
+
+#--1 BASH CONFIG
+    HISTCONTROL=ignoredups:erasedups # Avoid duplicates
+    HISTSIZE=100000           # nr of history lines in memory
+    HISTFILESIZE=100000       # nr of history lines loaded on shell startup or saved on shell close to/from file
+    shopt -s histappend       # When the shell exits, append to the history file instead of overwriting it
+#--1 TERMINAL CONFIG
+    stty -ixon # FIX for mapping <C-q> in terminal
+
+#--1 GENERAL            - PATH, GRAPHIC PROTOCOL, editor, screenshot dir, qt theme platform
+    PATH=$MY_PROGRAMS_PATH/bin:/home/$USER/.local/bin:/home/$USER/.cargo/bin:$MY_SCRIPTS_PATH:$MY_SCRIPTS_PATH/not_used_directly:$PATH
+    export EDITOR="nvim"
+    export SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
+    export QT_QPA_PLATFORMTHEME=qt5ct
+
+
+#--1 APP SPECIFIC       - ls colors, golang, firefox
+    # COLORS FOR RANGER, LS AND FD
+    export LS_COLORS=$LS_COLORS:'di=1;34'   # colors used by i.e. ls, ranger, fd
+
+    # GOLANG
+    export GOPATH="${MY_PROGRAMS_PATH}/go"
+
+    # FIREFOX
+    if [ "$XDG_SESSION_TYPE" = "WAYLAND" ]; then
+        export MOZ_ENABLE_WAYLAND=1
+    fi
+
+#++#++#++#++#++#++#++# END OF GLOBAL VARIABLES #++#++#++#++#++#++#++#
+
+#####################    ALIASES    #####################
+    #--1 LS
+    alias ls='ls --color=always --group-directories-first'
+    alias l='ls -lh'
+    alias ll='l -a'
+
+    #--1 APPS
+    alias v='nvim'
+    alias k='kitty --detach --session none'
+	#alias ranger='source ranger ranger' # Allows both CD on exit and passing args to work NOTE: Was replaced with funciton, remove later.
+    alias r='ranger'
+    alias e='exit'
+
+    #--1 CD
+    alias cdd="cd ~/Desktop"
+    alias cdp="cd -P ."
+    alias cdw="cd $WIKI_PATH"
+
+    #--1 CP
+    alias rcp="rsync -ah --progress"
+
+    #--1 KILL
+    alias kp="sudo kill \$(ps -A|fzf|awk '{print \$1}')"
+    alias kkp="sudo kill -s SIGKILL \$(ps -A|fzf|awk '{print \$1}')"
+
+    #--1 COPY
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+        export COPY="wl-copy"
+    elif [ "$XDG_SESSION_TYPE" = "X11" ]; then
+        export COPY="xclip -selection c"
+    fi
+    alias copy="$COPY"
+
+
+    #--1 GIT
+    alias ga='git add'
+    alias gaa='git add -A'
+    alias gau='git add -u'
+    alias gb='git branch'
+    alias gc='git checkout'
+    alias gC='git commit'
+    alias gcp='git cherry-pick'
+    alias gd='git diff'
+    alias gf='git fetch'
+    alias gl='git log'
+    alias gp='git pull'
+    alias gP='git push'
+    alias gr='git reset'
+    alias grh='gr --hard'
+    alias grhm='gr --hard master'
+    alias grhom='gr --hard origin/master'
+    alias gs='git status'
+    alias gsu='git submodule update'
+    alias gsui='git submodule update --init'
+    alias gcr='clean_repo'
+
+	#Cleaning repo
+	function clean_repo	{
+    git reset --hard --recurse-submodule -q &&
+    git submodule sync --recursive &&
+    git submodule update --init --force --recursive &&
+    git clean -ffdx &&
+    git submodule foreach --recursive git clean -ffxd
+	}
+
+    #--1 GREP
+    alias greph='grep_with_header'
+
+    function grep_with_header {
+        grep_arguments="$@"
+        {
+            head -n1
+            grep $grep_arguments
+        }
+    }
+    #--1 WIKI
+    alias wD="WikiDownload"
+    alias wDu="WikiDownloadUpdate"
+    alias wu="WikiUpload"
+    alias wd="WikiDiffLocalWithNAS"
+    alias ws="WikiSearch"
+
+    # WikiDownload synchronizes wiki with server and discards any local differences
+    function WikiDownload {
+        rsync -avz --delete --no-owner --no-group --no-perms $WIKI_NAS_PATH $WIKI_PATH
+    }
+
+    # WikiDownloadUpdate synchronizes wiki with server but files which have newer modification date on the device then
+    # it's counterpart on server will be kept
+    function WikiDownloadUpdate {
+        rsync -avzu --no-owner --no-group --no-perms $WIKI_NAS_PATH $WIKI_PATH
+    }
+
+    # WikiUpload synchronizes wiki with server. Files which have newer modification date on the server then it's counterpart
+    # on the device will be kept
+    function WikiUpload {
+        rsync -avz --delete --no-owner --no-group --no-perms $WIKI_PATH $WIKI_NAS_PATH
+    }
+
+    # Compare based on modification time and ?
+    function WikiDiffLocalWithNAS {
+        echo "Local Changes (not present on remote):"
+        rsync -anu --no-owner --no-group --no-perms --itemize-changes --exclude .git/ --exclude .gitignore $WIKI_PATH $WIKI_NAS_PATH
+        echo "Remote Changes (not present locally):"
+        rsync -anu --no-owner --no-group --no-perms --itemize-changes --exclude .git/ --exclude .gitignore $WIKI_NAS_PATH $WIKI_PATH
+    }
+
+    function CommandHelper {
+        FzfSearch md "$1" $WIKI_PATH
+    }
+
+    function WikiSearch {
+        FzfSearch md "$1" $WIKI_PATH
+    }
+
+    #
+    # TODO: Analyze and describe this function in detail
+    # nff nvim find files
+    # usage:
+    # nff file_ext content
+    #
+    # example:
+    # to find `install` in md files:
+    # nff md install
+    # and then hit enter on the fzf list will open nvim on the line number in selected list
+    function FzfSearch() {
+        # $1 - extension
+        # $2 - regex
+        # $3 - dir path
+        file_line=`rg "$2" -i --no-ignore --no-heading --column --color ansi -g \*.$1 $3 | \
+            fzf --ansi --border --reverse --delimiter=: \
+            --preview 'bat --color always {1} -n  -H {2}' \
+            --preview-window 'top,70%,border-bottom,+{2}+3/3'`
+
+        file=`echo "$file_line" | gawk -F: '{print $1}'`
+        line=`echo "$file_line" | gawk -F: '{print $2}'`
+        if [[ -n $file ]]; then
+            nvim +"$line" "$file"
+        fi
+    }
+
+
+    #PATH_TO_HTML_WIKI=/home/$USER/Documents/MyWiki/htmlOutput/
+    #PATH_TO_WIKI_WEBSERVER_DIR=/srv/http
+    #alias wikiPublish='sudo rsync -r $PATH_TO_HTML_WIKI $PATH_TO_WIKI_WEBSERVER_DIR'
+
+    #--1 MSCR - My Scripts
+    ignore_dirs=("not_used" "not_used_directly")
+    scripts_path="${MY_SCRIPTS_PATH:-$HOME/scripts}"
+
+    # Fzf preview function
+    function mscr_preview() {
+        local path="$MY_SCRIPTS_PATH"
+        local rel="$1"
+        local full="$path/$rel"
+
+        if [[ ! -x "$full" ]]; then
+            echo "Not executable: $full"
+            head -n 200 "$full"
+            return
+        fi
+
+        # Check if usage() function exist and assum -h is supported if it's present
+        if grep -q "usage()" $full; then
+            "$full" -h 2>&1 && return
+        fi
+
+        # Fallback: show first lines of script
+        head -n 200 "$full"
+    }
+    export -f mscr_preview
+
+    # My Scripts Function
+    function mscr() {
+        local path="${MY_SCRIPTS_PATH:-$HOME/scripts}"
+        local ignore_expr=()
+
+        # Check if the function is running as a result of bind -x
+        if [[ ! -n "$BIND_USED" ]]; then
+            echo "This command must be invoked using bash binding. Default: <C-x><C-s> or <C-x>s."
+            unset BIND_USED
+            return 1
+        fi
+
+        for d in "${ignore_dirs[@]}"; do
+            ignore_expr+=(-path "$path/$d" -prune -o)
+        done
+
+        local scripts
+        scripts=$(find "$path" "${ignore_expr[@]}" -type f -executable -print 2>/dev/null | sed "s|^$path/||")
+
+        if [[ -z "$scripts" ]]; then
+            echo "No executable scripts found in: $path" >&2
+            return 1
+        fi
+
+        local filename
+        filename=$(printf '%s\n' "$scripts" | fzf \
+            --border \
+            --height=30% \
+            --preview 'mscr_preview {}')
+
+        if [[ -n "$filename" ]]; then
+            local cmd="$path/$filename"
+            READLINE_LINE="$cmd"
+            READLINE_POINT=${#READLINE_LINE}
+        fi
+    }
+
+    # Bindings
+    bind -x '"\C-x\C-s":"BIND_USED=1 mscr"'
+    bind -x '"\C-x\s":"BIND_USED=1 mscr"'
+
+    #--1 MMAN - My MAN
+    function mman() {
+        # My script for searching through custom commands notes 
+        MMAN_PATH="$WIKI_PATH/MmanWiki/"
+        MMAN_INDEX_PATH=$MMAN_PATH/index.md
+        filename=$(cat $MMAN_INDEX_PATH | tail -n +3 | cut -d\| -f2 | fzf --border --height=30% | sed 's/    */|/' | cut -d\| -f 1 | sed 's/ //')
+        if [[ ! -n "$filename" ]]; then
+            return
+        fi
+        nvim "$MMAN_PATH/${filename}.md"
+    }
+    #--1 MCOM - My Commands
+    # TODO: Rework it so that it won't have command chosing menu, but instead just fuzzy find through all commands examples.
+    #       It must use 2nd level header (and 1st level header so that LSP won't complain) and code block to be able to view these <command>_examples.md files from mman. 
+    function mcom() {
+        # My script for searching through custom commands
+        MMAN_PATH="$WIKI_PATH/MmanWiki/"
+        MMAN_INDEX_PATH=$MMAN_PATH/index.md
+
+        # Check if the function is running as a result of bind -x
+        if [[ ! -n "$BIND_USED" ]]; then
+            echo "This command must be invoked using bash binding. Default: <C-x><C-c> or <C-x>c."
+            unset BIND_USED
+            return 1
+        fi
+
+        mman_command_help_list=$(cat $MMAN_INDEX_PATH | tail -n +3 | cut -d\| -f2 | sed 's/    */|/' | cut -d\| -f 1 | sed 's/ //')
+
+        # Loop through each filename and check if it exists
+        mman_command_exec_list=""
+        for cmd in $mman_command_help_list; do
+            file="$MMAN_PATH/${cmd}_commands.md"
+            if [[ -f "$file" ]]; then
+                basename=$(basename "$file")
+                mman_command_exec_list+="${basename%_commands.md}"
+            fi
+        done
+        command_exec_filename=$(echo $mman_command_exec_list | fzf --border --height=30%)
+
+        if [[ ! -n "$command_exec_filename" ]]; then
+            return
+        fi
+
+        command=$(cat $MMAN_PATH/${command_exec_filename}_commands.md | fzf --border --height=30%)
+
+        # Extract text between backticks
+        com=$(echo "$command" | grep -oP '(?<=`).*?(?=`)')
+
+        if [[ -n "$com" ]]; then
+            READLINE_LINE="$com"
+            READLINE_POINT=${#READLINE_LINE}
+        fi
+    }
+
+    # Bindings
+    bind -x '"\C-x\C-c":"BIND_USED=1 mcom"'
+    bind -x '"\C-x\c":"BIND_USED=1 mcom"'
+
+    #--1 OTHER
+    print_ascii() {
+        OUTPUT=""
+        for i in {32..127}
+        do
+            INT=$(printf "%3d" $i)
+            HEX=$(printf "%02X" $i)
+            BIN=$(printf "%08d\n" $(echo "obase=2; $i" | bc))
+            CHAR=$(awk "BEGIN{printf \"%c\", $i}")
+            if [[ "$CHAR" == "\\" ]]; then CHAR="\\\\"; fi
+            OUTPUT="$OUTPUT $INT $BIN $HEX $CHAR\n"
+        done
+        echo -e "$OUTPUT" |pr --columns=3 -l 37 -t
+    }
+    alias ascii='print_ascii'
+
+    alias nv="XDG_CONFIG_HOME=~/Others/Dev/nvim/nvim-exp/config XDG_DATA_HOME=~/Others/Dev/nvim/nvim-exp/data XDG_DATA_STATE=~/Others/Dev/nvim/nvim-exp/state nvim"
+    alias tv="XDG_CONFIG_HOME=~/Others/Dev/nvim/nvim-test/config XDG_DATA_HOME=~/Others/Dev/nvim/nvim-test/data XDG_DATA_STATE=~/Others/Dev/nvim/nvim-test/state nvim"
+
+
+    #--1 Consider removing
+    alias vrg="nvim --listen godothost ."
+    alias vrgn="cd ~/Documents/godot4-projects/Top-Down-2D-Game-Tutorial/;nvim --listen /tmp/godothost ."
+    alias musb="udisksctl mount -b \$(echo /dev/\$(lsblk --list|grep -v -e nvme -e cryptlvm -e MyVolGroup|fzf|cut -d ' ' -f 1))"
+    alias gusb="cd /run/media/hunter/"
+    #alias vpn_zut="sudo openvpn ~/.config/vpn/wi_zut_vpn.ovpn"
+    #alias rdp_zut="xfreerdp /v:rdp.wi.zut.edu.pl /u:gm32673 /dynamic-resolution"
+
+#++#++#++#++#++#++#++# END OF ALIASES #++#++#++#++#++#++#++#
+
+#####################    OTHERS    #####################
+#--1 TERMINAL FILE MANAGER          - ranger (cd on exit fix)
+ function ranger {
+    local IFS=$'\t\n'
+    local tempfile="$(mktemp -t tmp.XXXXXX)"
+    local ranger_cmd=(
+        command
+        ranger
+        --cmd="map Q chain shell echo %d > "$tempfile"; quitall"
+    )
+    
+    ${ranger_cmd[@]} "$@"
+    if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
+        cd -- "$(cat "$tempfile")" || return
+    fi
+    command rm -f -- "$tempfile" 2>/dev/null
+}
+
+#--1 POWERLINE                      - starship
+    export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+    eval "$(starship init bash)"
+    #if [ "$TERM" != "linux" ]; then
+    #    source "$MY_PROGRAMS_PATH/from_git/pureline/pureline" ~/.config/pureline/pureline.conf
+    #fi
+
+#--1 FUZZY FINDER                   - fzf
+    set -o vi   #required for correct bindings to be loaded by fzf (duplicate - .inpurc)
+    #source /usr/share/fzf/key-bindings.bash #loads basic key-bindings
+    #source /usr/share/fzf/completion.bash   #enables completion like "cd ~/**<TAB>"
+    # Set up fzf key bindings and fuzzy completion
+    eval "$(fzf --bash)"
+
+#--1 VI-MODE CLIPBOARD              - yank or cut whole lines to system clipboard in bash vi-mode. 
+    yank_line_to_clipboard () { echo $READLINE_LINE | $COPY; }
+    cut_line_to_clipboard () { yank_line_to_clipboard; READLINE_LINE=""; }
+
+    bind -m vi-command -x '"YY":yank_line_to_clipboard'
+    bind -m vi-command -x '"DD":cut_line_to_clipboard'
+
+#++#++#++#++#++#++#++# END OF OTHERS #++#++#++#++#++#++#++#
+
+
+
+# vim: foldmethod=marker foldmarker=#--,#++ filetype=bash
+
+
