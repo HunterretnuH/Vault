@@ -1,0 +1,11 @@
+[user]
+	email = michal.gzela@globallogic.com
+	name = Michal Gzela
+[diff]
+	tool = nvimdiff
+[difftool]
+	prompt = false
+[safe]
+	directory = /mnt/NAS/Wiki
+[mergetool "vimdiff"]
+    layout = LOCAL,MERGED,REMOTE

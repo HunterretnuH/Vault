@@ -3,8 +3,8 @@
 set -e
 
 echo "Installing apt packages..."
-sudo apt install chezmoi keepassxc ripgrep python3 python3-pip npm nodejs gThumb trash-cli easyeffects pv interception-tools nfs-common cifs-utils
-sudo apt install wl-clipboard 
+sudo apt install chezmoi keepassxc ripgrep python3 python3-pip npm nodejs trash-cli pv interception-tools nfs-common cifs-utils
+sudo apt install i3 polybar rofi picom
 echo "Done."
 
 echo "Installing nix..."

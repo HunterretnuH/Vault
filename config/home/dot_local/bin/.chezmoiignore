@@ -1,3 +1,7 @@
 {{ if not (index .packages "nextcloud") }}
 executable_nextcloud
 {{ end }}
+
+{{ if not (index .packages "kitty") }}
+executable_kitty
+{{ end }}
