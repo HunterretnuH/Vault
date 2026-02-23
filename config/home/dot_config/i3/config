@@ -10,8 +10,7 @@
 #####################    GENERAL SETTINGS    #####################
 #--1 Appereance:                    wallpaper, borders, gaps, font
     #--2 Wallpaper
-        exec --no-startup-id feh ~/Pictures/Wallpapers/fantasy-fox-landscape-tree-ay-2560x1080.jpg --bg-fill
-        #exec ~/.azotebg
+        exec --no-startup-id exec bash $HOME/.fehbg
     #--2 Borders
         #for_window      [title="^.*"] border pixel 2, title_format "<b> %class >> %title </b>"
         default_border  pixel 2
@@ -177,7 +176,7 @@
     # Reload the configuration file TODO: Check why "exec swaymsg..." is necessary
     bindsym $Mod+Ctrl+c             exec i3-msg reload   
     # Restart i3
-    bindsym $Mod+Ctrl+r             exec swaymsg restart   
+    bindsym $Mod+Ctrl+r             exec i3-msg restart   
 
     ## Clipboard Screenshots
     bindsym Print           exec --no-startup-id maim | xclip -selection clipboard -t image/png

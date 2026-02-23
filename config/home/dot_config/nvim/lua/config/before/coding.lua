@@ -1,16 +1,4 @@
 
---{ LSP config
-    local capabilities = function(capabilities)
-        return require('blink.cmp').get_lsp_capabilities(capabilities)
-    end
-
-    vim.lsp.config("*", {
-        capabilities = capabilities,
-        --on_attach = on_attach,
-        --handlers = handlers,
-    })
---}
-
 --{ LSP keybindings (LspAttach event)
     vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),

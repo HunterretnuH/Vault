@@ -1,10 +1,11 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash 
 
 set -e
 
 echo "Installing apt packages..."
-sudo apt install chezmoi keepassxc ripgrep python3 python3-pip npm nodejs trash-cli pv interception-tools nfs-common cifs-utils
-sudo apt install i3 polybar rofi picom
+sudo apt install curl keepassxc ripgrep python3 python3-pip python3-pynvim python3-venv npm nodejs trash-cli pv interception-tools nfs-common cifs-utils
+sudo apt install virtualbox-guest-x11
+sudo apt install i3 i3blocks rofi picom feh wireguard libreoffice xclip
 echo "Done."
 
 echo "Installing nix..."
@@ -28,7 +29,7 @@ do
             break
             ;;
         "Single user")
-            echo "Starting nix multi user installation..."
+            echo "Starting nix single user installation..."
             sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon
             echo "Done"
             echo "See https://nix.dev/manual/nix/2.28/installation/single-user and optionally run:"
@@ -42,9 +43,18 @@ do
             break
             ;;
         *) echo "Invalid option: $REPLY"
+            ;;
+esac
 done
 
+echo "Deploying chezmoi config..."
+# Required to use `nix` command before restarting session
+. /home/$USER/.nix-profile/etc/profile.d/nix.sh 
+nix-shell -p chezmoi
+chezmoi apply
+echo "Done."
+
 echo "Installing default nix profile..."
-nix profile add .config/nix#default
+nix profile add /home/$USER/.config/nix#default
 echo "Done."
 

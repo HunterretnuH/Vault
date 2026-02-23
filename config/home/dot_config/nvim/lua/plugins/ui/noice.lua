@@ -15,6 +15,15 @@ return {
                 signature = { enabled = false },
             },
             routes = {
+                {
+                    filter = { event = 'msg_show', kind = { 'shell_out', 'shell_err' } },
+                    view = 'split',
+                    opts = {
+                        level = 'info',
+                        skip = false,
+                        replace = false,
+                    },
+                }
               --{
               --    view = "cmdline",  -- show it at the bottom like normal
               --    filter = { event = "msg_show", find = "group" },
@@ -31,6 +40,9 @@ return {
               --    },
               --},
             },
+            presets = {
+                bottom_search = true, -- use a classic bottom cmdline for search
+            }
         })
     end
 }

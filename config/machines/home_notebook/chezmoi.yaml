@@ -18,4 +18,10 @@ data:
     nvim: true
     ranger: true
     starship: true
+    feh: false
+    smb_share: true
+    smb_share_nas_media_family: true
+    smb_share_nas_media_general: true
+    smb_share_nas_storage: true
+    smb_share_nas_wiki: true
 

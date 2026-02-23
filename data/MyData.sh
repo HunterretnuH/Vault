@@ -137,12 +137,12 @@
             dir .wg
         fi
 
-        if [ -n "$REMOTE_DIR" ]; then
-            dir .Remote
-        fi
-
         if [ -n "$FIREFOX" ]; then
             dir .mozilla
+        fi
+
+        if [ -n "$FIREFOX_SNAP" ]; then
+            dir snap/firefox/common/.mozilla
         fi
 
         run

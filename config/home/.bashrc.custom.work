@@ -46,9 +46,6 @@
             sleep 1
         done
     }
-#--1 FZF
-    source ~/Programs/from_git/fzf/shell/key-bindings.bash #loads basic key-bindings
-    source ~/Programs/from_git/fzf/shell/key-bindings.bash #enables completion like "cd ~/**<TAB>"
 
 #++#++#++#++#++#++#++# END OF GENERAL CONFIG #++#++#++#++#++#++#++#
 

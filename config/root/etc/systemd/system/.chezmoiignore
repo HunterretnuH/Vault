@@ -1,0 +1,25 @@
+{{ if not (index .packages "smb_share") }}
+automount-restarter@.service
+{{ end }}
+
+{{ if not (index .packages "smb_share_nas_media_family") }}
+mnt-Remote-NAS-Media-Family.automount
+mnt-Remote-NAS-Media-Family.mount
+{{ end }}
+
+{{ if not (index .packages "smb_share_nas_media_general") }}
+mnt-Remote-NAS-Media-General.automount
+mnt-Remote-NAS-Media-General.mount
+{{ end }}
+
+{{ if not (index .packages "smb_share_nas_storage") }}
+mnt-Remote-NAS-Storage.automount
+mnt-Remote-NAS-Storage.mount
+{{ end }}
+
+{{ if not (index .packages "smb_share_nas_wiki") }}
+mnt-Remote-NAS-Wiki.automount
+mnt-Remote-NAS-Wiki.mount
+{{ end }}
+
+

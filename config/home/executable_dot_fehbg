@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-scale '/home/michalg/Desktop/Media/Pictures/view-rock-formations-with-nature-landscape.jpg' 

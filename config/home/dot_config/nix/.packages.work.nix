@@ -2,7 +2,7 @@
 { pkgs }:
 
 [
-  pkgs.nix
+  pkgs.chezmoi
   pkgs.kitty
   pkgs.fzf
   pkgs.neovim

@@ -32,7 +32,7 @@
     export GOPATH="${MY_PROGRAMS_PATH}/go"
 
     # FIREFOX
-    if [ "$XDG_SESSION_TYPE" = "WAYLAND" ]; then
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
         export MOZ_ENABLE_WAYLAND=1
     fi
 
@@ -66,7 +66,7 @@
     #--1 COPY
     if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
         export COPY="wl-copy"
-    elif [ "$XDG_SESSION_TYPE" = "X11" ]; then
+    elif [ "$XDG_SESSION_TYPE" = "x11" ]; then
         export COPY="xclip -selection c"
     fi
     alias copy="$COPY"

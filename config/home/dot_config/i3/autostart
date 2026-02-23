@@ -5,6 +5,7 @@
 #exec_always nwg-drawer -r -c 6 -is 64 -fscol 2 -s MySwayDrawer.css -term kitty
 
 # exec_always nwg-panel -c MySwayPanel -s MySwayPanel.css
+#exec_always --no-startup-id /home/michalg/.config/polybar/launch.sh
 bar {
     status_command i3blocks
     position top

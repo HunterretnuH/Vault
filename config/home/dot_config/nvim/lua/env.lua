@@ -1,10 +1,10 @@
 
-local env = "home"
+local env = "work"
 
 local environments = {}
 environments.home = {}
     environments.home.wiki = {}
-        environments.home.wiki.wiki_dir_path         = '~/Desktop/Multimedia/Documents/Wiki/'
+        environments.home.wiki.wiki_dir_path         = '~/Desktop/Media/Documents/Wiki/'
         environments.home.wiki.index_wiki_path       = environments.home.wiki.wiki_dir_path .. 'IndexWiki/'
         environments.home.wiki.main_wiki_path        = environments.home.wiki.wiki_dir_path .. 'MainWiki/'
         environments.home.wiki.dev_wiki_path         = environments.home.wiki.wiki_dir_path .. 'DevWiki/'
@@ -18,7 +18,7 @@ environments.home = {}
         environments.home.wiki.default_wiki_path     = environments.home.wiki.index_wiki_path
 environments.work = {}
     environments.work.wiki = {}
-        environments.work.wiki.wiki_dir_path         = '~/Wiki/'
+        environments.work.wiki.wiki_dir_path         = '~/Desktop/Media/Documents/Wiki/'
         environments.work.wiki.main_wiki_path        = environments.work.wiki.wiki_dir_path .. 'MainWiki/'
         environments.work.wiki.dev_wiki_path         = environments.work.wiki.wiki_dir_path .. 'DevWiki/'
         environments.work.wiki.work_wiki_path        = environments.work.wiki.wiki_dir_path .. 'WorkWiki/'
