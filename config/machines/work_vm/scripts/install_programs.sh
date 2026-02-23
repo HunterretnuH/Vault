@@ -3,7 +3,7 @@
 set -e
 
 echo "Installing apt packages..."
-sudo apt install curl keepassxc ripgrep python3 python3-pip python3-pynvim python3-venv npm nodejs trash-cli pv interception-tools nfs-common cifs-utils
+sudo apt install curl keepassxc ripgrep python3 python3-pip python3-pynvim python3-venv npm nodejs trash-cli pv nfs-common cifs-utils
 sudo apt install virtualbox-guest-x11
 sudo apt install i3 i3blocks rofi picom feh wireguard libreoffice xclip
 echo "Done."

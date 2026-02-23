@@ -16,7 +16,7 @@ echo "Done."
 echo "Soft linking ~/.remote to ~/Desktop/Remote..."
 
 sudo mkdir -p /mnt/Remote/NAS/Wiki
-sudo mkdir -p /mnt/Remote/Host-Share
+sudo mkdir -p /mnt/Remote/Share-Host
 ln -s /mnt/Remote /home/$USER/Desktop/Remote 
 export REMOTE_OWNER=$USER
 sudo chown -R $REMOTE_OWNER:$REMOTE_OWNER /mnt/Remote
@@ -29,5 +29,5 @@ sudo systemctl enable mnt-Remote-NAS-Wiki.automount
 echo "Done."
 
 echo "Soft linking dual-function-keys"
-ln -s /home/$USER/.nix-profile/bin/dual-function-keys /usr/local/bin/dual-function-keys
+sudo ln -s /home/$USER/.nix-profile/bin/dual-function-keys /usr/local/bin/dual-function-keys
 echo "Done."

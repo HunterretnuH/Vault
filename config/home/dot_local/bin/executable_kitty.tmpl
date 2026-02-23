@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
+{{ if eq .machine "work_vm" }}LIBGL_ALWAYS_SOFTWARE=1{{ end }} \
 exec nixGLMesa ~/.nix-profile/bin/kitty "$@"
