@@ -4,9 +4,9 @@ return {
     config = function()
         vim.lsp.config("basedpyright", {
             settings = {
-                python = {
-                    pythonPath = "/usr/bin/python",
-                },
+                -- python = {
+                --     pythonPath = "/usr/bin/python",
+                -- },
                 basedpyright = {
                     analysis = {
                         typeCheckingMode = "basic",  -- or "off"

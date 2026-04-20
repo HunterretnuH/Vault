@@ -83,6 +83,7 @@
     alias gd='git diff'
     alias gf='git fetch'
     alias gl='git log'
+    alias glr='git log @{u}'
     alias gp='git pull'
     alias gP='git push'
     alias gr='git reset'

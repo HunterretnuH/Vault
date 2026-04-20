@@ -4,19 +4,8 @@ configuration {
     kb-row-down: "Down,Control+j";
   	kb-accept-entry: "Control+m,Return,KP_Enter";
   	kb-remove-to-eol: "";
-}
 
-window {
-    width: 800;
-}
-
-element-icon {
-    size: 2em;
-}
-
-//THEME
-configuration {
-    font: "Noto Sans 18";
+    font: "Noto Sans 16";
     line-margin: 10;
 
     display-ssh:    "";
@@ -27,14 +16,18 @@ configuration {
     show-icons:     true;
 }
 
+window {
+	width: 40%;
+}
 
+element-icon {
+    size: 2em;
+}
+
+//THEME
 @theme "~/.config/rofi/nord.rasi"
 
 listview {
 	lines: 7;
 	columns: 1;
-}
-
-window {
-	width: 40%;
 }
