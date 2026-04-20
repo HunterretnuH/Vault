@@ -5,12 +5,17 @@
 # Location of your chezmoi source repository
 sourceDir: "/home/michalg/.Vault/config"
 
+diff:
+  exclude:
+    - scripts
+
 # Custom data
 data:
   machine: "work_vm"
   packages:
     cosmic: false
     i3: true
+    feh: true
     keepassxc: true
     kitty: true
     nextcloud: false
@@ -18,6 +23,10 @@ data:
     nvim: true
     ranger: true
     starship: true
-    feh: true
     smb_share: true
-    smb_share_nas_wiki: true
+    smb_share_nas_media_family: false
+    smb_share_nas_media_general: false
+    smb_share_nas_storage: false
+    smb_share_nas_wiki: false
+    smb_share_nas_wiki_work: true
+

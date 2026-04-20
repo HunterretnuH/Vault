@@ -5,12 +5,17 @@
 # Location of your chezmoi source repository
 sourceDir: "/home/hunter/.Vault/config"
 
+diff:
+  exclude:
+    - scripts
+
 # Custom data
 data:
   machine: "home_notebook"
   packages:
     cosmic: true
     i3: false
+    feh: false
     keepassxc: true
     kitty: true
     nextcloud: true
@@ -18,10 +23,10 @@ data:
     nvim: true
     ranger: true
     starship: true
-    feh: false
     smb_share: true
     smb_share_nas_media_family: true
     smb_share_nas_media_general: true
     smb_share_nas_storage: true
     smb_share_nas_wiki: true
+    smb_share_nas_wiki_work: false
 

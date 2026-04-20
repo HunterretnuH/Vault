@@ -133,6 +133,10 @@
             dir .ssh
         fi
 
+        if [ -n "$SMB" ]; then
+            dir .smb-credentials
+        fi
+
         if [ -n "$WIREGUARD" ]; then
             dir .wg
         fi

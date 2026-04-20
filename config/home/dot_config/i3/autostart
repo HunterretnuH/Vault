@@ -14,3 +14,5 @@ bar {
 #exec_always nwg-shell-check-updates
 #exec swayidle timeout 1200 nwg-lock timeout 1800 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' 
 #exec nwg-update-indicator
+
+exec_always --no-startup-id eval $(gnome-keyring-daemon --start --components=ssh,secrets,pkcs11)

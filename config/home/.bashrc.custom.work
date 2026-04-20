@@ -46,6 +46,8 @@
             sleep 1
         done
     }
+#--1 OTHERS
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/keyring/ssh"
 
 #++#++#++#++#++#++#++# END OF GENERAL CONFIG #++#++#++#++#++#++#++#
 

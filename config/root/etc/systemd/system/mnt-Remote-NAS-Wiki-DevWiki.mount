@@ -1,0 +1,10 @@
+[Unit]
+Description=NAS Dev Wiki Share (TrueNAS)
+OnFailure=automount-restarter@%N.service
+
+[Mount]
+What=//192.168.0.4/Wiki_DevWiki
+Where=/mnt/Remote/NAS/Wiki/DevWiki
+Type=cifs
+Options=rw,credentials=/home/michalg/.smb-credentials/truenas-wiki_work,uid=1000,gid=1000,iocharset=utf8,file_mode=0770,dir_mode=0770
+TimeoutSec=30

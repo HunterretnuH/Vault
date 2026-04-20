@@ -22,4 +22,11 @@ mnt-Remote-NAS-Wiki.automount
 mnt-Remote-NAS-Wiki.mount
 {{ end }}
 
+{{ if not (index .packages "smb_share_nas_wiki_work") }}
+mnt-Remote-NAS-Wiki-DevWiki.automount
+mnt-Remote-NAS-Wiki-DevWiki.mount
+mnt-Remote-NAS-Wiki-MmanWiki.automount
+mnt-Remote-NAS-Wiki-MmanWiki.mount
+{{ end }}
+
 

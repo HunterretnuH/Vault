@@ -15,7 +15,8 @@ echo "Done."
 
 echo "Soft linking ~/.remote to ~/Desktop/Remote..."
 
-sudo mkdir -p /mnt/Remote/NAS/Wiki
+sudo mkdir -p /mnt/Remote/NAS/Wiki/DevWiki
+sudo mkdir -p /mnt/Remote/NAS/Wiki/MmanWiki
 sudo mkdir -p /mnt/Remote/Share-Host
 ln -s /mnt/Remote /home/$USER/Desktop/Remote 
 export REMOTE_OWNER=$USER
@@ -24,8 +25,10 @@ echo "Done."
 
 echo "Enabling automount daemons..."
 sudo systemctl daemon-reload
-sudo systemctl start mnt-Remote-NAS-Wiki.automount
-sudo systemctl enable mnt-Remote-NAS-Wiki.automount
+sudo systemctl start mnt-Remote-NAS-Wiki-DevWiki.automount
+sudo systemctl enable mnt-Remote-NAS-Wiki-DevWiki.automount
+sudo systemctl start mnt-Remote-NAS-Wiki-MmanWiki.automount
+sudo systemctl enable mnt-Remote-NAS-Wiki-MmanWiki.automount
 echo "Done."
 
 echo "Soft linking dual-function-keys and related binaries"

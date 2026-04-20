@@ -8,9 +8,9 @@ export MY_ENV="HOME" # Set environement. Valid values: HOME, WORK.
 ########################    CONFIG    ########################
 #--1 XDG SESSION TYPE
 if [ "$(tty)" = "/dev/tty1" ]; then
-    export XDG_SESSION_TYPE=WAYLAND
+    export XDG_SESSION_TYPE=wayland
 elif [ "$(tty)" = "/dev/tty2" ]; then
-    export XDG_SESSION_TYPE=X11
+    export XDG_SESSION_TYPE=x11
 fi
 
 #--1 WIKI PATHS

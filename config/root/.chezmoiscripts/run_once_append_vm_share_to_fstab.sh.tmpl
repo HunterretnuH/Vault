@@ -1,0 +1,6 @@
+{{- if eq .machine "work_vm"             -}}
+#!/bin/sh
+{{ .chezmoi.sourceDir }}/.hooks_helpers/\
+\
+append_if_missing.sh "/etc/fstab" "WorkVMShare /mnt/Remote/Share-Host/ vboxsf defaults 0 0"
+{{- end                                  -}}

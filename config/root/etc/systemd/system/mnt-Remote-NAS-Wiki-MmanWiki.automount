@@ -1,0 +1,13 @@
+[Unit]
+Description=Automount NAS Mman Wiki Share
+OnFailure=automount-restarter@%N.service
+
+# Network interface target dependancies `systemctl list-units --no-pager | grep net-device`
+After=sys-subsystem-net-devices-wg0.device
+Requisite=sys-subsystem-net-devices-wg0.device
+
+[Automount]
+Where=/mnt/Remote/NAS/Wiki/MmanWiki
+
+[Install]
+WantedBy=multi-user.target
