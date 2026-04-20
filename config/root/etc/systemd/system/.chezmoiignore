@@ -29,4 +29,9 @@ mnt-Remote-NAS-Wiki-MmanWiki.automount
 mnt-Remote-NAS-Wiki-MmanWiki.mount
 {{ end }}
 
+{{ if not (index .packages "smb_share_nas_gamepc") }}
+mnt-Remote-NAS-GamePC.automount
+mnt-Remote-NAS-GamePC.mount
+{{ end }}
+
 

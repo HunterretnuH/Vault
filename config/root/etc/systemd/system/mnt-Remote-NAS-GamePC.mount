@@ -1,0 +1,10 @@
+[Unit]
+Description=NAS GamePC Share (TrueNAS)
+OnFailure=automount-restarter@%N.service
+
+[Mount]
+What=//192.168.0.4/GamePC
+Where=/mnt/Remote/NAS/GamePC
+Type=cifs
+Options=rw,credentials=/home/hunter/.smb-credentials/truenas-gamepc,uid=1000,gid=1000,iocharset=utf8,file_mode=0770,dir_mode=0770
+TimeoutSec=30

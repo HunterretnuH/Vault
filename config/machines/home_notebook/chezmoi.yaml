@@ -29,4 +29,5 @@ data:
     smb_share_nas_storage: true
     smb_share_nas_wiki: true
     smb_share_nas_wiki_work: false
+    smb_share_nas_gamepc: false
 
