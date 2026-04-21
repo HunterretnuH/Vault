@@ -1,6 +1,6 @@
 return {
     "HunterretnuH/map-tree.nvim",
-    lazy = false,
+    lazy = true,
     cmd = { "MapTreeOpen" },
     keys = function()
         local map = require("map")

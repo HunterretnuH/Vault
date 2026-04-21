@@ -13,7 +13,7 @@ local function get_lua_dirs(root_dir, prefix)
 
         for name, t in function() return luv.fs_scandir_next(fd) end do
             local full = path .. "/" .. name
-            if t == "file" and name:match("%.lua$") then
+            if (t == "file" or t =="link") and name:match("%.lua$") then
                 has_lua_file = true
             elseif t == "directory" then
                 scan(full, mod_prefix .. "." .. name)
@@ -30,9 +30,9 @@ local function get_lua_dirs(root_dir, prefix)
 end
 
 -- Scans <config_dir>/lua/plugins recursively for *.lua files and returns specs for lazy.nvim with imports
-local function get_plugins() 
-    local root = vim.fn.stdpath("config") .. "/lua/plugins"
-    local plugin_dirs = get_lua_dirs(root, "plugins")
+local function get_plugins(plugins_dir) 
+    local root = vim.fn.stdpath("config") .. "/lua/" .. plugins_dir
+    local plugin_dirs = get_lua_dirs(root, plugins_dir)
 
     -- Convert to lazy.nvim specs
     local specs = {}
@@ -67,7 +67,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 require("lazy").setup({
-    spec = get_plugins(),
+    spec = get_plugins(vim.g.vscode and "plugins_vscode" or "plugins"),
     -- Configure any other settings here. See the documentation for more details.
     -- colorscheme that will be used when installing plugins.
     install = { colorscheme = { "habamax" } },
@@ -75,5 +75,7 @@ require("lazy").setup({
     checker = { enabled = true },
 })
 
-local map = require("map")
-map.map('n', '<leader>ap', map.cmd('Lazy'), { desc = '[p]lugin manager'} )
+local ok, map = pcall(require, "map")
+if ok then
+    map.map('n', '<leader>ap', map.cmd('Lazy'), { desc = '[p]lugin manager'} )
+end

@@ -7,6 +7,7 @@ vim.g.lspLeader = 'g'
 vim.g.seekerLeader = ';'
 --}
 
+if not vim.g.vscode then
 --{ Open command-line window instead of command-line mode
     vim.keymap.set({'n', 'v', 'o'}, ':',  'q:i', { }) -- noremap : q:i
     vim.keymap.set({'n', 'v', 'o'}, '/',  'q/i\\v', { }) -- noremap / q/i
@@ -25,5 +26,6 @@ vim.g.seekerLeader = ';'
     end
     vim.api.nvim_create_autocmd( {"CmdwinEnter"}, { callback = restoreStandardMappings} )
 --}
+end
 
 -- vim: foldmethod=marker foldmarker=--{,--} textwidth=120 colorcolumn=121 nowrap
