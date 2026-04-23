@@ -46,6 +46,7 @@
 
     #--1 APPS
     alias v='nvim'
+    alias vv='nvim --listen /tmp/nvim-vscode-server'
     alias k='kitty --detach --session none'
 	#alias ranger='source ranger ranger' # Allows both CD on exit and passing args to work NOTE: Was replaced with funciton, remove later.
     alias r='ranger'

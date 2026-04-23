@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
 
+args=()
+
+if [[ $(pwd) == "$HOME" ]]; then
+    args+=(--directory ~/Desktop)
+fi
+
 {{ if eq .machine "work_vm" }}LIBGL_ALWAYS_SOFTWARE=1{{ end }} \
-exec nixGLMesa ~/.nix-profile/bin/kitty "$@"
+exec nixGLMesa ~/.nix-profile/bin/kitty "${args[@]}" "$@"
+

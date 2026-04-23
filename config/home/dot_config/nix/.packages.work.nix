@@ -6,6 +6,7 @@
   pkgs.kitty
   pkgs.fzf
   pkgs.neovim
+  pkgs.neovim-remote
   pkgs.ranger
   pkgs.starship
   pkgs.interception-tools
