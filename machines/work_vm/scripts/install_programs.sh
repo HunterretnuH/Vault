@@ -51,7 +51,8 @@ echo "Deploying chezmoi config..."
 # Required to use `nix` command before restarting session
 . /home/$USER/.nix-profile/etc/profile.d/nix.sh 
 nix-shell -p chezmoi
-chezmoi apply
+chezmoi init https://github.com/HunterretnuH/Vault
+chezmo apply
 echo "Done."
 
 echo "Installing default nix profile..."
@@ -64,3 +65,12 @@ wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' 
 sudo apt install ./"$vscode_package_name"
 rm -f ./"$vscode_package_name"
 echo "Done."
+
+
+# TODO: Required changes (experience after reinstalling VM on Ubuntu 24)
+# * in case of multi-user install nix profile is not present in /home/$USER until relog (and user also isn't in appriopriate group until relog)
+# * udevmon.service - path to udevmon is different when installed from nix (need machine dependant rootmoi service file - solution should be the same as for services -EASY)
+# * automate guest additions installation
+# * generally I need to get rid of these installtion scripts and integrate all into chezmoi
+# * Add vscode extension reinstallation `cat $XDG_CONFIG_HOME/Code/User/extensions.txt | xargs -L 1 code --install-extension`
+
