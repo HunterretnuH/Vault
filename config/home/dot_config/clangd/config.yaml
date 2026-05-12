@@ -1,0 +1,21 @@
+# 1. Global Defaults (Applies to everything)
+CompileFlags:
+  Add: [-Wall, -Wextra, -Wshadow, -Wpedantic]
+  # Using g++ as the default fallback compiler
+  Compiler: g++
+
+---
+# 2. C++ Specific Extensions
+If:
+  PathMatch: [.*\.cpp, .*\.hpp, .*\.cc, .*\.hh, .*\.cxx, .*\.hxx, .*\.h]
+CompileFlags:
+  Add: [-std=c++17]
+  Compiler: g++
+
+---
+# 3. C Specific Extensions
+If:
+  PathMatch: [.*\.c, .*\.h]
+CompileFlags:
+  Add: [-std=c11]
+  Compiler: gcc

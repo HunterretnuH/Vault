@@ -1,7 +1,5 @@
 
-local dap = require('dap')
-
-local c = {
+return {
     {
         name = "Debug core dump (GDB MI)",
         type = "cppdbg",
@@ -109,8 +107,3 @@ local c = {
         end
     }
 }
-
-dap.configurations.c = dap.configurations.c or {}
-vim.list_extend(dap.configurations.c, c)
-
-return c

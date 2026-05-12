@@ -7,7 +7,7 @@ return {
     require("onedarkpro").setup({
     colors = {
         onedark_vivid = {
-                bg = "#202020",     -- active window background
+                --bg = "#202020",     -- active window background
             },
         },
         styles = {

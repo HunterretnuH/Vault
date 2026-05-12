@@ -23,8 +23,24 @@
     #alias vrg="nvim --listen godothost ."
     #alias vrgn="cd ~/Documents/godot4-projects/Top-Down-2D-Game-Tutorial/;nvim --listen /tmp/godothost ."
     alias musb="udisksctl mount -b \$(echo /dev/\$(lsblk --list|grep -v -e nvme -e cryptlvm -e MyVolGroup|fzf|cut -d ' ' -f 1))"
-    #alias nv="XDG_CONFIG_HOME=~/Others/Dev/Languages/LUA/nvim/nvim-exp/config XDG_DATA_HOME=~/Others/Dev/Languages/LUA/nvim/nvim-exp/data XDG_DATA_STATE=~/Others/Dev/Languages/LUA/nvim/nvim-exp/state nvim"
-    #alias tv="XDG_CONFIG_HOME=~/Others/Dev/nvim/nvim-test/config XDG_DATA_HOME=~/Others/Dev/nvim/nvim-test/data XDG_DATA_STATE=~/Others/Dev/nvim/nvim-test/state nvim"
+    nvim_tests_dir="~/Desktop/Others/Dev/LANGUAGES/LUA/nvim/"
+    xdg_root_dir=".xdg"
+    xdg_config_dir="${xdg_root_dir}/config"
+    xdg_data_dir="${xdg_root_dir}/data"
+    xdg_state_dir="${xdg_root_dir}/state"
+ 
+    alias vtl="XDG_CONFIG_HOME=${nvim_tests_dir}/nvim-lazy/${xdg_config_dir} \
+    XDG_DATA_HOME=${nvim_tests_dir}/nvim-lazy/${xdg_data_dir} \
+    XDG_STATE_HOME=${nvim_tests_dir}/nvim-lazy/${xdg_state_dir} \
+    nvim"
+ 
+    alias vts="XDG_CONFIG_HOME=${nvim_tests_dir}/nvim-snacks/${xdg_config_dir} \
+    XDG_DATA_HOME=${nvim_tests_dir}/nvim-snacks/${xdg_data_dir} \
+    XDG_STATE_HOME=${nvim_tests_dir}/nvim-snacks/${xdg_state_dir} \
+    nvim"
+
+    #--1 Pop-OS specific utility scripts
+    PATH=$MY_SCRIPTS_PATH/pop-os-utils/:$PATH
 
 #++#++#++#++#++#++#++# END OF GENERAL CONFIG #++#++#++#++#++#++#++#
 

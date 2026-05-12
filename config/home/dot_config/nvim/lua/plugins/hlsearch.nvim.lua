@@ -1,3 +1,4 @@
+-- Automaticaly removes search highlight
 return {
     'nvimdev/hlsearch.nvim',
     lazy = false,
@@ -5,3 +6,4 @@ return {
         require('hlsearch').setup()
     end
 }
+

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Restart Audio
+Exec=pkexec /home/hunter/Desktop/Scripts/pop-os-utils/s_pop-restart-audio.sh
+Icon=audio-speakers
+Type=Application
+Terminal=true
+  

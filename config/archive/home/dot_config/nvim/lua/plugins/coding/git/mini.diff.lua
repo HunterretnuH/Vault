@@ -6,7 +6,33 @@ return {
         map.map('n', '<leader>do', function() require('mini.diff').toggle_overlay(0) end, { desc = "[o]verlay - mini.diff" })
         return map.exportKeys()
     end,
-    config = function() require('mini.diff').setup() end
+    config = function() require('mini.diff').setup() end,
+    opts = {
+        view = {
+            -- Visualization style. Possible values are 'sign' and 'number'.
+            -- Default: 'number' if line numbers are enabled, 'sign' otherwise.
+            style = vim.go.number and "number" or "sign",
+        },
+        -- Module mappings. Use `''` (empty string) to disable one.
+        -- NOTE: Disabled, because gitsigns.nvim provides all such functionality and more
+        mappings = {
+            -- Apply hunks inside a visual/operator region
+            apply = "",
+
+            -- Reset hunks inside a visual/operator region
+            reset = "",
+
+            -- Hunk range textobject to be used inside operator
+            -- Works also in Visual mode if mapping differs from apply and reset
+            textobject = "",
+
+            -- Go to hunk range in corresponding direction
+            goto_first = "",
+            goto_prev = "",
+            goto_next = "",
+            goto_last = "",
+        },
+    },
 }
 
 -- TODO: Consider mappings for mini.diff.operator, see: `MiniDiff.operator` in help.

@@ -3,8 +3,8 @@
 #####################    GLOBAL VARIABLES    #####################
 
 #--1 XDG                - xdg SESSION_TYPE, config_home
-    export XDG_CONFIG_HOME="$HOME/.config" 
-    export XDG_DATA_HOME="$HOME/.local/share" 
+    export XDG_CONFIG_HOME="$HOME/.config"
+    export XDG_DATA_HOME="$HOME/.local/share"
 
 #--1 LOCALE
     export LC_COLLATE=C
@@ -256,7 +256,7 @@
 
     #--1 MMAN - My MAN
     function mman() {
-        # My script for searching through custom commands notes 
+        # My script for searching through custom commands notes
         MMAN_PATH="$WIKI_PATH/MmanWiki/"
         MMAN_INDEX_PATH=$MMAN_PATH/index.md
         filename=$(cat $MMAN_INDEX_PATH | tail -n +3 | cut -d\| -f2 | fzf --border --height=30% | sed 's/    */|/' | cut -d\| -f 1 | sed 's/ //')
@@ -267,7 +267,7 @@
     }
     #--1 MCOM - My Commands
     # TODO: Rework it so that it won't have command chosing menu, but instead just fuzzy find through all commands examples.
-    #       It must use 2nd level header (and 1st level header so that LSP won't complain) and code block to be able to view these <command>_examples.md files from mman. 
+    #       It must use 2nd level header (and 1st level header so that LSP won't complain) and code block to be able to view these <command>_examples.md files from mman.
     function mcom() {
         # My script for searching through custom commands
         MMAN_PATH="$WIKI_PATH/MmanWiki/"
@@ -312,7 +312,7 @@
     bind -x '"\C-x\C-c":"BIND_USED=1 mcom"'
     bind -x '"\C-x\c":"BIND_USED=1 mcom"'
 
-    #--1 MSSH - My SSH 
+    #--1 MSSH - My SSH
     function mssh() {
         # My script for connecting to my devices using SSH
         mssh_path="/home/$USER/.ssh/mssh"
@@ -365,12 +365,19 @@
         ranger
         --cmd="map Q chain shell echo %d > "$tempfile"; quitall"
     )
-    
+
     ${ranger_cmd[@]} "$@"
     if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
         cd -- "$(cat "$tempfile")" || return
     fi
     command rm -f -- "$tempfile" 2>/dev/null
+}
+function E() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
 }
 
 #--1 POWERLINE                      - starship
@@ -387,7 +394,10 @@
     # Set up fzf key bindings and fuzzy completion
     eval "$(fzf --bash)"
 
-#--1 VI-MODE CLIPBOARD              - yank or cut whole lines to system clipboard in bash vi-mode. 
+#--1 ZOXIDE
+    eval "$(zoxide init bash)"
+
+#--1 VI-MODE CLIPBOARD              - yank or cut whole lines to system clipboard in bash vi-mode.
     yank_line_to_clipboard () { echo $READLINE_LINE | $COPY; }
     cut_line_to_clipboard () { yank_line_to_clipboard; READLINE_LINE=""; }
 

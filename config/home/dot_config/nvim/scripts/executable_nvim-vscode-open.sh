@@ -5,6 +5,7 @@ set -e
 PROJECT="$1"
 FILE="$2"
 LINE="$3"
+COL="$4"
 
 # Fallback if not provided
 if [ -z "$PROJECT" ]; then
@@ -35,5 +36,4 @@ if ! server_exist; then
 fi
 
 # Open file and focus
-nvr --servername "$SOCKET" --remote "+${LINE}" "$FILE"
- 
+nvr --servername "$SOCKET" --remote "$FILE" -c "call cursor($LINE, $COL)" 
