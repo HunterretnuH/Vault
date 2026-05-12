@@ -1,0 +1,23 @@
+// https://code.visualstudio.com/docs/reference/variables-reference
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Open in Neovim (project)",
+            "type": "shell",
+            "command": "~/.config/nvim/scripts/nvim-vscode-open.sh",
+            "args": [
+                "${workspaceFolderBasename}",
+                "${file}",
+                "${lineNumber}",
+                "${columnNumber}",
+            ],
+            "presentation": {
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

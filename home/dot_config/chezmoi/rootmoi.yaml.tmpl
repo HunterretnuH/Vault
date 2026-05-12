@@ -13,7 +13,7 @@
 {{- $chezmoiData = unset $chezmoiData "chezmoi" -}}
 
 # Root-specific source directory inside main working tree
-sourceDir: "{{ joinPath .chezmoi.workingTree "config" "root" }}"
+sourceDir: "{{ joinPath .chezmoi.workingTree "root" }}"
 
 # Deploy to filesystem root
 destDir: "/"

@@ -56,7 +56,7 @@
     alias cdd="cd ~/Desktop"
     alias cdp="cd -P ."
     alias cdw="cd $WIKI_PATH"
-    alias cdv="cd ~/.Vault"
+    alias cdv="cd ~/.local/share/chezmoi/"
 
     #--1 CP
     alias rcp="rsync -ah --progress"

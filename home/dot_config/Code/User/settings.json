@@ -1,0 +1,54 @@
+{
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "workbench.colorTheme": "Tokyo Night Storm",
+    "clangd.path": "/home/hunter/.config/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/22.1.0/clangd_22.1.0/bin/clangd",
+    "clangd.arguments": [
+        "--background-index",
+        "--clang-tidy",
+        "--header-insertion=iwyu",
+        "--completion-style=detailed",
+        "--function-arg-placeholders",
+        "--fallback-style=llvm",
+        "--query-driver=/usr/bin/gcc,/usr/bin/g++"
+    ],
+    "terminal.integrated.commandsToSkipShell": [
+        "-workbench.action.quickOpen"
+    ],
+    "editor.fontFamily": "'JetBrainsMono Nerd Font Mono', monospace",
+    "window.menuBarVisibility": "toggle",
+    "notebook.lineNumbers": "on",
+    "vscode-neovim.ctrlKeysForNormalMode": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "o",
+        "r",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        "/",
+        "]",
+        "right",
+        "left",
+        "up",
+        "down",
+        "backspace",
+        "delete",
+        "q"
+    ]
+}
