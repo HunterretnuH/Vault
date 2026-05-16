@@ -1,0 +1,37 @@
+ #!/usr/bin/env bash
+
+# Trigger change tracking on directory changes or internal file edits of custom scripts
+{{- $scriptPattern := printf "machines/%s/scripts/*" .machine -}}
+{{- range glob (joinPath .chezmoi.sourceDir $scriptPattern) }}
+# - {{ . }}: {{ include . | sha256sum }}
+{{- end }}
+
+SCRIPT_LIST="$HOME/.config/chezmoi/packages_scripts.txt"
+SCRIPT_DIR={{- joinPath .chezmoi.sourceDir "scripts" -}}
+
+if [ -s "$SCRIPT_LIST" ]; then
+    echo "Executing custom script hooks from $SCRIPT_LIST..."
+
+    # Simple, standard line-by-line read
+    while read -r script; do
+        SCRIPT_PATH="$SCRIPT_DIR/$script"
+
+        if [ -f "$SCRIPT_PATH" ]; then
+            echo "🚀 Running script hook: $script"
+            chmod +x "$SCRIPT_PATH"
+
+            # Execute in a subshell so an 'exit 1' inside a script won't crash Chezmoi
+            ( "$SCRIPT_PATH" )
+
+            if [ $? -ne 0 ]; then
+                echo "⚠️ Warning: Script $script exited with an error code."
+            fi
+        else
+            echo "❌ Error: Script executable not found at $SCRIPT_PATH"
+        fi
+    done < "$SCRIPT_LIST"
+
+    echo "All script hooks processed."
+else
+    echo "No script hooks listed in $SCRIPT_LIST. Skipping."
+fi

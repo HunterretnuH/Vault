@@ -1,0 +1,31 @@
+cosmic             : false
+i3                 : true
+feh                : true
+keepassxc          : true
+kitty              : true
+nextcloud          : false
+nix                : true
+nvim               : true
+ranger             : false
+yazi               : true
+starship           : true
+vscode             : true
+home_notebook      : false # later replace it with just automatically apending machine name to features list and
+work_vm            : true  # setting other machines to false or think of some other solution
+terminal_nix       : true
+terminal_apt       : true
+nextcloud          : false
+keepassxc          : true
+libreoffice        : true
+python             : true
+nodejs             : true
+interception-tools : true
+fonts              : true
+fix_xdg_dirs       : true
+smb_share          : true
+smb_share_nas_media_family  : false
+smb_share_nas_media_general : false
+smb_share_nas_storage       : false
+smb_share_nas_wiki          : false
+smb_share_nas_wiki_work     : true
+smb_share_nas_gamepc        : false

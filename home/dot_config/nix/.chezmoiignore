@@ -1,3 +1,3 @@
-{{ if not (index .packages "nix") }}
+{{ if not (index .features "nix") }}
 **
 {{ end }}

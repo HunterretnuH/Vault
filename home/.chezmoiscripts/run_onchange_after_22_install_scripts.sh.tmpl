@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Trigger change tracking on custom script configurations
+# Manifest Hash: {{ includeTemplate "dot_config/chezmoi/packages_script.txt.tmpl" . | sha256sum }}
+
+SCRIPT_DIR="{{ joinPath .chezmoi.sourceDir "machines" .machine "scripts" }}"
+
+if [ -d "$SCRIPT_DIR" ] && [ "$(ls -A "$SCRIPT_DIR")" ]; then
+    echo "Executing machine-specific scripts from $SCRIPT_DIR..."
+
+    # Pure Bash alphabetical globbing
+    for script_path in "$SCRIPT_DIR"/*; do
+        if [ -f "$script_path" ]; then
+            echo "🚀 Running machine script: $(basename "$script_path")"
+            chmod +x "$script_path"
+
+            # Isolated execution
+            ( "$script_path" )
+
+            if [ $? -ne 0 ]; then
+                echo "⚠️ Warning: Machine script $(basename "$script_path") exited with an error."
+            fi
+        fi
+    done
+
+    echo "All machine-specific scripts processed."
+else
+    echo "No machine-specific scripts found for this machine. Skipping."
+fi

@@ -1,35 +1,35 @@
-{{ if not (index .packages "smb_share") }}
+{{ if not (index .features "smb_share") }}
 automount-restarter@.service
 {{ end }}
 
-{{ if not (index .packages "smb_share_nas_media_family") }}
+{{ if not (index .features "smb_share_nas_media_family") }}
 mnt-Remote-NAS-Media-Family.automount
 mnt-Remote-NAS-Media-Family.mount
 {{ end }}
 
-{{ if not (index .packages "smb_share_nas_media_general") }}
+{{ if not (index .features "smb_share_nas_media_general") }}
 mnt-Remote-NAS-Media-General.automount
 mnt-Remote-NAS-Media-General.mount
 {{ end }}
 
-{{ if not (index .packages "smb_share_nas_storage") }}
+{{ if not (index .features "smb_share_nas_storage") }}
 mnt-Remote-NAS-Storage.automount
 mnt-Remote-NAS-Storage.mount
 {{ end }}
 
-{{ if not (index .packages "smb_share_nas_wiki") }}
+{{ if not (index .features "smb_share_nas_wiki") }}
 mnt-Remote-NAS-Wiki.automount
 mnt-Remote-NAS-Wiki.mount
 {{ end }}
 
-{{ if not (index .packages "smb_share_nas_wiki_work") }}
+{{ if not (index .features "smb_share_nas_wiki_work") }}
 mnt-Remote-NAS-Wiki-DevWiki.automount
 mnt-Remote-NAS-Wiki-DevWiki.mount
 mnt-Remote-NAS-Wiki-MmanWiki.automount
 mnt-Remote-NAS-Wiki-MmanWiki.mount
 {{ end }}
 
-{{ if not (index .packages "smb_share_nas_gamepc") }}
+{{ if not (index .features "smb_share_nas_gamepc") }}
 mnt-Remote-NAS-GamePC.automount
 mnt-Remote-NAS-GamePC.mount
 {{ end }}

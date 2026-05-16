@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+# Trigger change tracking on nix package list updates
+# Manifest Hash: {{ includeTemplate "dot_config/nix/packages.nix.tmpl" . | sha256sum }}
+
+if command -v nix &> /dev/null; then
+    echo "Nix is already installed. Skipping core installation."
+else
+    echo "Installing nix..."
+    if [ -t 0 ]; then
+        PS3="Select type or skip nix installation: "
+        select opt in "Multi user" "Single user" "Skip"
+        do
+            case $opt in
+                "Multi user")
+                    echo "Starting nix multi user installation..."
+                    sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon --yes
+                    opt_chosen="Multi user"
+                    break
+                    ;;
+                "Single user")
+                    echo "Starting nix single user installation..."
+                    sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon --yes
+                    echo "See https://nix.dev/manual/nix/2.28/installation/single-user and optionally run:"
+                    echo "sudo chown $USER:$USER prefix/var/nix/db"
+                    echo "sudo chown $USER:$USER prefix/store"
+                    opt_chosen="Single user"
+                    break
+                    ;;
+                "Skip")
+                    echo "Skipping nix installation."
+                    opt_chosen="Skip"
+                    break
+                    ;;
+                *) echo "Invalid option: $REPLY"
+                    ;;
+            esac
+        done
+    else
+        echo "Non-interactive environment detected. Installing Nix in Multi-user mode..."
+        sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon --yes
+        opt_chosen="Multi user"
+    fi
+fi
+
+# 1. Multi-user / Daemon installation path
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+
+# 2. Single-user standalone installation path
+elif [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+fi
+# Run natively now that the active process environment is bridged
+nix profile add "/home/$USER/.config/nix#default"
+echo "Done."
+
+# Security hardening occurs LAST so the active shell session isn't locked out prematurely
+if [[ "$opt_chosen" == "Multi user" ]]; then
+    echo "Restricting access to nix to current user..."
+    sudo groupadd -f nix-users
+    sudo chgrp nix-users /nix/var/nix/daemon-socket
+    sudo chmod ug=rwx,o= /nix/var/nix/daemon-socket
+    sudo usermod -aG nix-users $USER
+    echo "Done. Note: You will need to log out and back in to apply the new nix-users group permissions."
+fi
+

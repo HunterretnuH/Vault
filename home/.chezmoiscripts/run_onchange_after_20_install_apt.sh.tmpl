@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Trigger change tracking on apt package list updates
+# Manifest Hash: {{ includeTemplate "dot_config/chezmoi/packages_apt.txt.tmpl" . | sha256sum }}
+
+APT_LIST="$HOME/.config/chezmoi/packages_apt.txt"
+
+if [ -s "$APT_LIST" ]; then
+    echo "Installing apt packages from $APT_LIST..."
+    sudo apt-get update
+    xargs -a "$APT_LIST" sudo apt-get install -y
+    echo "Done."
+else
+    echo "No apt packages listed in $APT_LIST. Skipping."
+fi

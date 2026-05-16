@@ -1,19 +1,15 @@
-{ pkgs }:
-
-[
 {{- $defs := include "dot_config/chezmoi/packages_definitions.yaml" | fromYaml -}}
-{{- $nixPkgs := list -}}
+{{- $aptPkgs := list -}}
 {{- range $feature, $enabled := .packages -}}
   {{- if $enabled -}}
     {{- $cfg := index $defs $feature -}}
-    {{- if and $cfg (hasKey $cfg "nix") -}}
-      {{- range $cfg.nix -}}
-        {{- $nixPkgs = append $nixPkgs . -}}
+    {{- if and $cfg (hasKey $cfg "apt") -}}
+      {{- range $cfg.apt -}}
+        {{- $aptPkgs = append $aptPkgs . -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
-{{- end }}
-{{- range uniq $nixPkgs }}
-  pkgs.{{ . }}
-{{- end }}
-]
+{{- end -}}
+{{- range uniq $aptPkgs -}}
+{{ . }}
+{{ end }}
