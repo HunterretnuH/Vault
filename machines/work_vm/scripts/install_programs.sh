@@ -19,13 +19,6 @@ do
             sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
             echo "Done"
 
-            echo "Restricting access to nix to current user..."
-            sudo groupadd nix-users
-            sudo chgrp nix-users /nix/var/nix/daemon-socket
-            sudo chmod ug=rwx,o= /nix/var/nix/daemon-socket
-            sudo usermod $USER -aG nix-users
-            echo "Done"
-
             break
             ;;
         "Single user")
@@ -49,7 +42,7 @@ done
 
 echo "Deploying chezmoi config..."
 # Required to use `nix` command before restarting session
-. /home/$USER/.nix-profile/etc/profile.d/nix.sh 
+# TODO: Start new bash shell here
 nix-shell -p chezmoi
 chezmoi init https://github.com/HunterretnuH/Vault
 chezmo apply
@@ -58,6 +51,16 @@ echo "Done."
 echo "Installing default nix profile..."
 nix profile add /home/$USER/.config/nix#default
 echo "Done."
+
+if [[ "$opt" == "Multi user" ]]; then
+    echo "Restricting access to nix to current user..."
+    sudo groupadd nix-users
+    sudo chgrp nix-users /nix/var/nix/daemon-socket
+    sudo chmod ug=rwx,o= /nix/var/nix/daemon-socket
+    sudo usermod $USER -aG nix-users
+    echo "Done"
+fi
+
 
 echo "Installing other packages (VSCode)..."
 vscode_package_name="code_amd64.deb"
