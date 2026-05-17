@@ -1,7 +1,7 @@
 # Main
-cosmic             : false
-vm                 : true
-i3                 : true
+cosmic             : true
+vm                 : false
+i3                 : false
 interception-tools : true
 nix                : true
 nix_gl_mesa        : true
@@ -13,9 +13,9 @@ wireguard          : true
 keepassxc          : true
 kitty              : true
 libreoffice        : true
-nextcloud          : false
+nextcloud          : true
 # Included in compound features
-feh                : true
+feh                : false
 git                : true
 nvim               : true
 ranger             : false
@@ -27,12 +27,12 @@ fix_xdg_dirs       : true
 vscode             : true
 # Samba shares
 smb_share          : true
-smb_share_nas_gamepc        : false
-smb_share_nas_media_family  : false
-smb_share_nas_media_general : false
-smb_share_nas_storage       : false
-smb_share_nas_wiki          : false
+smb_share_nas_gamepc        : true
+smb_share_nas_media_family  : true
+smb_share_nas_media_general : true
+smb_share_nas_storage       : true
+smb_share_nas_wiki          : true
 smb_share_nas_wiki_work     : true
 # Custom machine packages
-home_notebook      : false # later replace it with just automatically apending machine name to features list and
-work_vm            : true  # setting other machines to false or think of some other solution
+home_notebook      : true  # later replace it with just automatically apending machine name to features list and
+work_vm            : false # setting other machines to false or think of some other solution

@@ -51,15 +51,22 @@ vscode: {
 }
 # Samba shares
 smb_share: {}
-smb_share_nas_media_family: {}
-smb_share_nas_media_general: {}
-smb_share_nas_storage: {}
-smb_share_nas_wiki: {}
-smb_share_nas_wiki_work: {}
-smb_share_nas_gamepc: {}
+smb_share_nas_gamepc:
+    script: [ enable_daemon_mnt_Remote_NAS_GamePC.sh ]
+smb_share_nas_media_family:
+    script: [ enable_daemon_mnt_Remote_NAS_Media_Family.sh ]
+smb_share_nas_media_general:
+    script: [ enable_daemon_mnt_Remote_NAS_Media_General.sh ]
+smb_share_nas_storage:
+    script: [ enable_daemon_mnt_Remote_NAS_Storage.sh ]
+smb_share_nas_wiki:
+    script: [ enable_daemon_mnt_Remote_NAS_Wiki.sh ]
+smb_share_nas_wiki_work:
+    script: [ enable_daemon_mnt_Remote_NAS_Wiki_DevWiki.sh, enable_daemon_mnt_Remote_NAS_Wiki_MmanWiki.sh ]
 # Custom machine packages
 home_notebook:
     apt: [ gThumb, easyeffects, wl-clipboard ]
 work_vm:
     apt: [ virtualbox-guest-x11 ]
+
 
