@@ -1,8 +1,10 @@
 cosmic             : false
 i3                 : true
 feh                : true
+git                : true
 kitty              : true
 nix                : true
+nix_gl_mesa        : true
 nvim               : true
 ranger             : false
 yazi               : true

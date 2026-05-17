@@ -1,4 +1,6 @@
 nix: {}    # chezmoiscript (automatic installation)
+nix-gl-mesa:
+    nix: [ nixgl.nixGLMesa ]
 cosmic: {} # already installed with OS
 terminal_nix:
     nix: [ nix, kitty, fd, fzf, ripgrep, zoxide, neovim, neovim-remote, yazi, uv, starship, tmux ]
@@ -8,6 +10,8 @@ i3:
     apt: [ i3, i3blocks, rofi, picom, feh, xclip ]
 feh:
     apt: [ feh ]
+git:
+    apt: [ git ]
 kitty:
     nix: [ kitty ]
 nvim:

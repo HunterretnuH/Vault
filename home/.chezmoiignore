@@ -1,3 +1,6 @@
 {{ if not (index .features "feh") }}
 .fehbg
 {{ end }}
+{{ if not (index .features "git") }}
+.gitconfig
+{{ end }}
