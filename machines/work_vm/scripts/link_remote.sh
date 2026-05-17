@@ -1,20 +1,6 @@
 #!/usr/bin/env bash
 
-
-echo "Fixing XDG dirs layout"
-desktop_dir=/home/$USER/Desktop
-media_dir=$desktop_dir/Media
-mkdir $media_dir
-mv /home/$USER/Documents $media_dir
-mv /home/$USER/Music $media_dir
-mv /home/$USER/Pictures $media_dir
-mv /home/$USER/Templates $media_dir
-mv /home/$USER/Videos $media_dir
-mkdir $desktop_dir/Scripts
-echo "Done."
-
 echo "Soft linking ~/.remote to ~/Desktop/Remote..."
-
 sudo mkdir -p /mnt/Remote/NAS/Wiki/DevWiki
 sudo mkdir -p /mnt/Remote/NAS/Wiki/MmanWiki
 sudo mkdir -p /mnt/Remote/Share-Host
@@ -23,17 +9,3 @@ export REMOTE_OWNER=$USER
 sudo chown -R $REMOTE_OWNER:$REMOTE_OWNER /mnt/Remote
 echo "Done."
 
-echo "Enabling automount daemons..."
-sudo systemctl daemon-reload
-sudo systemctl start mnt-Remote-NAS-Wiki-DevWiki.automount
-sudo systemctl enable mnt-Remote-NAS-Wiki-DevWiki.automount
-sudo systemctl start mnt-Remote-NAS-Wiki-MmanWiki.automount
-sudo systemctl enable mnt-Remote-NAS-Wiki-MmanWiki.automount
-echo "Done."
-
-echo "Soft linking dual-function-keys and related binaries"
-sudo ln -s /home/$USER/.nix-profile/bin/dual-function-keys /usr/local/bin/dual-function-keys
-sudo ln -s /home/$USER/.nix-profile/bin/udevmon /usr/local/bin/udevmon
-sudo ln -s /home/$USER/.nix-profile/bin/intercept /usr/local/bin/interception
-sudo ln -s /home/$USER/.nix-profile/bin/uinput /usr/local/bin/uinput
-echo "Done."

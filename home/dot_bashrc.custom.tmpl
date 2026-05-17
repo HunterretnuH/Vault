@@ -2,4 +2,6 @@
 {{-     include ".bashrc.custom.work" -}}
 {{- else if eq .machine "home_notebook"  -}}
 {{-     include ".bashrc.custom.home" -}}
+{{- else -}}
+# Add any custom .bashrc config in this file
 {{- end                                  -}}

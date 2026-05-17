@@ -3,7 +3,7 @@
 echo "Fixing XDG dirs layout"
 desktop_dir=/home/$USER/Desktop
 media_dir=$desktop_dir/Media
-mkdir $media_dir
+mkdir -p $media_dir
 mv /home/$USER/Documents $media_dir
 mv /home/$USER/Music $media_dir
 mv /home/$USER/Pictures $media_dir

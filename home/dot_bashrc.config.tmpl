@@ -2,6 +2,6 @@
 {{-     include ".bashrc.config.work" -}}
 {{- else if eq .machine "home_notebook"  -}}
 {{-     include ".bashrc.config.home" -}}
-{{- else if eq .machine "work_vm_new"  -}}
-{{-     include ".bashrc.config.work" -}}
+{{- else -}}
+{{-     include ".bashrc.config.home" -}}
 {{- end                                  -}}

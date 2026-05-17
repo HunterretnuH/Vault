@@ -25,7 +25,7 @@ return {
           if key == 27 then return end -- <Esc>
           local char = vim.fn.nr2char(key)
           local cmd = (forward and '/' or '?') .. vim.fn.escape(char, '\\/.*$^~[]') .. '\n'
-          vim.api.nvim_feedkeys(cmd, 'n', false)
+          vim.api.nvim_feedkeys(cmd, 'ni', false)
         end
 
         -- Map forward search to <leader>s

@@ -6,7 +6,6 @@ if [[ $(pwd) == "$HOME" ]]; then
     args+=(--directory ~/Desktop)
 fi
 
-{{ if eq .machine "work_vm" }}LIBGL_ALWAYS_SOFTWARE=1 LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe{{ end }} \
-{{ if eq .machine "work_vm_new" }}LIBGL_ALWAYS_SOFTWARE=1 LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe{{ end }} \
+{{ if (index .features "vm") }}LIBGL_ALWAYS_SOFTWARE=1 LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe{{ end }} \
 exec nixGLMesa ~/.nix-profile/bin/kitty "${args[@]}" "$@"
 

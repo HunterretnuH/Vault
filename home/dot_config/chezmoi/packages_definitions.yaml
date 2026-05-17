@@ -1,48 +1,55 @@
-nix: {}    # chezmoiscript (automatic installation)
-nix-gl-mesa:
-    nix: [ nixgl.nixGLMesa ]
+# Main
 cosmic: {} # already installed with OS
-terminal_nix:
-    nix: [ nix, kitty, fd, fzf, ripgrep, zoxide, neovim, neovim-remote, yazi, uv, starship, tmux ]
-terminal_apt:
-    apt: [ curl, trash-cli, pv, nfs-common, cifs-utils, gdb, wireguard ]
 i3:
     apt: [ i3, i3blocks, rofi, picom, feh, xclip ]
-feh:
-    apt: [ feh ]
-git:
-    apt: [ git ]
-kitty:
-    nix: [ kitty ]
-nvim:
-    nix: [ neovim, neovim-remote ]
-ranger:
-    nix: [ ranger ]
-yazi:
-    nix: [ yazi ]
-starship:
-    nix: [ starship ]
-vscode: {
-    script: [ install_vscode.sh ]
-}
+interception-tools:
+    nix: [ interception-tools, interception-tools-plugins.dual-function-keys ]
+nix: {}    # chezmoiscript (automatic installation)
+nix_gl_mesa:
+    nix: [ nixgl.nixGLMesa ]
+nodejs:
+    apt: [ npm, nodejs ]
+python:
+    apt: [ python3, python3-pip, python3-venv ]
+terminal_base:
+    nix: [ nix, fd, fzf, ripgrep, zoxide, neovim, neovim-remote, yazi, uv, starship, tmux ]
+    apt: [ curl, trash-cli, pv, nfs-common, cifs-utils, gdb, git, npm ]
+wireguard:
+    apt: [ wireguard ]
+# GUI programs
 keepassxc:
     apt: [ keepassxc ]
+kitty:
+    nix: [ kitty ]
 libreoffice:
     apt: [ libreoffice ]
 nextcloud:
     nix: [ nextcloud-client ]
-python:
-    apt: [ python3, python3-pip, python3-pynvim, python3-venv ]
-nodejs:
-    apt: [ npm, nodejs ]
-interception-tools:
-    nix: [ interception-tools, interception-tools-plugins.dual-function-keys ]
+# Included in compound features
+feh:
+    apt: [ feh ]
+git:
+    apt: [ git ]
+nvim:
+    nix: [ neovim, neovim-remote ]
+    apt: [ nix ]
+ranger:
+    nix: [ ranger ]
+starship:
+    nix: [ starship ]
+yazi:
+    nix: [ yazi ]
+# Scripts
 fonts: {
     script: [ install_fonts.sh ]
 }
 fix_xdg_dirs: {
     script: [ fix_xdg_dirs.sh ]
 }
+vscode: {
+    script: [ install_vscode.sh ]
+}
+# Samba shares
 smb_share: {}
 smb_share_nas_media_family: {}
 smb_share_nas_media_general: {}
@@ -50,6 +57,7 @@ smb_share_nas_storage: {}
 smb_share_nas_wiki: {}
 smb_share_nas_wiki_work: {}
 smb_share_nas_gamepc: {}
+# Custom machine packages
 home_notebook:
     apt: [ gThumb, easyeffects, wl-clipboard ]
 work_vm:
