@@ -4,6 +4,7 @@ i3:
     apt: [ i3, i3blocks, rofi, picom, feh, xclip ]
 interception-tools:
     nix: [ interception-tools, interception-tools-plugins.dual-function-keys ]
+    script: [ link_interception_tools.sh ]
 nix: {}    # chezmoiscript (automatic installation)
 nix_gl_mesa:
     nix: [ nixgl.nixGLMesa ]
@@ -32,7 +33,7 @@ git:
     apt: [ git ]
 nvim:
     nix: [ neovim, neovim-remote ]
-    apt: [ nix ]
+    apt: [ npm ]
 ranger:
     nix: [ ranger ]
 starship:
