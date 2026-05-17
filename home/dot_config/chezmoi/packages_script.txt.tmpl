@@ -1,8 +1,8 @@
 {{- $defs := include "dot_config/chezmoi/packages_definitions.yaml" | fromYaml -}}
 {{- $scripts := list -}}
-{{- range $feature, $enabled := .packages -}}
+{{- range $package, $enabled := .features -}}
   {{- if $enabled -}}
-    {{- $cfg := index $defs $feature -}}
+    {{- $cfg := index $defs $package -}}
     {{- if and $cfg (hasKey $cfg "script") -}}
       {{- range $cfg.script -}}
         {{- $scripts = append $scripts . -}}

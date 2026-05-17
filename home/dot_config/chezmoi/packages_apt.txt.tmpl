@@ -1,8 +1,8 @@
 {{- $defs := include "dot_config/chezmoi/packages_definitions.yaml" | fromYaml -}}
 {{- $aptPkgs := list -}}
-{{- range $feature, $enabled := .packages -}}
+{{- range $package, $enabled := .features -}}
   {{- if $enabled -}}
-    {{- $cfg := index $defs $feature -}}
+    {{- $cfg := index $defs $package -}}
     {{- if and $cfg (hasKey $cfg "apt") -}}
       {{- range $cfg.apt -}}
         {{- $aptPkgs = append $aptPkgs . -}}

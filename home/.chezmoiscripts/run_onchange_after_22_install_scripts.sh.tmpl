@@ -1,29 +1,38 @@
 #!/usr/bin/env bash
 
-# Trigger change tracking on custom script configurations
-# Manifest Hash: {{ includeTemplate "dot_config/chezmoi/packages_script.txt.tmpl" . | sha256sum }}
+# Trigger change tracking on directory changes or internal file edits of custom scripts
+{{- $scriptPattern := printf "machines/%s/scripts/*" .machine -}}
+{{- range glob (joinPath .chezmoi.sourceDir $scriptPattern) }}
+# - {{ . }}: {{ include . | sha256sum }}
+{{- end }}
 
-SCRIPT_DIR="{{ joinPath .chezmoi.sourceDir "machines" .machine "scripts" }}"
+SCRIPT_LIST="$HOME/.config/chezmoi/packages_script.txt"
+SCRIPT_DIR={{- joinPath .chezmoi.workingTree "scripts" }}
 
-if [ -d "$SCRIPT_DIR" ] && [ "$(ls -A "$SCRIPT_DIR")" ]; then
-    echo "Executing machine-specific scripts from $SCRIPT_DIR..."
+if [ -s "$SCRIPT_LIST" ]; then
+    echo "Executing custom script hooks from $SCRIPT_LIST..."
 
-    # Pure Bash alphabetical globbing
-    for script_path in "$SCRIPT_DIR"/*; do
-        if [ -f "$script_path" ]; then
-            echo "🚀 Running machine script: $(basename "$script_path")"
-            chmod +x "$script_path"
+    # Simple, standard line-by-line read
+    while read -r script; do
+        SCRIPT_PATH="$SCRIPT_DIR/$script"
 
-            # Isolated execution
-            ( "$script_path" )
+        if [ -f "$SCRIPT_PATH" ]; then
+            echo "🚀 Running script hook: $script"
+            chmod +x "$SCRIPT_PATH"
+
+            # Execute in a subshell so an 'exit 1' inside a script won't crash Chezmoi
+            ( "$SCRIPT_PATH" )
 
             if [ $? -ne 0 ]; then
-                echo "⚠️ Warning: Machine script $(basename "$script_path") exited with an error."
+                echo "⚠️ Warning: Script $script exited with an error code."
             fi
+        else
+            echo "❌ Error: Script executable not found at $SCRIPT_PATH"
         fi
-    done
+    done < "$SCRIPT_LIST"
 
-    echo "All machine-specific scripts processed."
+    echo "All script hooks processed."
 else
-    echo "No machine-specific scripts found for this machine. Skipping."
+    echo "No script hooks listed in $SCRIPT_LIST. Skipping."
 fi
+

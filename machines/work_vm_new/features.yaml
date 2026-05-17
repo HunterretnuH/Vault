@@ -1,9 +1,7 @@
 cosmic             : false
 i3                 : true
 feh                : true
-keepassxc          : true
 kitty              : true
-nextcloud          : false
 nix                : true
 nvim               : true
 ranger             : false
@@ -18,7 +16,7 @@ nextcloud          : false
 keepassxc          : true
 libreoffice        : true
 python             : true
-nodejs             : true
+nodejs             : false
 interception-tools : true
 fonts              : true
 fix_xdg_dirs       : true

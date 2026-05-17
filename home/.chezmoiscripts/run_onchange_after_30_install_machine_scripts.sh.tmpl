@@ -1,37 +1,29 @@
- #!/usr/bin/env bash
+#!/usr/bin/env bash
 
-# Trigger change tracking on directory changes or internal file edits of custom scripts
-{{- $scriptPattern := printf "machines/%s/scripts/*" .machine -}}
-{{- range glob (joinPath .chezmoi.sourceDir $scriptPattern) }}
-# - {{ . }}: {{ include . | sha256sum }}
-{{- end }}
+# Trigger change tracking on custom script configurations
+# Manifest Hash: {{ includeTemplate "dot_config/chezmoi/packages_script.txt.tmpl" . | sha256sum }}
 
-SCRIPT_LIST="$HOME/.config/chezmoi/packages_scripts.txt"
-SCRIPT_DIR={{- joinPath .chezmoi.sourceDir "scripts" -}}
+SCRIPT_DIR="{{ joinPath .chezmoi.workingTree "machines" .machine "scripts" }}"
 
-if [ -s "$SCRIPT_LIST" ]; then
-    echo "Executing custom script hooks from $SCRIPT_LIST..."
+if [ -d "$SCRIPT_DIR" ] && [ "$(ls -A "$SCRIPT_DIR")" ]; then
+    echo "Executing machine-specific scripts from $SCRIPT_DIR..."
 
-    # Simple, standard line-by-line read
-    while read -r script; do
-        SCRIPT_PATH="$SCRIPT_DIR/$script"
+    # Pure Bash alphabetical globbing
+    for script_path in "$SCRIPT_DIR"/*; do
+        if [ -f "$script_path" ]; then
+            echo "🚀 Running machine script: $(basename "$script_path")"
+            chmod +x "$script_path"
 
-        if [ -f "$SCRIPT_PATH" ]; then
-            echo "🚀 Running script hook: $script"
-            chmod +x "$SCRIPT_PATH"
-
-            # Execute in a subshell so an 'exit 1' inside a script won't crash Chezmoi
-            ( "$SCRIPT_PATH" )
+            # Isolated execution
+            ( "$script_path" )
 
             if [ $? -ne 0 ]; then
-                echo "⚠️ Warning: Script $script exited with an error code."
+                echo "⚠️ Warning: Machine script $(basename "$script_path") exited with an error."
             fi
-        else
-            echo "❌ Error: Script executable not found at $SCRIPT_PATH"
         fi
-    done < "$SCRIPT_LIST"
+    done
 
-    echo "All script hooks processed."
+    echo "All machine-specific scripts processed."
 else
-    echo "No script hooks listed in $SCRIPT_LIST. Skipping."
+    echo "No machine-specific scripts found for this machine. Skipping."
 fi
