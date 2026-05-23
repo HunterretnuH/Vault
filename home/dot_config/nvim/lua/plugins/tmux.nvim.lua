@@ -6,6 +6,10 @@ return {
                 sync_clipboard = false,
                 sync_unnamed = false,
             },
+            resize = {
+                enable_default_keybindings = false,
+            },
+            -- TODO: Check swap keybindings and add alternative resize ones
         })
     end,
 }

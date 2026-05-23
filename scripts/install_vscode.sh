@@ -7,4 +7,7 @@ wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' 
 echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections
 sudo apt install ./"$vscode_package_name"
 rm -f ./"$vscode_package_name"
+
+echo "Installing VSCode extensions..."
+xargs -n 1 code --install-extension < ~/.config/Code/User/extensions.txt
 echo "Done."

@@ -10,5 +10,6 @@ mv /home/$USER/Pictures $media_dir
 mv /home/$USER/Templates $media_dir
 mv /home/$USER/Videos $media_dir
 mkdir $desktop_dir/Scripts
+mkdir $desktop_dir/Tmp
 echo "Done."
 

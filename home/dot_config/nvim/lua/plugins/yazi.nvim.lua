@@ -9,24 +9,24 @@ return {
     keys = {
         -- Open in the current file directory
         {
-            vim.g.tabLeader .. "l",
+            vim.g.tabLeader .. "e",
             "<cmd>Yazi<cr>",
             mode = { "n", "v" },
             desc = "Explorer (locate current file)",
         },
         -- Open in the current root directory
         {
-            vim.g.tabLeader .. "e",
+            vim.g.tabLeader .. "E",
             function()
-                require("yazi").yazi(nil, LazyVim.root(), { reveal_path = vim.api.nvim_buf_get_name(0) })
+                require("yazi").yazi(nil, LazyVim.root())
             end,
             mode = { "n", "v" },
             desc = "Explorer (root dir)",
         },
         {
             -- Open in the current working directory
-            vim.g.tabLeader .. "E",
-            "<cmd>Yazi<cr>",
+            vim.g.tabLeader .. "ę",
+            "<cmd>Yazi cwd<cr>",
             mode = { "n", "v" },
             desc = "Explorer (cwd)",
         },

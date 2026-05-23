@@ -5,7 +5,7 @@ After=systemd-udev-settle.service
 Documentation=man:udev(7)
 
 [Service]
-ExecStart=/usr/bin/udevmon -c /etc/interception/udevmon.yaml
+ExecStart=/usr/local/bin/udevmon -c /etc/interception/udevmon.yaml
 Nice=-20
 Restart=on-failure
 OOMScoreAdjust=-1000

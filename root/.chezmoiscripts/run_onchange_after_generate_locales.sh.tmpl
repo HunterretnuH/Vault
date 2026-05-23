@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# /etc/locale.conf hash: {{ include "etc/locale.conf" | sha256sum }}
+
+echo "Locales or locale config changed. Regenerating..."
+
+# Generate the locales
+locale-gen en_US.UTF-8 pl_PL.UTF-8
+
+# Update the system environment settings safely
+update-locale
+
+echo "Locales successfully updated!"

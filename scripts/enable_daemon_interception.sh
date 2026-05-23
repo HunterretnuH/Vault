@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-daemon_name="mnt-Remote-NAS-Wiki"
+daemon_name="udevmon"
 echo "Enabling $daemon_name daemon..."
 sudo systemctl daemon-reload
 sudo systemctl start ${daemon_name}.automount

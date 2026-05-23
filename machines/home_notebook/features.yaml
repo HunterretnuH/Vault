@@ -32,7 +32,7 @@ smb_share_nas_media_family  : true
 smb_share_nas_media_general : true
 smb_share_nas_storage       : true
 smb_share_nas_wiki          : true
-smb_share_nas_wiki_work     : true
+smb_share_nas_wiki_work     : false
 # Custom machine packages
 home_notebook      : true  # later replace it with just automatically apending machine name to features list and
 work_vm            : false # setting other machines to false or think of some other solution

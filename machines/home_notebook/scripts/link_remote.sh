@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
 echo "Soft linking ~/.remote to ~/Desktop/Remote..."
-mkdir -p /mnt/Remote/NAS/Media/Family/
-mkdir -p /mnt/Remote/NAS/Media/General/
-mkdir -p /mnt/Remote/NAS/Storage/
-mkdir -p /mnt/Remote/NAS/Wiki
-mkdir -p /mnt/Remote/Nextcloud
+sudo umount -f /mnt/Remote/NAS/Media/Family/
+sudo mkdir -p  /mnt/Remote/NAS/Media/Family/
+sudo umount -f /mnt/Remote/NAS/Media/General/
+sudo mkdir -p  /mnt/Remote/NAS/Media/General/
+sudo umount -f /mnt/Remote/NAS/Storage/
+sudo mkdir -p  /mnt/Remote/NAS/Storage/
+sudo umount -f /mnt/Remote/NAS/Wiki
+sudo mkdir -p  /mnt/Remote/NAS/Wiki
+sudo mkdir -p  /mnt/Remote/Nextcloud
 ln -s /mnt/Remote /home/$USER/Desktop/Remote 
 echo "Done."

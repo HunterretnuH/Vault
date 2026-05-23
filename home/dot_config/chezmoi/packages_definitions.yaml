@@ -14,7 +14,7 @@ python:
     apt: [ python3, python3-pip, python3-venv ]
 terminal_base:
     nix: [ nix, fd, fzf, ripgrep, zoxide, neovim, neovim-remote, yazi, uv, starship, tmux ]
-    apt: [ curl, trash-cli, pv, nfs-common, cifs-utils, gdb, git, npm ]
+    apt: [ curl, trash-cli, pv, nfs-common, cifs-utils, gdb, git ]
 wireguard:
     apt: [ wireguard ]
 # GUI programs
@@ -32,8 +32,7 @@ feh:
 git:
     apt: [ git ]
 nvim:
-    nix: [ neovim, neovim-remote ]
-    apt: [ npm ]
+    nix: [ neovim, neovim-remote, nodejs ]
 ranger:
     nix: [ ranger ]
 starship:
