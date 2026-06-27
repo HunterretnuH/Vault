@@ -152,6 +152,7 @@
     #bindsym $Mod+t            $opt, exec $myTasks         
     # Application launcher
     bindsym $Mod+space        $opt, exec $launcher        
+    bindsym Ctrl+Shift+F12    $opt, exec $launcher # Required for Mod+Space to work in WSL via TurboVNC leveraging Autohotkey script
     bindsym $Mod+slash        $opt, exec rofi -i -show window -show-icons
     # Terminal
     bindsym $Mod+Return       $opt, exec $term

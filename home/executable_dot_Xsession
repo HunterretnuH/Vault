@@ -1,0 +1,31 @@
+export DISPLAY=:12  # Use display number 12 (port 5912)
+export DONT_PROMPT_WSL_INSTALL=1
+
+# Fixes for: 1. spurious scroll lock events (affecting Emacs, etc.), 2. activating the tilde key.
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+
+## Clean environment
+export XMODIFIERS=""
+export GTK_IM_MODULE=""
+export QT_IM_MODULE=""
+export INPUT_METHOD=""
+
+## Keyboard setup (adjust -layout se to your own layout)
+setxkbmap pl
+# setxkbmap -option caps:swapescape -option ctrl:nocaps
+# xcape -e 'Caps_Lock=Escape'
+
+xmodmap -e "keycode 78 = "  # Disable spurious scroll lock
+# xmodmap -e "keycode 108 = ISO_Level3_Shift"  # Fix AltGr
+# xmodmap -e "clear mod5"
+# xmodmap -e "add mod5 = ISO_Level3_Shift"
+
+# Audio routing to PulseAudio server running on Windows
+export HOST_IP=$(ip route | grep default | awk '{print $3}') # Fetch the Windows Host IP from the virtual network gateway
+export PULSE_SERVER=tcp:$HOST_IP:4713
+export ALSA_CARD=pulse # Tell ALSA applications (fallback) to route through Pulse as well
+
+# Start window manager
+exec i3
+

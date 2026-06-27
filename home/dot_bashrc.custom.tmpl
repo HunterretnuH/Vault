@@ -1,7 +1,9 @@
-{{- if eq .machine "work_vm"             -}}
-{{-     include ".bashrc.custom.work" -}}
-{{- else if eq .machine "home_notebook"  -}}
-{{-     include ".bashrc.custom.home" -}}
+{{- if eq .machine "home_notebook"          -}}
+{{-     include ".bashrc.custom.home"       -}}
+{{- else if eq .machine "work_vm"           -}}
+{{-     include ".bashrc.custom.work_vm"    -}}
+{{- else if eq .machine "work_wsl"          -}}
+{{-     include ".bashrc.custom.work_wsl"   -}}
 {{- else -}}
 # Add any custom .bashrc config in this file
-{{- end                                  -}}
+{{- end                                     -}}

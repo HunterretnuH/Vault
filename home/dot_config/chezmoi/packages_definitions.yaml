@@ -26,6 +26,8 @@ libreoffice:
     apt: [ libreoffice ]
 nextcloud:
     nix: [ nextcloud-client ]
+firefox:
+    nix: [ firefox ]
 # Included in compound features
 feh:
     apt: [ feh ]
@@ -68,5 +70,4 @@ home_notebook:
     apt: [ gthumb, easyeffects, wl-clipboard ]
 work_vm:
     apt: [ virtualbox-guest-x11 ]
-
 

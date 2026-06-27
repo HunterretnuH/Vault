@@ -4,3 +4,6 @@
 {{ if not (index .features "git") }}
 .gitconfig
 {{ end }}
+{{ if not (index .features "work_wsl") }}
+.Xsession
+{{ end }}

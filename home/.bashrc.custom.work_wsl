@@ -12,42 +12,21 @@
 #   #--2 LAUNCH_HELPER
 #   alias lhb='./launch_helper.sh -b ../universal-test-case-scripts/telux/'
 
-    #--2 WATCH
-    alias wad="watch -n1 adb devices"
-    #--2 WATCH FUNCTIONS
-    alias wglogonline='watchGitLogOneline'
-    alias wgstatus='watchGitStatus'
-    alias wtree='watchTree'
 #--1 FUNCTIONS
-    #--2 WATCH WRAPPERS
-    function watchGitStatus {
-        while :
-        do
-            clear
-            git status
-            sleep 1
-        done
-    }
-
-    function watchGitLogOneline {
-        while :
-        do
-            clear
-            git log --oneline
-            sleep 1
-        done
-    }
-
-    function watchTree {
-        while :
-        do
-            clear
-            tree -a
-            sleep 1
-        done
-    }
 #--1 OTHERS
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/keyring/ssh"
+    #--2 SSH_AUTH_SOCK
+    export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/keyring/ssh"
+
+    #--2 VNC
+    export TVNC_XKBIGNORELOCK=1
+    alias startvnc='/opt/TurboVNC/bin/vncserver -depth 16 -fg -geometry 5140x1440 -xstartup ~/.Xsession :12 &'
+    alias stopvnc='/opt/TurboVNC/bin/vncserver -kill :12'
+    if [ "$LAUNCH_VNC" = "1" ]; then
+        unset LAUNCH_VNC
+        if ! pgrep -f "Xvnc.*:12" > /dev/null; then
+            startvnc
+        fi
+    fi
 
 #++#++#++#++#++#++#++# END OF GENERAL CONFIG #++#++#++#++#++#++#++#
 

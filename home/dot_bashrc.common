@@ -404,6 +404,41 @@ function E() {
     bind -m vi-command -x '"YY":yank_line_to_clipboard'
     bind -m vi-command -x '"DD":cut_line_to_clipboard'
 
+#--1 WATCH
+    #--2 WATCH WRAPPERS
+    alias wad="watch -n1 adb devices"
+    alias wglogonline='watchGitLogOneline'
+    alias wgstatus='watchGitStatus'
+    alias wtree='watchTree'
+
+    #--2 WATCH FUNCTIONS
+    function watchGitStatus {
+        while :
+        do
+            clear
+            git status
+            sleep 1
+        done
+    }
+
+    function watchGitLogOneline {
+        while :
+        do
+            clear
+            git log --oneline
+            sleep 1
+        done
+    }
+
+    function watchTree {
+        while :
+        do
+            clear
+            tree -a
+            sleep 1
+        done
+    }
+
 #++#++#++#++#++#++#++# END OF OTHERS #++#++#++#++#++#++#++#
 
 

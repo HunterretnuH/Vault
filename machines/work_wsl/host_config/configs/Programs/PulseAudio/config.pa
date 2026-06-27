@@ -1,0 +1,2 @@
+load-module module-native-protocol-tcp port=4713 auth-ip-acl=127.0.0.1;172.16.0.0/12
+load-module module-waveout sink_name=output source_name=input record=0

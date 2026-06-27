@@ -1,0 +1,22 @@
+############################### BASHRC HOME ################################
+
+#####################    GENERAL CONFIG    #####################
+#--1 ALIASES
+#   #--2 CD
+#   alias cdt="cd /mnt/DataRAID0/devel/test_development/"
+#   #--2 LXC
+#   alias lxcbr="export TERM=xterm;lxc exec ${BISONLXCVER} bash"
+#   alias lxcbm="export TERM=xterm;lxc exec ${BISONLXCVER} -- sudo --login --user michalg"
+#   #--2 CLANGD
+#   alias setenv_telsdk='export CPLUS_INCLUDE_PATH="/mnt/DataRAID0/devel/sa525-bison/src/customer_sdk/SDK/tools/sa525m/sysroots/aarch64-oe-linux/usr/lib/:/mnt/DataRAID0/devel/sa525-bison/src/customer_sdk/SDK/tools/sa525m/sysroots/aarch64-oe-linux/usr/include/c++/11.4.0/aarch64-oe-linux/:/mnt/DataRAID0/devel/sa525-bison/src/customer_sdk/SDK/tools/sa525m/sysroots/aarch64-oe-linux/usr/lib/aarch64-oe-linux/11.4.0/:/mnt/DataRAID0/devel/sa525-bison/src/customer_sdk/SDK/tools/sa525m/sysroots/aarch64-oe-linux/usr/include/c++/11.4.0/:/mnt/DataRAID0/devel/sa525-bison/src/customer_sdk/SDK/tools/sa525m/sysroots/aarch64-oe-linux/usr/include/:${CPLUS_INCLUDE_PATH}:/mnt/DataRAID0/devel/sa525-bison/src/customer_sdk/SDK/examples/telux/common/utils/:/mnt/DataRAID0/devel/universal-test-case-scripts/telux/auxiliary/"'
+#   #--2 LAUNCH_HELPER
+#   alias lhb='./launch_helper.sh -b ../universal-test-case-scripts/telux/'
+
+#--1 FUNCTIONS
+#--1 OTHERS
+    #--2 SSH_AUTH_SOCK
+    export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/keyring/ssh"
+
+#++#++#++#++#++#++#++# END OF GENERAL CONFIG #++#++#++#++#++#++#++#
+
+# vim: foldmethod=marker foldmarker=#--,#++ filetype=bash

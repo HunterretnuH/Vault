@@ -1,0 +1,3 @@
+{{ if not (index .features "work_wsl") }}
+wsl.conf
+{{ end }}

@@ -14,6 +14,7 @@ keepassxc          : true
 kitty              : true
 libreoffice        : true
 nextcloud          : true
+firefox            : false
 # Included in compound features
 feh                : false
 git                : true
@@ -36,3 +37,4 @@ smb_share_nas_wiki_work     : false
 # Custom machine packages
 home_notebook      : true  # later replace it with just automatically apending machine name to features list and
 work_vm            : false # setting other machines to false or think of some other solution
+work_wsl           : false
