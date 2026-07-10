@@ -1,0 +1,145 @@
+################################# AEROSPACE CONFIG ##################################
+
+config-version = 2
+
+#####################    GENERAL SETTINGS    #####################
+#--1 Appereance:                    wallpaper, borders, gaps, font
+    #--2 Gaps
+    	gaps.inner.horizontal = 5
+    	gaps.inner.vertical = 5
+    	gaps.outer.left = 5
+    	gaps.outer.bottom = 5
+    	gaps.outer.top = 5
+    	gaps.outer.right = 5
+
+#--1 Behaviour                      windows, gaps
+    #--2 Workspaces
+	persistent-workspaces = [] # In i3, all workspaces are phantom
+    #--2 Windows
+	# i3 doesn't have "normalizations" feature that why we disable them here.
+	# But the feature is very helpful.
+	# Normalizations eliminate all sorts of weird tree configurations that don't make sense.
+	# Give normalizations a chance and enable them back.
+	enable-normalization-flatten-containers = false
+	enable-normalization-opposite-orientation-for-nested-containers = false
+
+	# Mouse follows focus when focused monitor changes
+	on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+#++#++#++#++#++#++#++# END OF GENERAL SETTINGS 
+
+#####################    GENERAL BINDINGS    #####################
+[mode.main.binding]
+#--1 Default apps, exit menu, screen lock, shell config, help
+    # See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
+    cmd-enter = 'exec-and-forget kitty --single-instance -d $HOME/Desktop'
+
+    # Reload the configuration file 
+    # cmd-ctrl-c = 'reload-config'
+
+#++#++#++#++#++#++#++# END OF GENERAL BINDINGS
+
+################    CONTAINER/WINDOW BINDINGS    #################
+#--1 Move focus around:
+    # Move focus to the parent container
+    # `focus parent`/`focus child` are not yet supported, and it's not clear whether they
+    # should be supported at all https://github.com/nikitabobko/AeroSpace/issues/5
+    # cmd-p = 'focus parent'
+
+    # Swap focus between the tiling area and the floating area
+    # Not supported, because this command is redundant in AeroSpace mental model.
+    # See: https://nikitabobko.github.io/AeroSpace/guide#floating-windows
+    #cmd-f = 'focus toggle_tiling_floating
+
+    # Change focus
+    # cmd-h = 'focus --boundaries-action wrap-around-the-workspace left'
+    # cmd-j = 'focus --boundaries-action wrap-around-the-workspace down'
+    # cmd-k = 'focus --boundaries-action wrap-around-the-workspace up'
+    # cmd-l = 'focus --boundaries-action wrap-around-the-workspace right'
+
+    # Alternative change focus
+    # cmd-a = 'focus --boundaries-action wrap-around-the-workspace left'
+    # cmd-s = 'focus --boundaries-action wrap-around-the-workspace down'
+    # cmd-w = 'focus --boundaries-action wrap-around-the-workspace up'
+    # cmd-d = 'focus --boundaries-action wrap-around-the-workspace right'
+
+#--1 Move focused window/container around
+    # Move focused window
+    # cmd-shift-h = 'move left'
+    # cmd-shift-j = 'move down'
+    # cmd-shift-k = 'move up'
+    # cmd-shift-l = 'move right'
+
+    # Alternative move focused window
+    # cmd-shift-a = 'move left'
+    # cmd-shift-s = 'move down'
+    # cmd-shift-w = 'move up'
+    # cmd-shift-d = 'move right'
+
+#--1 Change windows/containers layout and properties i.e. floating, borders, fullscreen, sticky
+    # Cycle through layouts
+    # cmd-c = 'layout v_accordion h_accordion' # 'layout toggle split' in i3
+
+    # Select split direction (split across x or y axis)
+    # Consider using 'join-with' command as a 'split' replacement if you want to enable
+    # normalizations
+    # cmd-x = 'split horizontal'
+    # cmd-y = 'split vertical'
+
+    # Select split layout direction (split across x or y axis)
+    # cmd-shift-y = 'layout tiles horizontal' # 'layout toggle split' in i3
+    # cmd-shift-x = 'layout tiles vertical' # 'layout toggle split' in i3
+
+    # Toggle floating
+    # cmd-shift-f = 'layout floating tiling' # 'floating toggle' in i3
+
+    # Toggle fullscreen
+    # cmd-m = 'fullscreen'
+
+#++#++#++#++#++#++#++# END OF CONTAINER/WINDOW BINDINGS
+
+####################    WORKSPACE BINDINGS    ####################
+#--1 Switch workspaces
+    # Switch to workspace
+    # cmd-1 = 'workspace 1'
+    # cmd-2 = 'workspace 2'
+    # cmd-3 = 'workspace 3'
+    # cmd-4 = 'workspace 4'
+    # cmd-5 = 'workspace 5'
+    # cmd-6 = 'workspace 6'
+    # cmd-7 = 'workspace 7'
+    # cmd-8 = 'workspace 8'
+    # cmd-9 = 'workspace 9'
+    # cmd-0 = 'workspace 10'
+
+#--1 Move focused windows/containers and workspaces to different workspaces
+    # Move focused container to workspace
+    # cmd-shift-1 = 'move-node-to-workspace 1'
+    # cmd-shift-2 = 'move-node-to-workspace 2'
+    # cmd-shift-3 = 'move-node-to-workspace 3'
+    # cmd-shift-4 = 'move-node-to-workspace 4'
+    # cmd-shift-5 = 'move-node-to-workspace 5'
+    # cmd-shift-6 = 'move-node-to-workspace 6'
+    # cmd-shift-7 = 'move-node-to-workspace 7'
+    # cmd-shift-8 = 'move-node-to-workspace 8'
+    # cmd-shift-9 = 'move-node-to-workspace 9'
+    # cmd-shift-0 = 'move-node-to-workspace 10'
+
+#++#++#++#++#++#++#++# END WORKSPACE BINDINGS
+
+#--1 Resizing windows/containers and gaps
+[mode.resize.binding]
+    h = 'resize width -50'
+    j = 'resize height +50'
+    k = 'resize height -50'
+    l = 'resize width +50'
+    enter = 'mode main'
+    esc = 'mode main'
+    
+    # cmd-r = 'mode resize'
+
+# Start AeroSpace at login
+start-at-login = false
+
+# vim: foldmethod=marker foldmarker=#--,#++
+

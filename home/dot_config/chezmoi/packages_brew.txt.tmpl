@@ -1,17 +1,17 @@
-{{- if eq .chezmoi.os "linux" -}}
+{{- if eq .chezmoi.os "darwin" -}}
   {{- $defs := include "dot_config/chezmoi/packages_definitions.yaml" | fromYaml -}}
-  {{- $aptPkgs := list -}}
+  {{- $brewPkgs := list -}}
   {{- range $package, $enabled := .features -}}
     {{- if $enabled -}}
       {{- $cfg := index $defs $package -}}
-      {{- if and $cfg (hasKey $cfg "apt") -}}
-        {{- range $cfg.apt -}}
-          {{- $aptPkgs = append $aptPkgs . -}}
+      {{- if and $cfg (hasKey $cfg "brew") -}}
+        {{- range $cfg.brew -}}
+          {{- $brewPkgs = append $brewPkgs . -}}
         {{- end -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
-  {{- range uniq $aptPkgs -}}
+  {{- range uniq $brewPkgs -}}
   {{ . }}
   {{ end }}
 {{ end -}}

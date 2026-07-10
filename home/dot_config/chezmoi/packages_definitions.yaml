@@ -1,10 +1,15 @@
 # Main
-cosmic: {} # already installed with OS
+aerospace: { # MacOS
+    brew: [ --cask nikitabobko/tap/aerospace ]
+}
+cosmic: {} # already installed with Pop OS
 i3:
     apt: [ i3, i3blocks, rofi, picom, feh, xclip ]
 interception-tools:
     nix: [ interception-tools, interception-tools-plugins.dual-function-keys ]
     script: [ link_interception_tools.sh ]
+karabiner:
+    brew: [ karabiner-elements ]
 nix: {}    # chezmoiscript (automatic installation)
 nix_gl_mesa:
     nix: [ nixgl.nixGLMesa ]
@@ -12,18 +17,23 @@ nodejs:
     apt: [ npm, nodejs ]
 python:
     apt: [ python3, python3-pip, python3-venv ]
+    brew: [ python3 ] # Contains: python3, python3-pip, python3-venv
 terminal_base:
     nix: [ nix, fd, fzf, ripgrep, zoxide, neovim, neovim-remote, yazi, uv, starship, tmux ]
     apt: [ curl, trash-cli, pv, nfs-common, cifs-utils, gdb, git ]
+    brew: [ curl, trash-cli, pv, gdb, git, coreutils ] # NOTE: trash-cli should probably be replaced with built in `trash` command; nfs-common and cifs-utils are unnecessary on MAC
 wireguard:
     apt: [ wireguard ]
+    brew: [ wireguard-tools ]
 # GUI programs
 keepassxc:
     apt: [ keepassxc ]
+    brew: [ keepassxc ]
 kitty:
     nix: [ kitty ]
 libreoffice:
     apt: [ libreoffice ]
+    brew: [ libreoffice ]
 nextcloud:
     nix: [ nextcloud-client ]
 firefox:
@@ -33,6 +43,7 @@ feh:
     apt: [ feh ]
 git:
     apt: [ git ]
+    brew: [ git ]
 nvim:
     nix: [ neovim, neovim-remote, nodejs ]
 ranger:
@@ -70,4 +81,6 @@ home_notebook:
     apt: [ gthumb, easyeffects, wl-clipboard ]
 work_vm:
     apt: [ virtualbox-guest-x11 ]
+work_mac: 
+    brew: [ bash ]
 

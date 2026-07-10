@@ -1,25 +1,34 @@
 #!/usr/bin/env bash
 
-# Trigger change tracking on custom script configurations
-# Manifest Hash: {{ includeTemplate "dot_config/chezmoi/packages_script.txt.tmpl" . | sha256sum }}
+# Trigger change tracking on directory changes or internal file edits of general scripts
+{{- $scriptPattern := printf "scripts/*" -}}
+{{- range glob (joinPath .chezmoi.sourceDir $scriptPattern) }}
+# - {{ . }}: {{ include . | sha256sum }}
+{{- end }}
 
 # Leverage Chezmoi's knowledge of its own binary location, with a hardcoded fallback
 CHEZMOI_BIN="{{ .chezmoi.executable }}"
 [ -x "$CHEZMOI_BIN" ] || CHEZMOI_BIN="$HOME/.local/bin/chezmoi"
 
-SCRIPT_DIR="{{ joinPath .chezmoi.workingTree "machines" .machine "scripts" }}"
+SCRIPT_LIST="$HOME/.config/chezmoi/packages_script.txt"
+SCRIPT_DIR={{- joinPath .chezmoi.workingTree "scripts" }}
 
+if [ -s "$SCRIPT_LIST" ]; then
+    echo "Executing custom script hooks from $SCRIPT_LIST..."
 
-if [ -d "$SCRIPT_DIR" ] && [ "$(ls -A "$SCRIPT_DIR")" ]; then
-    echo "Executing machine-specific scripts from $SCRIPT_DIR..."
+    # Simple, standard line-by-line read
+    while read -r script; do
+        SCRIPT_PATH="$SCRIPT_DIR/$script"
 
-    # Pure Bash alphabetical globbing
-    for SCRIPT_PATH in "$SCRIPT_DIR"/*; do
-        if [ -f "$SCRIPT_PATH" ]; then
-            echo "🚀 Running script hook: $(basename $SCRIPT_PATH)"
+        if [ -f "$SCRIPT_PATH" ] || [ -f "${SCRIPT_PATH}.tmpl" ]; then
+            echo "🚀 Running script hook: $script"
 
             EXEC_PATH="$SCRIPT_PATH"
             IS_TMP=false
+
+            if [ -f "${SCRIPT_PATH}.tmpl" ]; then
+                SCRIPT_PATH="${SCRIPT_PATH}.tmpl"
+            fi
 
             # If the script is a template, compile it before execution
             if [[ "$SCRIPT_PATH" == *.tmpl ]]; then
@@ -47,14 +56,16 @@ if [ -d "$SCRIPT_DIR" ] && [ "$(ls -A "$SCRIPT_DIR")" ]; then
             fi
 
             if [ $SCRIPT_RC -ne 0 ]; then
-                echo "⚠️ Warning: Script $(basename $SCRIPT_PATH) exited with an error code."
+                echo "⚠️ Warning: Script $script exited with an error code."
             fi
         else
             echo "❌ Error: Script executable not found at $SCRIPT_PATH"
         fi
-    done
+    done < "$SCRIPT_LIST"
 
-    echo "All machine-specific scripts processed."
+    echo "All script hooks processed."
 else
-    echo "No machine-specific scripts found for this machine. Skipping."
+    echo "No script hooks listed in $SCRIPT_LIST. Skipping."
 fi
+
+

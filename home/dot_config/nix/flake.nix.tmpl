@@ -8,7 +8,7 @@
 
   outputs = { self, nixgl, nixpkgs }:
   let
-    system = "x86_64-linux";
+    system = "{{ if eq .chezmoi.os "darwin" }}aarch64-darwin{{ else }}x86_64-linux{{ end }}";
     pkgs = import nixpkgs { 
         localSystem.system = system;
         overlays = [ nixgl.overlay ];

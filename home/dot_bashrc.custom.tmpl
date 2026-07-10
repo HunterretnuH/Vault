@@ -4,6 +4,8 @@
 {{-     include ".bashrc.custom.work_vm"    -}}
 {{- else if eq .machine "work_wsl"          -}}
 {{-     include ".bashrc.custom.work_wsl"   -}}
+{{- else if eq .machine "work_mac"          -}}
+{{-     include ".bashrc.custom.work_mac"   -}}
 {{- else -}}
 # Add any custom .bashrc config in this file
 {{- end                                     -}}

@@ -18,11 +18,4 @@ data:
 hooks:
   diff:
     pre:
-{{- $yamlPattern := joinPath .chezmoi.sourceDir ".hooks/diff-pre/*.yaml" -}}
-{{- range (glob $yamlPattern) }}
-{{ include . | indent 6 }}
-{{- end }}
-{{- $tmplPattern := joinPath .chezmoi.sourceDir ".hooks/diff-pre/*.yaml.tmpl" -}}
-{{- range (glob $tmplPattern) }}
-{{ includeTemplate . $ | indent 6 }}
-{{- end }}
+        script: "{{- joinPath .chezmoi.sourceDir ".hooks/diff/pre/hooks.sh.tmpl" -}}"

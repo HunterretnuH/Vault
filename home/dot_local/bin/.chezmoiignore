@@ -5,3 +5,7 @@ executable_nextcloud
 {{ if not (index .features "kitty") }}
 executable_kitty
 {{ end }}
+
+{{ if not (eq .chezmoi.os "linux") }}
+rootmoi
+{{ end }}

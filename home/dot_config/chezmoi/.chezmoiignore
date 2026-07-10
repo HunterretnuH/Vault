@@ -1,0 +1,3 @@
+{{ if not (eq .chezmoi.os "linux") }}
+rootmoi.yaml
+{{ end }}

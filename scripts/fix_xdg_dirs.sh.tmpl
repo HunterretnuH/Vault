@@ -1,0 +1,50 @@
+#/usr/bin/env bash
+
+# Exit immediately if a command fails, or if an unset variable is used
+set -euo pipefail
+
+echo "Fixing XDG dirs layout..."
+
+desktop_dir="$HOME/Desktop"
+media_dir="$desktop_dir/Media"
+
+# Create the parent Media directory
+mkdir -p "$media_dir"
+
+{{ if eq .chezmoi.os "linux" -}}
+echo "OS is linux. XDG directories will be moved to new locations."
+# HACK: Assummed default XDG dirs paths.
+# Although on Linux XDG dirs may already be changed to new ones via .config/user-dirs.dirs.
+
+# List of XDG directories to handle
+xdg_dirs=(Documents Music Pictures Templates Videos)
+
+for dir in "${xdg_dirs[@]}"; do
+    # Only move if the source exists and the destination doesn't yet
+    if [ -d "$HOME/$dir" ] && [ ! -d "$media_dir/$dir" ]; then
+        mv "$HOME/$dir" "$media_dir/"
+    else
+        # Ensure the directory exists in the new location anyway
+        mkdir -p "$media_dir/$dir"
+    fi
+done
+
+{{ else if eq .chezmoi.os "darwin" -}}
+echo "OS is MacOS. XDG directories will be soft linked to new locations."
+
+# -s: symbolic, -f: force overwrite existing, -n: treat symlink target as a file (prevents nesting loops)
+ln -sfn "$HOME/Pictures"  "$media_dir/Pictures"
+ln -sfn "$HOME/Movies"    "$media_dir/Videos"
+ln -sfn "$HOME/Music"     "$media_dir/Music"
+ln -sfn "$HOME/Documents" "$media_dir/Documents"
+
+# Create a true folder for Templates (macOS doesn't have a native one)
+mkdir -p "$media_dir/Templates"
+
+{{ end  }}
+
+# Create extra custom folders
+mkdir -p "$desktop_dir/Scripts"
+mkdir -p "$desktop_dir/Tmp"
+
+echo "Done."

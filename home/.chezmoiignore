@@ -7,3 +7,6 @@
 {{ if not (index .features "work_wsl") }}
 .Xsession
 {{ end }}
+{{ if not (index .features "work_mac") }}
+.hushlogin
+{{ end }}

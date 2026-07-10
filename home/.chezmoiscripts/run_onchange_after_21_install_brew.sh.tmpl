@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Trigger change tracking on apt package list updates
+# Manifest Hash: {{ includeTemplate "dot_config/chezmoi/packages_brew.txt.tmpl" . | sha256sum }}
+
+# Install brew if missing
+{{ if eq .chezmoi.os "darwin" -}}
+if ! command -v brew &> /dev/null; then
+    echo "Installing brew package manager..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+    echo "Done."
+fi
+{{ end -}}
+
+# Install brew packages
+PACKAGE_LIST="$HOME/.config/chezmoi/packages_brew.txt"
+
+if [ -s "$PACKAGE_LIST" ]; then
+    echo "Installing brew packages from $PACKAGE_LIST..."
+    xargs -L 1 brew install -y < "$PACKAGE_LIST"
+    echo "Done."
+else
+    echo "No brew packages listed in $PACKAGE_LIST. Skipping."
+fi

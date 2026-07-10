@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+echo "Installing JetBrainsMono Nerd Font..."
+
+# Clone the repository sparsely to save time and bandwidth
+git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts
+cd nerd-fonts
+
+# Checkout only the JetBrainsMono directory
+git sparse-checkout add patched-fonts/JetBrainsMono
+
+# Create the user font directory if it doesn't exist
+{{ if eq .chezmoi.os "darwin" -}}
+TARGET_DIR="$HOME/Library/Fonts"
+{{ else if eq .chezmoi.os "linux" -}}
+TARGET_DIR="$HOME/.local/share/fonts"
+{{ end -}}
+mkdir -p "$TARGET_DIR"
+
+# Find and copy the font files directly to the target font folder
+echo "Copying fonts to $TARGET_DIR..."
+find patched-fonts/JetBrainsMono -name "JetBrainsMonoNerdFont*" -exec cp {} "$TARGET_DIR/" \;
+
+{{ if eq .chezmoi.os "linux" -}}
+# Reload fonts cache (Only required on Linux)
+fc-cache -frv
+{{ end -}}
+
+# Clean up
+cd ..
+rm -rf nerd-fonts
+
+echo "Done. The fonts are now available!"

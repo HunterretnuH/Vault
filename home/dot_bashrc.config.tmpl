@@ -1,7 +1,7 @@
-{{- if eq .machine "work_vm" "work_wsl" -}}
-{{-     include ".bashrc.config.work"   -}}
-{{- else if eq .machine "home_notebook" -}}
-{{-     include ".bashrc.config.home"   -}}
-{{- else                                -}}
-{{-     include ".bashrc.config.home"   -}}
-{{- end                                 -}}
+{{- if eq .machine "work_vm" "work_wsl" "work_mac" -}}
+{{-     include ".bashrc.config.work"              -}}
+{{- else if eq .machine "home_notebook"            -}}
+{{-     include ".bashrc.config.home"              -}}
+{{- else                                           -}}
+{{-     include ".bashrc.config.home"              -}}
+{{- end                                            -}}

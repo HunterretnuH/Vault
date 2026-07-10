@@ -1,0 +1,43 @@
+# Main
+aerospace          : true
+cosmic             : false
+vm                 : false
+i3                 : false
+interception-tools : false
+karabiner          : true
+nix                : true
+nix_gl_mesa        : false
+nodejs             : false
+python             : true
+terminal_base      : true
+wireguard          : true
+# GUI programs
+keepassxc          : true
+kitty              : true
+libreoffice        : false
+nextcloud          : false
+firefox            : false
+# Included in compound features
+feh                : false
+git                : true
+nvim               : true
+ranger             : false
+starship           : true
+yazi               : true
+# Scripts
+fonts              : true
+fix_xdg_dirs       : true
+vscode             : false
+# Samba shares
+smb_share          : false #TODO: Verify
+smb_share_nas_gamepc        : false
+smb_share_nas_media_family  : false
+smb_share_nas_media_general : false
+smb_share_nas_storage       : false
+smb_share_nas_wiki          : false
+smb_share_nas_wiki_work     : false #TODO: Verify
+# Custom machine packages
+home_notebook      : false
+work_vm            : false
+work_wsl           : false
+work_mac           : true

@@ -1,3 +1,7 @@
 {{ if not (index .features "kitty") }}
 **
 {{ end }}
+
+{{ if not (eq .chezmoi.os "darwin") }}
+macos-launch-services-cmdline
+{{ end }}

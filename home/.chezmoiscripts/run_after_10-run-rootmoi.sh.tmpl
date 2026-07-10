@@ -1,6 +1,9 @@
 #!/bin/bash
-# Source: https://github.com/felipecrs/dotfiles/blob/c3e0e400e544b3918a856cb10b55672c6ab4c827/home/.chezmoiscripts/run_after_20-run-rootmoi.sh.tmpl
+
+# Source: https://github.com/felipecrs/dotfiles/blob/c3e0e400e544b3918a856cb10b55672c6ab4c827/home/.chezmoiscripts/run_after_10-run-rootmoi.sh.tmpl
 # chezmoi:template:left-delimiter="# {{" right-delimiter=}}
+
+# {{- if eq .chezmoi.os "linux" -}}
 
 # {{ template "scripts-library.sh" }}
 
@@ -62,3 +65,7 @@ done
 log_task "Applying root dotfiles"
 log_c "rootmoi" "${args[@]}"
 exec "${rootmoi_path}" "${args[@]}"
+
+# {{- else if eq .chezmoi.os "darwin" -}}
+# This script doesn't work on Mac OS so it's disabled.
+# {{- end -}}
