@@ -1,0 +1,1 @@
+../../work_mac/scripts/z_launch_apps_requiring_premissions.sh

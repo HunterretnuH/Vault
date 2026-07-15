@@ -20,5 +20,7 @@ else
     echo "⚠️ Karabiner-Elements.app not found in /Applications"
 fi
 
+
+echo -e "\n⚠️ IMPORTANT: After granting permissions to skhd enable service in new terminal window: shkd --start-service"
 echo "Done! You can close this terminal."
 exit 0

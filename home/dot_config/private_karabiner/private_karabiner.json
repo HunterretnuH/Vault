@@ -380,6 +380,18 @@
                                 "to": [{ "key_code": "left_control" }],
                                 "to_if_alone": [{ "key_code": "escape" }],
                                 "type": "basic"
+                            },
+                            {
+                                "description": "Toggle Caps Lock using custom app",
+                                "from": {
+                                    "key_code": "escape",
+                                    "modifiers": {
+                                        "mandatory": ["right_control"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [{ "shell_command": "~/.local/bin/toggle-caps" }],
+                                "type": "basic"
                             }
                         ]
                     },
@@ -410,7 +422,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -460,7 +473,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -510,7 +524,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -560,7 +575,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -610,7 +626,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -660,7 +677,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -707,7 +725,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -757,7 +776,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -807,7 +827,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -857,7 +878,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -904,7 +926,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -954,7 +977,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1004,7 +1028,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1054,7 +1079,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1104,7 +1130,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1154,7 +1181,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1204,7 +1232,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1254,7 +1283,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1304,7 +1334,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1354,7 +1385,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1404,7 +1436,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1454,7 +1487,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1504,7 +1538,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1554,7 +1589,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1604,7 +1640,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1654,7 +1691,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1704,7 +1742,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1754,7 +1793,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1804,7 +1844,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1854,7 +1895,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1904,7 +1946,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -1954,7 +1997,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -2004,7 +2048,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -2054,7 +2099,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -2104,7 +2150,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -2154,7 +2201,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -2204,7 +2252,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -2251,7 +2300,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",
-                                            "^com\\.mitchellh\\.ghostty$"
+                                            "^com\\.mitchellh\\.ghostty$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -2658,7 +2708,8 @@
                                             "^com\\.ScooterSoftware",
                                             "^dev\\.zed\\.Zed$",
                                             "^com\\.citrix\\.XenAppViewer$",
-                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                            "^com\\.microsoft\\.rdc\\.macos$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -2701,7 +2752,8 @@
                                             "^com\\.ScooterSoftware",
                                             "^dev\\.zed\\.Zed$",
                                             "^com\\.citrix\\.XenAppViewer$",
-                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                            "^com\\.microsoft\\.rdc\\.macos$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -2744,7 +2796,8 @@
                                             "^com\\.ScooterSoftware",
                                             "^dev\\.zed\\.Zed$",
                                             "^com\\.citrix\\.XenAppViewer$",
-                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                            "^com\\.microsoft\\.rdc\\.macos$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -2787,7 +2840,8 @@
                                             "^com\\.ScooterSoftware",
                                             "^dev\\.zed\\.Zed$",
                                             "^com\\.citrix\\.XenAppViewer$",
-                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                            "^com\\.microsoft\\.rdc\\.macos$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"
@@ -3016,7 +3070,8 @@
                                             "^com\\.parallels\\.desktop\\.console$",
                                             "^org\\.vmware\\.fusion$",
                                             "^com\\.citrix\\.XenAppViewer$",
-                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                            "^com\\.microsoft\\.rdc\\.macos$",
+                                            "^com\\.utmapp\\.UTM$"
                                         ],
                                         "file_paths": ["Chrome Remote Desktop\\.app"],
                                         "type": "frontmost_application_unless"

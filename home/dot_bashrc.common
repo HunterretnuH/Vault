@@ -40,7 +40,11 @@
 
 #####################    ALIASES    #####################
     #--1 LS
-    alias ls='ls --color=always --group-directories-first'
+    if [[ "$OSTYPE" != linux-gnu ]]; then
+        alias ls='gls --color=always --group-directories-first'
+    else
+        alias ls='ls --color=always --group-directories-first'
+    fi
     alias l='ls -lh'
     alias ll='l -a'
 

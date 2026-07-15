@@ -1,0 +1,69 @@
+############################## Terminal Config ############################## #{
+
+# ==============================================================================
+# General Settings                                                             #{
+# ==============================================================================
+bell-features = no-audio
+shell-integration-features = no-cursor
+confirm-close-surface = true
+window-padding-x = 4
+window-padding-y = 4
+
+# Large history buffer to match heavy Neovim/pager usage
+scrollback-limit = 10000
+# #}
+
+# ==============================================================================
+# Fonts & Typography                                                           #{
+# ==============================================================================
+font-size = 16
+font-family = "JetBrainsMono Nerd Font Mono"
+
+# Note: Ghostty automatically handles italic/bold variants for you.
+# #}
+
+# ==============================================================================
+# Color Engine & Theme                                                         #{
+# ==============================================================================
+# Ghostty ships with "Atom One Dark" natively.
+theme = Atom One Dark
+
+# Custom Color Overrides (Takes precedence over theme colors)
+background = #151515
+background-opacity = 0.95
+# #}
+
+# ==============================================================================
+# Scrollback Pager Hook                                                        #{
+# ==============================================================================
+# Note: Ghostty focuses strictly on security and performance, meaning it does 
+# not support arbitrary shell command execution via keybinds (unlike Kitty's 
+# scrollback_pager wrapper). 
+#
+# See the explanation below for how to handle Neovim scrollback in Ghostty.
+# #}
+
+# ==============================================================================
+# Keyboard Shortcuts                                                           #{
+# ==============================================================================
+# Writes scrollback buffer to a temp file and opens it with your default OS editor
+keybind = ctrl+shift+e=write_scrollback_file:open
+keybind = ctrl+shift+q=ignore
+keybind = ctrl+shift+minus=decrease_font_size:1
+keybind = ctrl+shift+equal=increase_font_size:1
+keybind = ctrl+shift+s=ignore
+keybind = ctrl+shift+h=ignore
+keybind = ctrl+shift+l=ignore
+# #}
+
+# ==============================================================================
+# Ghosty Specific                                                              #{
+# ==============================================================================
+## Automatically quit the Ghostty process when its last window is closed
+quit-after-last-window-closed = true
+
+## Set initial working directory
+working-directory = ~/Desktop
+# #}
+
+# vi: foldmethod=marker foldmarker=#{,#} nowrap

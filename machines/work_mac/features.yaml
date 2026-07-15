@@ -9,6 +9,8 @@ nix                : true
 nix_gl_mesa        : false
 nodejs             : false
 python             : true
+skhd               : false
+ghostty            : false
 terminal_base      : true
 wireguard          : true
 # GUI programs
@@ -41,3 +43,4 @@ home_notebook      : false
 work_vm            : false
 work_wsl           : false
 work_mac           : true
+work_mac_vm        : false

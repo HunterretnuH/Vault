@@ -1,0 +1,1 @@
+../../work_mac/scripts/set_neovim_as_default_editor.sh

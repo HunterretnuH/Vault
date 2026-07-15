@@ -1,12 +1,16 @@
 # Main
+aerospace          : false
 cosmic             : true
 vm                 : false
 i3                 : false
 interception-tools : true
+karabiner          : false
 nix                : true
 nix_gl_mesa        : true
 nodejs             : false
 python             : true
+skhd               : false
+ghostty            : false
 terminal_base      : true
 wireguard          : true
 # GUI programs
@@ -38,3 +42,5 @@ smb_share_nas_wiki_work     : false
 home_notebook      : true  # later replace it with just automatically apending machine name to features list and
 work_vm            : false # setting other machines to false or think of some other solution
 work_wsl           : false
+work_mac           : false
+work_mac_vm        : false

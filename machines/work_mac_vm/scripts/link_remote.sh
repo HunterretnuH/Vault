@@ -1,0 +1,1 @@
+../../work_mac/scripts/link_remote.sh

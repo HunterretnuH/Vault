@@ -1,8 +1,10 @@
 #!/bin/sh
 
+OS_TYPE=$(chezmoi execute-template '{{ .chezmoi.os }}')
 HOOK_DIR="{{- joinPath .chezmoi.sourceDir ".hooks" "diff" "pre" -}}"
 
 $HOOK_DIR/vscode_extensions_export.sh
-{{ if eq .chezmoi.os "darwin" -}}
+
+if [ "$OS_TYPE" = "darwin" ]; then
 $HOOK_DIR/macos_export_preferences.sh
-{{ end -}}
+fi

@@ -13,6 +13,8 @@ config-version = 2
     	gaps.outer.right = 5
 
 #--1 Behaviour                      windows, gaps
+    #--2 Start AeroSpace at login
+    start-at-login = false
     #--2 Workspaces
 	persistent-workspaces = [] # In i3, all workspaces are phantom
     #--2 Windows
@@ -137,9 +139,6 @@ config-version = 2
     esc = 'mode main'
     
     # cmd-r = 'mode resize'
-
-# Start AeroSpace at login
-start-at-login = false
 
 # vim: foldmethod=marker foldmarker=#--,#++
 

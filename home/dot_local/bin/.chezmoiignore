@@ -1,11 +1,15 @@
 {{ if not (index .features "nextcloud") }}
-executable_nextcloud
+nextcloud
 {{ end }}
 
 {{ if not (index .features "kitty") }}
-executable_kitty
+kitty
 {{ end }}
 
 {{ if not (eq .chezmoi.os "linux") }}
 rootmoi
+{{ end }}
+
+{{ if not (or (index .features "skhd") (index .features "karabiner")) }}
+toggle-caps
 {{ end }}

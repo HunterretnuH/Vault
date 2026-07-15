@@ -1,12 +1,16 @@
 # Main
+aerospace          : false
 cosmic             : false
 vm                 : false
 i3                 : true
 interception-tools : false
+karabiner          : false
 nix                : true
 nix_gl_mesa        : true
 nodejs             : false
 python             : true
+skhd               : false
+ghostty            : false
 terminal_base      : true
 wireguard          : true
 # GUI programs
@@ -38,3 +42,5 @@ smb_share_nas_wiki_work     : true
 home_notebook      : false
 work_vm            : false
 work_wsl           : true
+work_mac           : false
+work_mac_vm        : false

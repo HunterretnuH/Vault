@@ -1,0 +1,90 @@
+# ==========================================
+# /opt/homebrew/bin/aerospace Window Navigation (lalt + hjkl) (lalt + wsad)
+# ==========================================
+lalt - h : /opt/homebrew/bin/aerospace focus left
+lalt - j : /opt/homebrew/bin/aerospace focus down
+lalt - k : /opt/homebrew/bin/aerospace focus up
+lalt - l : /opt/homebrew/bin/aerospace focus right
+
+lalt - a : /opt/homebrew/bin/aerospace focus left
+lalt - s : /opt/homebrew/bin/aerospace focus down
+lalt - w : /opt/homebrew/bin/aerospace focus up
+lalt - d : /opt/homebrew/bin/aerospace focus right
+
+# ==========================================
+# /opt/homebrew/bin/aerospace Window Moving (lalt + shift + hjkl) + (lalt + shift + wsad)
+# ==========================================
+lalt + shift - h : /opt/homebrew/bin/aerospace move left
+lalt + shift - j : /opt/homebrew/bin/aerospace move down
+lalt + shift - k : /opt/homebrew/bin/aerospace move up
+lalt + shift - l : /opt/homebrew/bin/aerospace move right
+
+lalt + shift - a : /opt/homebrew/bin/aerospace move left
+lalt + shift - s : /opt/homebrew/bin/aerospace move down
+lalt + shift - w : /opt/homebrew/bin/aerospace move up
+lalt + shift - d : /opt/homebrew/bin/aerospace move right
+
+# ==========================================
+# Workspace Switching (lalt + 1-9)
+# ==========================================
+lalt - 1 : /opt/homebrew/bin/aerospace workspace 1
+lalt - 2 : /opt/homebrew/bin/aerospace workspace 2
+lalt - 3 : /opt/homebrew/bin/aerospace workspace 3
+lalt - 4 : /opt/homebrew/bin/aerospace workspace 4
+lalt - 5 : /opt/homebrew/bin/aerospace workspace 5
+lalt - 6 : /opt/homebrew/bin/aerospace workspace 6
+lalt - 7 : /opt/homebrew/bin/aerospace workspace 7
+lalt - 8 : /opt/homebrew/bin/aerospace workspace 8
+lalt - 9 : /opt/homebrew/bin/aerospace workspace 9
+lalt - 0 : /opt/homebrew/bin/aerospace workspace 10
+
+# ==========================================
+# Move Window to Workspace (lalt + shift + 1-9)
+# ==========================================
+lalt + shift - 1 : /opt/homebrew/bin/aerospace move-node-to-workspace 1
+lalt + shift - 2 : /opt/homebrew/bin/aerospace move-node-to-workspace 2
+lalt + shift - 3 : /opt/homebrew/bin/aerospace move-node-to-workspace 3
+lalt + shift - 4 : /opt/homebrew/bin/aerospace move-node-to-workspace 4
+lalt + shift - 5 : /opt/homebrew/bin/aerospace move-node-to-workspace 5
+lalt + shift - 6 : /opt/homebrew/bin/aerospace move-node-to-workspace 6
+lalt + shift - 7 : /opt/homebrew/bin/aerospace move-node-to-workspace 7
+lalt + shift - 8 : /opt/homebrew/bin/aerospace move-node-to-workspace 8
+lalt + shift - 9 : /opt/homebrew/bin/aerospace move-node-to-workspace 9
+lalt + shift - 0 : /opt/homebrew/bin/aerospace move-node-to-workspace 10
+
+# ==========================================
+# Layout Controls
+# ==========================================
+lalt - c : /opt/homebrew/bin/aerospace layout v_accordion h_accordion
+lalt - y : /opt/homebrew/bin/aerospace split horizontal
+lalt - x : /opt/homebrew/bin/aerospace split vertical
+lalt + shift - y : /opt/homebrew/bin/aerospace layout tiles horizontal
+lalt + shift - x : /opt/homebrew/bin/aerospace layout tiles vertical
+lalt + shift - f : /opt/homebrew/bin/aerospace layout floating tiling
+
+# ==========================================
+# General
+# ==========================================
+lalt - m : /opt/homebrew/bin/aerospace fullscreen
+lalt + ctrl - c : /opt/homebrew/bin/aerospace reload-config
+lalt - r : /opt/homebrew/bin/aerospace mode resize
+
+# ==========================================
+# Terminal
+# ==========================================
+# lalt - return : osascript -e 'tell application "Ghostty" to make new window'
+lalt - return : open -na Ghostty
+
+# ==========================================
+# Key to key remappings
+# ==========================================
+
+# Spotlight
+lalt - space : /opt/homebrew/bin/skhd -k "cmd - space"
+
+# Quit Window
+lalt - q : /opt/homebrew/bin/skhd -k "cmd - q"
+
+# CapsLock Alternative Shortcut
+rctrl - escape : ~/.local/bin/toggle-caps
+
