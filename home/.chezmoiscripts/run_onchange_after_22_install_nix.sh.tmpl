@@ -62,8 +62,10 @@ else
     sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --yes
 {{ end }}
 fi
+echo "Done."
 
 # 1. Multi-user / Daemon installation path
+echo "Sourcing nix env...."
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 
@@ -71,6 +73,9 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 elif [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
     . "$HOME/.nix-profile/etc/profile.d/nix.sh"
 fi
+echo "Done."
+
+echo "Installing nix packages..."
 # Run natively now that the active process environment is bridged
 nix profile add "$HOME/.config/nix#default"
 echo "Done."

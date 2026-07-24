@@ -1,3 +1,4 @@
+{{ if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 
 # Trigger execution if the tracked settings files change:
@@ -68,6 +69,7 @@ killall Dock 2>/dev/null
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
 echo "✅ macOS Settings Applied Successfully!"
+{{ end }}
 
 
 
