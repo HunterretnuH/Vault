@@ -6,19 +6,19 @@ return {
         local env = require("env")
         require("lazy").load({ plugins = { "wiki.vim" } })
         return  {
-            { "<leader>Ww", ":e " .. env.wiki.primary_wiki_path .. "index.md<CR>",
-              desc = "Wiki<>", silent = true },
+            { "<leader>Ww", ":e "  .. env.wiki.primary_wiki_path .. "index.md<CR>", desc = "Wiki",       silent = true },
+            { "<leader>Wc", ":cd " .. env.wiki.primary_wiki_path .. "<CR>",         desc = "CD to Wiki", silent = true },
         }
     end,
     config = function()
         --#1 Set additional keymaps
-        vim.keymap.set("n", "<leader>Wi", ":WikiIndex<CR>",         { desc = "Index<>", silent = true })
-        vim.keymap.set("n", "<leader>Wp", ":WikiPages<CR>",         { desc = "Pages list<>", silent = true })
-        vim.keymap.set("n", "<leader>Wt", ":WikiToc<CR>",           { desc = "Table of content<>", silent = true })
-        vim.keymap.set("n", "<leader>WT", ":WikiTags<CR>",          { desc = "Tags list<>", silent = true })
-        vim.keymap.set("n", "<leader>Wj", ":WikiJournal<CR>",       { desc = "Journal<>", silent = true })
-        vim.keymap.set("n", "<leader>WJ", ":WikiJournalIndex<CR>",  { desc = "Journal index<>", silent = true })
-        vim.keymap.set("n", "<leader>Wo", ":WikiOpen<CR>",  { desc = "Wiki open<>", silent = true })
+        vim.keymap.set("n", "<leader>Wi", ":WikiIndex<CR>",         { desc = "Index", silent = true })
+        vim.keymap.set("n", "<leader>Wp", ":WikiPages<CR>",         { desc = "Pages list", silent = true })
+        vim.keymap.set("n", "<leader>Wt", ":WikiToc<CR>",           { desc = "Table of content", silent = true })
+        vim.keymap.set("n", "<leader>WT", ":WikiTags<CR>",          { desc = "Tags list", silent = true })
+        vim.keymap.set("n", "<leader>Wj", ":WikiJournal<CR>",       { desc = "Journal", silent = true })
+        vim.keymap.set("n", "<leader>WJ", ":WikiJournalIndex<CR>",  { desc = "Journal index", silent = true })
+        vim.keymap.set("n", "<leader>Wo", ":WikiOpen<CR>",  { desc = "Wiki open", silent = true })
 
         --#1 Autocommands executed for wiki buffers
         function wiki_buf_save_last_idx()
@@ -47,13 +47,13 @@ return {
             group = "MyWikiAutocmdsGroup",
             callback = function()
                 vim.keymap.set( { "n", "v", "o" }, "<localleaderj", "<plug>(wiki-link-next)",
-                    { desc = "Next link<>", buffer = true }
+                    { desc = "Next link", buffer = true }
                 )
                 vim.keymap.set( { "n", "v", "o" }, "<localleader>k", "<plug>(wiki-link-prev)",
-                    { desc = "Previous link<>", buffer = true }
+                    { desc = "Previous link", buffer = true }
                 )
                 vim.keymap.set( { "n", "v", "o" }, "<BS>", "<plug>(wiki-link-return)<cmd>lua wiki_buf_delete_last()<cr>",
-                    { desc = "Previous page<>", buffer = true }
+                    { desc = "Previous page", buffer = true }
                 )
                 wiki_buf_save_last_idx()
             end,
