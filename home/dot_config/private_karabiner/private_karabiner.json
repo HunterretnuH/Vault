@@ -366,23 +366,35 @@
                                 },
                                 "to": [{ "shell_command": "/opt/homebrew/bin/aerospace mode resize" }],
                                 "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "q",
+                                    "modifiers": { "mandatory": ["left_command"] }
+                                },
+                                "to": [{ "shell_command": "/opt/homebrew/bin/aerospace close" }],
+                                "type": "basic"
                             }
                         ]
                     },
                     {
+                        "description": "Change caps_lock to control when held, escape when tapped.",
                         "manipulators": [
                             {
-                                "description": "Change caps_lock to control when held, escape when tapped.",
                                 "from": {
                                     "key_code": "caps_lock",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [{ "key_code": "left_control" }],
+                                "to": [{ "key_code": "right_control" }],
                                 "to_if_alone": [{ "key_code": "escape" }],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Toggle Caps Lock via Right Ctrl + Esc (uses custom app).",
+                        "manipulators": [
                             {
-                                "description": "Toggle Caps Lock using custom app",
                                 "from": {
                                     "key_code": "escape",
                                     "modifiers": {
@@ -391,6 +403,19 @@
                                     }
                                 },
                                 "to": [{ "shell_command": "~/.local/bin/toggle-caps" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Use Left Ctrl as Command key.",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_control",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "right_command" }],
                                 "type": "basic"
                             }
                         ]
@@ -1446,7 +1471,7 @@
                                 "from": {
                                     "key_code": "c",
                                     "modifiers": {
-                                        "mandatory": ["left_control"],
+                                        "mandatory": ["control"],
                                         "optional": ["any"]
                                     }
                                 },

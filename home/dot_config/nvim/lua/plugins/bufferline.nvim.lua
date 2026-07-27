@@ -1,10 +1,56 @@
 return {
     "akinsho/bufferline.nvim",
-    opts = {
-        options = {
-            --always_show_bufferline = true,
-        },
-    },
+    opts = function()
+        local env = require("env")
+
+        -- Resolve paths ONCE when the plugin loads
+        local wiki_path = vim.fn.expand(env.wiki.primary_wiki_path)
+        local parrot_path = vim.fn.expand("~/.local/share/nvim/parrot/chats")
+
+        return {
+            options = {
+                groups = {
+                    options = {
+                        toggle_hidden_on_enter = true,
+                    },
+                    items = {
+                        -- 1. Docs: Any *.md file that is NOT part of Wiki or Parrot
+                        {
+                            name = "Docs",
+                            icon = "󰈙 ",
+                            matcher = function(buf)
+                                local is_md = buf.path:match("%.md$") ~= nil
+                                local is_wiki = buf.path:find(wiki_path, 1, true) == 1
+                                local is_parrot = buf.path:find(parrot_path, 1, true) == 1
+                                return is_md and not is_wiki and not is_parrot
+                            end,
+                        },
+
+                        -- 2. Ungrouped buffers in the middle
+                        require("bufferline.groups").builtin.ungrouped,
+
+                        -- 3. Wiki: Any file under the wiki directory
+                        {
+                            name = "Wiki",
+                            icon = "󰂺 ",
+                            matcher = function(buf)
+                                return buf.path:find(wiki_path, 1, true) == 1
+                            end,
+                        },
+
+                        -- 4. Parrot: Any file under the parrot chats directory
+                        {
+                            name = "Parrot",
+                            icon = "🦜 ",
+                            matcher = function(buf)
+                                return buf.path:find(parrot_path, 1, true) == 1
+                            end,
+                        },
+                    },
+                },
+            },
+        }
+    end,
     keys = function()
         local bufLeader = vim.g.tabLeader
         local tabLeader = bufLeader .. "<tab>"

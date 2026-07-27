@@ -11,14 +11,14 @@
 
 #--1 BASH CONFIG
     HISTCONTROL=ignoredups:erasedups # Avoid duplicates
-    HISTSIZE=100000           # nr of history lines in memory
-    HISTFILESIZE=100000       # nr of history lines loaded on shell startup or saved on shell close to/from file
-    shopt -s histappend       # When the shell exits, append to the history file instead of overwriting it
+    HISTSIZE=100000                  # nr of history lines in memory
+    HISTFILESIZE=100000              # nr of history lines loaded on shell startup or saved on shell close to/from file
+    shopt -s histappend              # When the shell exits, append to the history file instead of overwriting it
 #--1 TERMINAL CONFIG
     stty -ixon # FIX for mapping <C-q> in terminal
 
 #--1 GENERAL            - PATH, GRAPHIC PROTOCOL, editor, screenshot dir, qt theme platform
-    PATH=$MY_PROGRAMS_PATH/bin:/home/$USER/.local/bin:/home/$USER/.cargo/bin:$MY_SCRIPTS_PATH:$MY_SCRIPTS_PATH/not_used_directly:$PATH
+    PATH=$MY_PROGRAMS_PATH/bin:$HOME/.local/bin:$HOME/.local/scripts:$HOME/.cargo/bin:$MY_SCRIPTS_PATH:$MY_SCRIPTS_PATH/not_used_directly:$PATH
     export EDITOR="nvim"
     export SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
     export QT_QPA_PLATFORMTHEME=qt5ct
@@ -188,7 +188,7 @@
     }
 
 
-    #PATH_TO_HTML_WIKI=/home/$USER/Documents/MyWiki/htmlOutput/
+    #PATH_TO_HTML_WIKI=$HOME/Documents/MyWiki/htmlOutput/
     #PATH_TO_WIKI_WEBSERVER_DIR=/srv/http
     #alias wikiPublish='sudo rsync -r $PATH_TO_HTML_WIKI $PATH_TO_WIKI_WEBSERVER_DIR'
 
@@ -320,7 +320,7 @@
     #--1 MSSH - My SSH
     function mssh() {
         # My script for connecting to my devices using SSH
-        mssh_path="/home/$USER/.ssh/mssh"
+        mssh_path="$HOME/.ssh/mssh"
         filename=$(
             for file in "$mssh_path"/*; do
                 helpline=$(head -n1 "$file")

@@ -9,7 +9,7 @@ SETTINGS_DIR="$HOME/.config/macos_preferences"
 # Ensure target directory exists
 mkdir -p "$SETTINGS_DIR"
 
-echo "📥 Exporting current macOS environment settings..."
+# echo "📥 Exporting current macOS environment settings..."
 
 # 1. Export System Keyboard Shortcuts (XML format via stdout)
 defaults export com.apple.symbolichotkeys - > "$SETTINGS_DIR/symbolichotkeys.plist"
@@ -22,4 +22,4 @@ else
     echo "{}" > "$SETTINGS_DIR/app_shortcuts.txt"
 fi
 
-echo "💾 Configuration successfully dumped to $SETTINGS_DIR"
+# echo "💾 Configuration successfully dumped to $SETTINGS_DIR"

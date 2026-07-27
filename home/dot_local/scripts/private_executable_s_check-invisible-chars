@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function usage() {
+    echo -e "Description:"
+    echo -e "\tPrints invisible characters in files.\n"
+    echo -e "Usage:"
+    echo -e "\tcheck-invisible-chars <path>\n"
+    echo -e ""
+    echo -e "\t<path>     - Path to file.\n"
+    echo -e "Options:"
+    echo -e "\t-h         - Print help."
+}
+
+if [ $# -lt 1 ] || [ "$1" == "-h" ]; then
+    usage
+    exit
+fi
+
+path=$1
+
+cat $path    > /tmp/check_invisible_chars_visible.tmp
+cat -v $path > /tmp/check_invisible_chars_invisible.tmp
+diff /tmp/check_invisible_chars_visible.tmp /tmp/check_invisible_chars_invisible.tmp
+
+
+
+

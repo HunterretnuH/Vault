@@ -114,7 +114,7 @@
 
         source ./machines/$MACHINE/conf.sh
 
-        EXPORT_DIR=${EXPORT_DIR:-"/home/$USER"}
+        EXPORT_DIR=${EXPORT_DIR:-"$HOME"}
         cd $EXPORT_DIR
     } #}
 

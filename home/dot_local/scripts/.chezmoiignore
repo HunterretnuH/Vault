@@ -1,0 +1,5 @@
+{{- if not (eq .machine "work_mac") -}}
+s_mount_smb_work.sh
+s_umount_smb_work.sh
+s_vpn
+{{ end }}

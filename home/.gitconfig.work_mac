@@ -1,6 +1,6 @@
 [user]
-    email = michal.gzela@globallogic.com
-    name = Michal Gzela
+	email = michalgz@amazon.pl
+	name = Michal Gzela
 [diff]
     tool = nvimdiff
 [difftool]
