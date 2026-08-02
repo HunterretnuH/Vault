@@ -29,7 +29,7 @@ yazi               : true
 # Scripts
 fonts              : true
 fix_xdg_dirs       : true
-vscode             : false
+vscode             : true
 # Samba shares
 smb_share          : false #TODO: Verify
 smb_share_nas_gamepc        : false

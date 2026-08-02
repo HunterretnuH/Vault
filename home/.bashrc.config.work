@@ -11,7 +11,7 @@ export XDG_SESSION_TYPE=x11
 
 #--1 WIKI PATHS
 WIKI_PATH=~/Desktop/Media/Documents/Wiki/
-WIKI_NAS_PATH=/mnt/Remote/NAS/Wiki/
+WIKI_NAS_PATH=~/Desktop/Remote/NAS/Wiki/
 
 #--1 SCRIPT PATH
 export MY_SCRIPTS_PATH=~/Desktop/Scripts

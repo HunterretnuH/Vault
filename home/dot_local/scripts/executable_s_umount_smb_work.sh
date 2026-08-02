@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 
 # --- CONFIGURATION ---
 MOUNT_POINT_1="$HOME/mnt/Remote/NAS/Wiki/DevWiki"

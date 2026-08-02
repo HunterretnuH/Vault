@@ -60,15 +60,13 @@ starship:
 yazi:
     nix: [ yazi ]
 # Scripts
-fonts: {
+fonts:
     script: [ install_fonts.sh ]
-}
-fix_xdg_dirs: {
+fix_xdg_dirs:
     script: [ fix_xdg_dirs.sh ]
-}
-vscode: {
+vscode:
+    brew: [ --cask visual-studio-code ]
     script: [ install_vscode.sh ]
-}
 # Samba shares
 smb_share: {}
 smb_share_nas_gamepc:
