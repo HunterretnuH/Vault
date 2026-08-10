@@ -20,6 +20,13 @@
     #--2  Add homebrew packages to path
     eval "$(/opt/homebrew/bin/brew shellenv)"
 
+    # Add to pyenv listeners
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+
+# Add gnu-getopt to path (required by cocoa unlocker)
+    export PATH="$(brew --prefix gnu-getopt)/bin:$PATH"
+
 #++#++#++#++#++#++#++# END OF GENERAL CONFIG #++#++#++#++#++#++#++#
 
 # vim: foldmethod=marker foldmarker=#--,#++ filetype=bash
