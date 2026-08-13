@@ -50,7 +50,7 @@
 
     #--1 APPS
     alias v='nvim'
-    alias vw="nvim $WIKI_PATH/IndexWiki/index.md"
+    alias vw="cd ~/ && nvim $WIKI_PATH/IndexWiki/index.md"
     alias vv='nvim --listen /tmp/nvim-vscode-server'
     alias k='kitty --detach --session none'
 	#alias ranger='source ranger ranger' # Allows both CD on exit and passing args to work NOTE: Was replaced with funciton, remove later.

@@ -12,14 +12,25 @@ return {
         --     }
         -- end,
         keys = {
-            { "<leader>ac", LazyVim.pick.config_files(),                             desc = "Config Files (find)" },
-            { "<leader>e", function() Snacks.explorer({ cwd = LazyVim.root() }) end, desc = "Explorer Snacks (root dir)", },
-            { "<leader>E", function() Snacks.explorer() end,                         desc = "Explorer Snacks (cwd)", },
-            { "<leader>fP", function() Snacks.picker.projects() end,                 desc = "Projects (auto detected)", },
+            { "<leader>ac", LazyVim.pick.config_files(),                                            desc = "Config Files (find)" },
+            { "<leader>e",
+              function()
+                  local pickers = Snacks.picker.get({ source = "explorer" })
+                  if #pickers > 0 then
+                  pickers[1]:close()
+                  else
+                  Snacks.explorer.reveal({ cwd = LazyVim.root() })
+                  end
+              end,
+                                                                                                    desc = "Explorer Snacks (current file)" },
+            { "<leader>E", function() Snacks.explorer({ cwd = LazyVim.root() }) end,                desc = "Explorer Snacks (root dir)" },
+            { "<leader>ę", function() Snacks.explorer() end,                                        desc = "Explorer Snacks (cwd)" },
+            { "<leader>fP", function() Snacks.picker.projects() end,                                desc = "Projects (auto detected)" },
         },
         opts = {
             picker = {
                 enabled = true,
+                hidden = true,
                 actions = {
                     -- Explorer
                     confirm_and_close = function(picker)
@@ -51,6 +62,9 @@ return {
                     },
                 },
                 sources = {
+                    files = {
+                        hidden = true,
+                    },
                     explorer = {
                         win = {
                             list = {

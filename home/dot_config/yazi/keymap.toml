@@ -1,0 +1,142 @@
+# ==============================================================================
+# 1. CLOSE & QUIT REMAPPINGS
+# ==============================================================================
+
+[[mgr.prepend_keymap]]
+on = [ "q" ]
+run = "close"
+desc = "Close current tab"
+
+[[mgr.prepend_keymap]]
+on = [ "Q" ]
+run = "quit"
+desc = "Quit Yazi"
+
+# ==============================================================================
+# 2. REMAPPED DEFAULTS (Moved H, J, K, L -> Ctrl+h, Ctrl+j, Ctrl+k, Ctrl+l)
+# ==============================================================================
+
+[[mgr.prepend_keymap]]
+on = [ "<C-h>" ]
+run = "back"
+desc = "Go back to the previous directory"
+
+[[mgr.prepend_keymap]]
+on = [ "<C-l>" ]
+run = "forward"
+desc = "Go forward to the next directory"
+
+[[mgr.prepend_keymap]]
+on = [ "<C-j>" ]
+run = "seek 5"
+desc = "Seek 5 units down"
+
+[[mgr.prepend_keymap]]
+on = [ "<C-k>" ]
+run = "seek -5"
+desc = "Seek 5 units up"
+
+# ==============================================================================
+# 3. DIRECT TAB NAVIGATION & SWAPPING (H, J, K, L)
+# ==============================================================================
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "h" ]
+run = "tab_swap -1"
+desc = "Switch to previous tab"
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "l" ]
+run = "tab_swap 1"
+desc = "Switch to next tab"
+
+[[mgr.prepend_keymap]]
+on = [ "H" ]
+run = "tab_switch -1 --relative"
+desc = "Swap current tab left"
+
+[[mgr.prepend_keymap]]
+on = [ "L" ]
+run = "tab_switch 1 --relative"
+desc = "Swap current tab right"
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "j" ]
+run = "tab_switch -1 --relative"
+desc = "Swap current tab left"
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "k" ]
+run = "tab_switch 1 --relative"
+desc = "Swap current tab right"
+
+# ==============================================================================
+# 4. REMAP SPOT FEATURE TO 'i' (Frees <Tab> for leader bindings)
+# ==============================================================================
+
+[[mgr.prepend_keymap]]
+on = [ "i" ]
+run = "spot"
+desc = "Spot hovered file"
+
+# ==============================================================================
+# 5. LEADER BINDINGS USING '<Tab>'
+# ==============================================================================
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "n" ]
+run = "tab_create --current"
+desc = "Create new tab in current directory"
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "q" ]
+run = "close"
+desc = "Close current tab"
+
+# NOTE: Yazi by default uses 1,2,3... for tab navigation which is convinient and 
+#       these keybindings are just for consistancy
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "1" ]
+run = "tab_switch 0"
+desc = "Switch to Tab 1"
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "2" ]
+run = "tab_switch 1"
+desc = "Switch to Tab 2"
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "3" ]
+run = "tab_switch 2"
+desc = "Switch to Tab 3"
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "4" ]
+run = "tab_switch 3"
+desc = "Switch to Tab 4"
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "5" ]
+run = "tab_switch 4"
+desc = "Switch to Tab 5"
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "6" ]
+run = "tab_switch 5"
+desc = "Switch to Tab 6"
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "7" ]
+run = "tab_switch 6"
+desc = "Switch to Tab 7"
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "8" ]
+run = "tab_switch 7"
+desc = "Switch to Tab 8"
+
+[[mgr.prepend_keymap]]
+on = [ "<Tab>", "9" ]
+run = "tab_switch 8"
+desc = "Switch to Tab 9"
+
