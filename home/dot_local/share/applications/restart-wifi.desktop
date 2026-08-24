@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Restart WiFi
-Exec=pkexec /home/hunter/Desktop/Scripts/pop-os-utils/s_pop-restart-wifi.sh
+Exec=pkexec /home/hunter/.local/scripts/pop-os-utils/s_pop-restart-wifi.sh
 Icon=network-wireless
 Type=Application
 Terminal=true

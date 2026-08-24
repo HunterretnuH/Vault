@@ -4,11 +4,15 @@
 # Manifest Hash: {{ includeTemplate "dot_config/chezmoi/packages_brew.txt.tmpl" . | sha256sum }}
 
 # Install brew if missing
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if not (lookPath "apt") -}}
 if ! command -v brew &> /dev/null; then
     echo "Installing brew package manager..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    {{ if eq .chezmoi.os "darwin" -}}
     eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+    {{ else if eq .chezmoi.os "linux" -}}
+    eval "$(/opt/homebrew/bin/brew shellenv bash)"
+    {{ end -}}
     echo "Done."
 fi
 {{ end -}}

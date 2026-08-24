@@ -1,4 +1,4 @@
-{{- if eq .chezmoi.os "darwin" -}}
+{{- if not (lookPath "apt") -}}
   {{- $defs := include "dot_config/chezmoi/packages_definitions.yaml" | fromYaml -}}
   {{- $brewPkgs := list -}}
   {{- range $package, $enabled := .features -}}

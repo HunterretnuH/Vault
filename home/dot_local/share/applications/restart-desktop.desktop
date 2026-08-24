@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Restart Desktop Env
+Exec=pkexec /home/hunter/.local/scripts/pop-os-utils/s_pop-restart-desktop.sh
+Icon=system-restart
+Type=Application
+Terminal=true
+  

@@ -27,8 +27,8 @@ ghostty:
     brew: [ --cask ghostty ]
 terminal_base:
     nix: [ nix, fd, fzf, ripgrep, zoxide, neovim, neovim-remote, yazi, uv, starship, tmux ]
-    apt: [ curl, trash-cli, pv, nfs-common, cifs-utils, gdb, git ]
-    brew: [ curl, trash-cli, pv, gdb, git, coreutils ] # NOTE: trash-cli should probably be replaced with built in `trash` command; nfs-common and cifs-utils are unnecessary on MAC
+    apt: [ curl, trash-cli, pv, nfs-common, cifs-utils, gdb, git, xz-utils ]
+    brew: [ curl, trash-cli, pv, gdb, git, coreutils, xz ] # NOTE: trash-cli should probably be replaced with built in `trash` command; nfs-common and cifs-utils are unnecessary on MAC
 wireguard:
     apt: [ wireguard ]
     brew: [ wireguard-tools ]
