@@ -161,6 +161,14 @@
                             },
                             {
                                 "from": {
+                                    "key_code": "m",
+                                    "modifiers": { "mandatory": ["shift", "left_command"] }
+                                },
+                                "to": [{ "shell_command": "/opt/homebrew/bin/aerospace macos-native-minimize" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
                                     "key_code": "c",
                                     "modifiers": { "mandatory": ["left_command"] }
                                 },

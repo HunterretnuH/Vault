@@ -14,10 +14,10 @@ WIKI_PATH=~/Desktop/Media/Documents/Wiki/
 WIKI_NAS_PATH=~/Desktop/Remote/NAS/Wiki/
 
 #--1 SCRIPT PATH
-export MY_SCRIPTS_PATH=~/Desktop/Scripts
+export MY_SCRIPTS_PATH="$HOME/.local/scripts"
 
 #--1 PROGRAMS PATH
-export MY_PROGRAMS_PATH=~/Others/Programs
+export MY_PROGRAMS_PATH="$HOME/Others/Programs"
 
 #++#++#++#++#++#++#++#++# CONFIG END #++#++#++#++#++#++#++#++#
 

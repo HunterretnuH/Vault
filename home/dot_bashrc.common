@@ -18,7 +18,7 @@
     stty -ixon # FIX for mapping <C-q> in terminal
 
 #--1 GENERAL            - PATH, GRAPHIC PROTOCOL, editor, screenshot dir, qt theme platform
-    PATH=$MY_PROGRAMS_PATH/bin:$HOME/.local/bin:$HOME/.local/scripts:$HOME/.cargo/bin:$MY_SCRIPTS_PATH:$MY_SCRIPTS_PATH/not_used_directly:$PATH
+    PATH=$MY_PROGRAMS_PATH/bin:$HOME/.local/bin:$HOME/.cargo/bin:$MY_SCRIPTS_PATH:$PATH
     export EDITOR="nvim"
     export SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
     export QT_QPA_PLATFORMTHEME=qt5ct
@@ -71,10 +71,14 @@
     alias kkp="sudo kill -s SIGKILL \$(ps -A|fzf|awk '{print \$1}')"
 
     #--1 COPY
-    if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
-        export COPY="wl-copy"
-    elif [ "$XDG_SESSION_TYPE" = "x11" ]; then
-        export COPY="xclip -selection c"
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+            export COPY="wl-copy"
+        elif [ "$XDG_SESSION_TYPE" = "x11" ]; then
+            export COPY="xclip -selection c"
+        fi
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+            export COPY="pbcopy"
     fi
     alias copy="$COPY"
 
@@ -194,7 +198,7 @@
 
     #--1 MSCR - My Scripts
     ignore_dirs=("not_used" "not_used_directly")
-    scripts_path="${MY_SCRIPTS_PATH:-$HOME/scripts}"
+    scripts_path="${MY_SCRIPTS_PATH:-$HOME/.local/scripts}"
 
     # Fzf preview function
     function mscr_preview() {
@@ -220,7 +224,7 @@
 
     # My Scripts Function
     function mscr() {
-        local path="${MY_SCRIPTS_PATH:-$HOME/scripts}"
+        local path="${MY_SCRIPTS_PATH:-$HOME/.local/scripts}"
         local ignore_expr=()
 
         # Check if the function is running as a result of bind -x
@@ -235,7 +239,26 @@
         done
 
         local scripts
-        scripts=$(find "$path" "${ignore_expr[@]}" -type f -executable -print 2>/dev/null | sed "s|^$path/||")
+        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+            scripts=$(find "$path" "${ignore_expr[@]}" -type f -executable -print 2>/dev/null | sed "s|^$path/||")
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
+            if command -v fd &>/dev/null; then
+                # Build exclude flags using long format
+                local fd_exclude=()
+                for d in "${ignore_dirs[@]}"; do
+                    fd_exclude+=(--exclude "$d")
+                done
+                scripts=$(fd --type executable "${fd_exclude[@]}" . "$path" 2>/dev/null | sed "s|^$path/||")
+            elif command -v gfind &>/dev/null; then
+                scripts=$(gfind "$path" "${ignore_expr[@]}" -type f -executable -print 2>/dev/null | sed "s|^$path/||")
+            else
+                echo "Error: Neither 'fd' nor 'gfind' was found." >&2
+                echo "On macOS, BSD find lacks '-executable' support. Please install one of the following:" >&2
+                echo "  brew install fd        # Recommended fast alternative" >&2
+                echo "  brew install findutils # Provides GNU find ('gfind')" >&2
+                return 1
+            fi
+        fi
 
         if [[ -z "$scripts" ]]; then
             echo "No executable scripts found in: $path" >&2
@@ -249,15 +272,20 @@
             --preview 'mscr_preview {}')
 
         if [[ -n "$filename" ]]; then
-            local cmd="$path/$filename"
+            local cmd
+            if command -v "$filename" > /dev/null 2>&1; then
+                cmd="$filename"
+            else
+                cmd="$path/$filename"
+            fi
             READLINE_LINE="$cmd"
             READLINE_POINT=${#READLINE_LINE}
         fi
     }
 
     # Bindings
-    bind -x '"\C-x\C-s":"BIND_USED=1 mscr"'
     bind -x '"\C-x\s":"BIND_USED=1 mscr"'
+    alias vscr="nvim ${MY_SCRIPTS_PATH:-$HOME/.local/scripts}"
 
     #--1 MMAN - My MAN
     function mman() {
@@ -270,10 +298,10 @@
         fi
         nvim "$MMAN_PATH/${filename}.md"
     }
-    #--1 MCOM - My Commands
+    #--1 MCMD - My Commands
     # TODO: Rework it so that it won't have command chosing menu, but instead just fuzzy find through all commands examples.
     #       It must use 2nd level header (and 1st level header so that LSP won't complain) and code block to be able to view these <command>_examples.md files from mman.
-    function mcom() {
+    function mcmd() {
         # My script for searching through custom commands
         MMAN_PATH="$WIKI_PATH/MmanWiki/"
         MMAN_INDEX_PATH=$MMAN_PATH/index.md
@@ -314,8 +342,46 @@
     }
 
     # Bindings
-    bind -x '"\C-x\C-c":"BIND_USED=1 mcom"'
-    bind -x '"\C-x\c":"BIND_USED=1 mcom"'
+    bind -x '"\C-x\C":"BIND_USED=1 mcmd"'
+    alias vcmd="nvim $WIKI_PATH/MmanWiki/index.md"
+
+    #--2 MCMD - My Commands
+    function mtcmd_preview() {
+        local name="$1"
+        local path="${MY_COMMANDS_PATH:-$HOME/.local/commands}"
+        awk -v RS="# --- " -v target="$name" '$1 == target { print "# --- " $0 }' "$path"/*.sh 2>/dev/null | bat -l bash --style=plain --color=always
+    }
+    export -f mtcmd_preview
+
+    function mtcmd() {
+        local path="${MY_COMMANDS_PATH:-$HOME/.local/commands}"
+
+        if [[ ! -n "$BIND_USED" ]]; then
+            echo "Must be invoked via keybinding. Default: <C-x><C-c>"
+            unset BIND_USED
+            return 1
+        fi
+
+        # 1-line AWK splits file by '# --- ' delimiter into: name <TAB> flattened_body
+        local selected
+        selected=$(awk -v RS="# --- " 'NR>1 { name=$1; body=$0; gsub(/\n/, " ", body); print name "\t" body }' "$path"/*.sh 2>/dev/null | fzf \
+            -d '\t' \
+            --with-nth 1 \
+            --height=40% \
+            --border \
+            --preview 'mtcmd_preview {1}' \
+            --preview-window 'right:55%:wrap' | cut -f1)
+
+        if [[ -n "$selected" ]]; then
+            # Auto-source command files so selected function is immediately executable
+            for f in "$path"/*.sh; do [[ -f "$f" ]] && source "$f"; done
+            READLINE_LINE="$selected"
+            READLINE_POINT=${#READLINE_LINE}
+        fi
+    }
+
+    bind -x '"\C-x\c":"BIND_USED=1 mtcmd"'
+    alias vtcmd="nvim ${MY_COMMANDS_PATH:-$HOME/.local/commands}"
 
     #--1 MSSH - My SSH
     function mssh() {
