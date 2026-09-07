@@ -1,9 +1,0 @@
-#!/bin/sh
-
-echo "Setting shell to bash"
-
-sudo {{ .chezmoi.sourceDir }}/.hooks_helpers/append_if_missing.sh "/etc/shells" "/opt/homebrew/bin/bash"
-chsh -s /opt/homebrew/bin/bash
-
-echo "Done"
-

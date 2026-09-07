@@ -30,6 +30,7 @@ yazi               : true
 fonts              : true
 fix_xdg_dirs       : true
 vscode             : false
+set_shell_to_bash  : false
 # Samba shares
 smb_share          : true
 smb_share_nas_gamepc        : false

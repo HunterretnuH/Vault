@@ -1,0 +1,58 @@
+#!/bin/sh
+
+echo "Setting shell to bash"
+
+# Detect the operating system
+OS="$(uname -s)"
+
+case "$OS" in
+    Darwin*)
+        # macOS
+        echo "Detected macOS"
+        BASH_PATH="/opt/homebrew/bin/bash"
+        
+        # Check if Homebrew bash exists, fallback to default bash
+        if [ ! -f "$BASH_PATH" ]; then
+            echo "Homebrew bash not found, checking /usr/local/bin/bash"
+            BASH_PATH="/usr/local/bin/bash"
+            if [ ! -f "$BASH_PATH" ]; then
+                echo "Using system bash"
+                BASH_PATH="/bin/bash"
+            fi
+        fi
+        
+        # Add bash to /etc/shells if not already present (using helper to avoid duplicates)
+        echo "Ensuring $BASH_PATH is in /etc/shells"
+        sudo {{ .chezmoi.sourceDir }}/.hooks_helpers/append_if_missing.sh "/etc/shells" "$BASH_PATH"
+        ;;
+        
+    Linux*)
+        # Linux
+        echo "Detected Linux"
+        BASH_PATH="/bin/bash"
+        
+        # Add bash to /etc/shells if not already present (using helper to avoid duplicates)
+        echo "Ensuring $BASH_PATH is in /etc/shells"
+        sudo {{ .chezmoi.sourceDir }}/.hooks_helpers/append_if_missing.sh "/etc/shells" "$BASH_PATH"
+        ;;
+        
+    *)
+        echo "Unsupported operating system: $OS"
+        exit 1
+        ;;
+esac
+
+# Change the default shell to bash
+echo "Changing shell to $BASH_PATH"
+if command -v chsh >/dev/null 2>&1; then
+    chsh -s "$BASH_PATH" || {
+        echo "chsh failed, trying usermod as fallback"
+        sudo usermod -s "$BASH_PATH" "$USER"
+    }
+else
+    echo "chsh not available, using usermod"
+    sudo usermod -s "$BASH_PATH" "$USER"
+fi
+
+echo "Done! Shell changed to $BASH_PATH"
+echo "Please log out and log back in for the changes to take effect."

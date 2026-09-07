@@ -26,7 +26,7 @@ skhd:
 ghostty:
     brew: [ --cask ghostty ]
 terminal_base:
-    nix: [ nix, fd, fzf, ripgrep, zoxide, neovim, neovim-remote, yazi, uv, starship, tmux ]
+    nix: [ fd, fzf, ripgrep, zoxide, neovim, neovim-remote, yazi, uv, starship, tmux ]
     apt: [ curl, trash-cli, pv, nfs-common, cifs-utils, gdb, git, xz-utils ]
     brew: [ curl, trash-cli, pv, gdb, git, coreutils, xz ] # NOTE: trash-cli should probably be replaced with built in `trash` command; nfs-common and cifs-utils are unnecessary on MAC
 wireguard:
@@ -67,6 +67,8 @@ fix_xdg_dirs:
 vscode:
     brew: [ --cask visual-studio-code ]
     script: [ install_vscode.sh ]
+set_shell_to_bash:
+    script: [ set_shell_to_bash.sh ]
 # Samba shares
 smb_share: {}
 smb_share_nas_gamepc:
