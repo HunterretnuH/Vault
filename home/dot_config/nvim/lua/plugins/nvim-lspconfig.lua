@@ -72,7 +72,14 @@ return {
                     "--completion-style=detailed",
                     "--function-arg-placeholders",
                     "--fallback-style=LLVM",
-                    "--query-driver=/usr/bin/gcc,/usr/bin/g++",
+                    -- The DB's compiler is /usr/bin/gcc-10 (a Linux path from the build server).
+                    -- On macOS it won't exist, but listing it lets clangd trust matching drivers
+                    -- if you ever have one; the globs also cover Homebrew gcc/clang.
+                    "--query-driver=/usr/bin/gcc*,/usr/bin/g++*,/usr/bin/clang*,/opt/homebrew/bin/*gcc*,/opt/homebrew/bin/*g++*,/opt/homebrew/opt/llvm/bin/clang*",
+                    -- Cross-compile flags baked into the DB (from the ASan/coverage host build)
+                    -- that clang doesn't understand. clangd 22 mostly ignores them, but silencing
+                    -- keeps the log clean and avoids the occasional spurious diagnostic.
+                    "--pch-storage=memory",
                 },
             },
         },

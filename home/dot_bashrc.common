@@ -321,10 +321,10 @@
             file="$MMAN_PATH/${cmd}_commands.md"
             if [[ -f "$file" ]]; then
                 basename=$(basename "$file")
-                mman_command_exec_list+="${basename%_commands.md}"
+                mman_command_exec_list+="${basename%_commands.md}"$'\n'
             fi
         done
-        command_exec_filename=$(echo $mman_command_exec_list | fzf --border --height=30%)
+        command_exec_filename=$(printf '%s' "$mman_command_exec_list" | fzf --border --height=30%)
 
         if [[ ! -n "$command_exec_filename" ]]; then
             return
@@ -332,8 +332,8 @@
 
         command=$(cat $MMAN_PATH/${command_exec_filename}_commands.md | fzf --border --height=30%)
 
-        # Extract text between backticks
-        com=$(echo "$command" | grep -oP '(?<=`).*?(?=`)')
+        # Extract text between the first pair of backticks (portable: BSD & GNU)
+        com=$(printf '%s' "$command" | awk -F'`' '{print $2}')
 
         if [[ -n "$com" ]]; then
             READLINE_LINE="$com"

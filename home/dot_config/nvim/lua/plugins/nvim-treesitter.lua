@@ -1,9 +1,6 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-        -- LazyVim config for treesitter
-        ensure_installed = {
-            "go",
-        },
+    "nvim-treesitter/nvim-treesitter-context",
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
     },
 }

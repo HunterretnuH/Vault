@@ -177,6 +177,9 @@ return {
                     vim.opt_local.fillchars = "fold: "
                     vim.opt_local.textwidth = 120
                     vim.opt_local.colorcolumn = "121"
+                    -- Clear formatexpr so gq/g= use Vim's internal textwidth-based
+                    -- formatter (wrap at 121) instead of conform.nvim's no-op formatexpr.
+                    vim.opt_local.formatexpr = ""
                     vim.opt_local.wrap = false
                     vim.opt_local.foldmethod = "expr"
                     --vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"

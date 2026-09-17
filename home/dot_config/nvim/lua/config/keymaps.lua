@@ -37,11 +37,44 @@
 
     --#2 Terminal mappings
     vim.keymap.set({'t'}, '<ESC><ESC>', '<C-\\><C-n>',       { desc = 'Exit terminal' })
-    if not vim.g.vscode then
-    vim.keymap.set({"n","t"}, "<C-S-/>",function() Snacks.terminal.focus(nil) end, { desc = "Terminal (cwd)" })
-    end
     -- Allow Ctrl+Shift+X to clear the terminal inside Neovim
     vim.keymap.set('t', '<C-S-X>', [[<C-l>]], { desc = "Clear terminal" })
+
+    if not vim.g.vscode then
+        -- Track the last-focused snacks terminal, so <C-/> can toggle *that* one
+        -- instead of always resolving to id-1 (which is what bare Snacks.terminal.focus does,
+        -- because its terminal id is derived from cmd+cwd+env+v:count1, and v:count1 defaults to 1).
+        vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+            pattern = "*",
+            callback = function(ev)
+                local meta = vim.b[ev.buf].snacks_terminal
+                if meta and meta.id then
+                    vim.g.last_term_count = meta.id
+                end
+            end,
+            desc = "Remember last-focused snacks terminal id",
+        })
+
+        -- Smart terminal toggle:
+        --   * explicit count (e.g. 2<C-/>) always wins
+        --   * if focused inside a terminal -> use *its* id (so it hides the one you're in)
+        --   * otherwise -> reopen/focus the last-focused terminal (fallback id 1)
+        local function smart_term_toggle()
+            local count = vim.v.count ~= 0 and vim.v.count1 or nil
+            if not count then
+                local meta = vim.b.snacks_terminal
+                if meta and meta.id then
+                    count = meta.id
+                else
+                    count = vim.g.last_term_count or 1
+                end
+            end
+            Snacks.terminal.focus(nil, { cwd = LazyVim.root(), count = count })
+        end
+
+        vim.keymap.set({ "n", "t" }, "<C-/>", smart_term_toggle, { desc = "Terminal (last focused / count)" })
+        vim.keymap.set({ "n", "t" }, "<C-_>", smart_term_toggle, { desc = "which_key_ignore" })
+    end
 
     --#2 Show mappings
     vim.keymap.set({'n'}, '<leader>Sr',    '<cmd>LazyRoot<cr>',      { desc = 'Root + cwd + ...', silent = true })
@@ -73,7 +106,7 @@
 
     -- File/Find group
     vim.keymap.del({"n"}, "<leader>fn")
-    vim.keymap.del({"n"}, "<leader>ft")
+    --vim.keymap.del({"n"}, "<leader>ft")
     -- TODO: Add mapping for opening terminal in cwd and generally some multiple terminals plugin
     vim.keymap.del({"n"}, "<leader>fT")
     vim.keymap.del({"n"}, "<leader>fc")

@@ -4,12 +4,13 @@
 # General Settings                                                            #{
 # ==============================================================================
 enable_audio_bell       no
-shell_integration       no-cursor
-confirm_os_window_close -1
+#shell_integration       no-cursor
+confirm_os_window_close 2
 window_padding_width    4
-
-# [Suggested Addition]: Large history buffer to match your heavy Neovim pager
 scrollback_lines        10000
+
+# MacOS Specific
+macos_option_as_alt no
 
 # For nvim regexplainer:
 # allow_remote_control true 
@@ -51,7 +52,7 @@ background_opacity 0.95
 # ==============================================================================
 # Scrollback Pager Hook                                                       #{
 # ==============================================================================
-scrollback_pager nvim -c ':write! ~/.local/share/nvim/scrollback.tmp' -c 'set nonumber' -c 'nmap q :q!<CR>' -c 'map <C-s> G?\$<CR>ll:noh<CR>l' -c 'terminal tail -F -n 100000 ~/.local/share/nvim/scrollback.tmp' -c 'set modifiable'
+#scrollback_pager nvim -c ':write! ~/.local/share/nvim/scrollback.tmp' -c 'set nonumber' -c 'nmap q :q!<CR>' -c 'map <C-s> G?\❯<CR>ll:noh<CR>l' -c 'terminal tail -F -n 100001 ~/.local/share/nvim/scrollback.tmp' -c 'set modifiable'A
 
 #{ Old scrollback commands
 # scrollback_pager nvim -c 'setlocal ft=man number modifiable noro relativenumber nolist showtabline=0 foldcolumn=0' -c "autocmd VimEnter * normal G" -c ":silent! %s#\($\n\s*\)\+\%$##" - 
@@ -62,13 +63,60 @@ scrollback_pager nvim -c ':write! ~/.local/share/nvim/scrollback.tmp' -c 'set no
 # ==============================================================================
 # Keyboard Shortcuts                                                          #{
 # ==============================================================================
-map ctrl+shift+e     show_scrollback
+#map ctrl+shift+e     show_scrollback
 map ctrl+shift+q     no_op
 map ctrl+shift+minus change_font_size all -1
 map ctrl+shift+equal change_font_size all +1
 map ctrl+shift+s     no_op
 map ctrl+shift+h     no_op
 map ctrl+shift+l     no_op
+map ctrl+shift+/     no_op
 # #}
 
+# ==============================================================================
+# kitty-scrollback.nvim                                                          #{
+# ==============================================================================
+allow_remote_control yes
+listen_on unix:/tmp/kitty
+shell_integration enabled
+
+# kitty-scrollback.nvim Kitten alias
+action_alias kitty_scrollback_nvim kitten ~/.local/share/nvim/lazy/kitty-scrollback.nvim/python/kitty_scrollback_nvim.py
+
+# Browse scrollback buffer in nvim
+map ctrl+shift+e kitty_scrollback_nvim
+# Browse output of the last shell command in nvim
+map ctrl+shift+p kitty_scrollback_nvim --config ksb_builtin_last_cmd_output
+# Show clicked command output in nvim
+map ctrl+1 send_text all \x1b[49;5u
+mouse_map ctrl+shift+right press ungrabbed combine : mouse_select_command_output : kitty_scrollback_nvim --config ksb_builtin_last_visited_cmd_output
+
+# ==============================================================================
+# Required for tmux
+# ==============================================================================
+map ctrl+2 send_text all \x1b[50;5u
+map ctrl+3 send_text all \x1b[51;5u
+map ctrl+4 send_text all \x1b[52;5u
+map ctrl+5 send_text all \x1b[53;5u
+map ctrl+6 send_text all \x1b[54;5u
+map ctrl+7 send_text all \x1b[55;5u
+map ctrl+8 send_text all \x1b[56;5u
+map ctrl+9 send_text all \x1b[57;5u
+map ctrl+0 send_text all \x1b[48;5u
+
+# Ctrl+Enter -> CSI-u (Enter/Return = 13, ctrl = ;5). Used by tmux for splits.
+map ctrl+enter send_text all \x1b[13;5u
+
+map ctrl+shift+1 send_text all \x1b[49;6u
+map ctrl+shift+2 send_text all \x1b[50;6u
+map ctrl+shift+3 send_text all \x1b[51;6u
+map ctrl+shift+4 send_text all \x1b[52;6u
+map ctrl+shift+5 send_text all \x1b[53;6u
+map ctrl+shift+6 send_text all \x1b[54;6u
+map ctrl+shift+7 send_text all \x1b[55;6u
+map ctrl+shift+8 send_text all \x1b[56;6u
+map ctrl+shift+9 send_text all \x1b[57;6u
+map ctrl+shift+0 send_text all \x1b[48;6u
+
 # vi: foldmethod=marker foldmarker=#{,#} nowrap
+

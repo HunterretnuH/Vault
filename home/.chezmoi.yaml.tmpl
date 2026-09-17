@@ -16,7 +16,7 @@ gpg:
     - --batch
     - --passphrase
     - {{ $passphrase | quote }}
-    - --no-symkey-cache
+#   - --no-symkey-cache
 {{- end }}
 
 diff:
