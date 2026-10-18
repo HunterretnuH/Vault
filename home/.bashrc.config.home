@@ -18,7 +18,7 @@ export WIKI_PATH=~/Desktop/Media/Documents/Wiki/
 export WIKI_NAS_PATH=/mnt/Remote/NAS/Wiki/
 
 #--1 SCRIPT PATH
-export MY_SCRIPTS_PATH=~/Desktop/Scripts
+export MY_SCRIPTS_PATH=~/.local/scripts/
 
 #--1 PROGRAMS PATH
 export MY_PROGRAMS_PATH=~/Others/Programs
