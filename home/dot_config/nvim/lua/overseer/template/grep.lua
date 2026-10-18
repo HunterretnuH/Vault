@@ -21,7 +21,12 @@ return {
     path = {
       type = "string",
       desc = "Directory or file to search",
-      default = ".",
+      -- Leave empty by default; the builder resolves it to the tab-local
+      -- cwd at run time (see below). `:tcd` -- set by snacks' picker
+      -- `change_current_dir_for_tab` -> `picker:action("tcd")` -- makes
+      -- `getcwd()` return the tab-local directory, so grep searches from
+      -- wherever the current tab is rooted rather than the global cwd.
+      default = "",
       optional = true,
     },
     args = {
@@ -38,9 +43,13 @@ return {
     -- `--` terminates flag parsing so patterns starting with `-` are safe.
     table.insert(cmd, "--")
     table.insert(cmd, params.pattern)
-    if params.path and params.path ~= "" then
-      table.insert(cmd, params.path)
+    -- Resolve the search root at run time: honour an explicit path, else fall
+    -- back to the tab-local cwd (`getcwd()` respects `:tcd`).
+    local path = params.path
+    if not path or path == "" then
+      path = vim.fn.getcwd()
     end
+    table.insert(cmd, path)
 
     return {
       cmd = cmd,

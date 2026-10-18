@@ -220,6 +220,16 @@ return {
         -- but pinned to the cheapest customer-safe model (qwen3-coder-next,
         -- 0.05x credits) and low effort. ~20x cheaper than the default "auto".
         acp_providers = {
+            -- Default provider pinned to Claude Sonnet 5.5 (was plain
+            -- `kiro-cli acp` = Auto). Overrides the built-in kiro-acp so new
+            -- default sessions use a known model instead of server-selected.
+            ["kiro-acp"] = {
+                name = "Kiro (Claude Sonnet 5.5)",
+                command = "kiro-cli",
+                args = { "acp", "--model", "claude-sonnet-5.5" },
+                env = {},
+                initial_model = "claude-sonnet-5.5",
+            },
             ["kiro-lite"] = {
                 name = "Kiro Lite (quick-ask)",
                 command = "kiro-cli",

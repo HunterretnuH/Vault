@@ -23,6 +23,9 @@ vim.keymap.set("n", "<C-i>", "<C-i>", {})
 --#1 Disable auto formatting on file save
 vim.g.autoformat = false
 
+--#1 Enable project-local config files (.nvim.lua) with trust prompt (:help exrc)
+vim.o.exrc = true
+
 --#1 Options different from LazyVim defaults
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
@@ -52,6 +55,12 @@ vim.o.clipboard = "unnamedplus"
 vim.o.hidden = true
 vim.o.termguicolors = true
 vim.o.hlsearch = true
+
+vim.opt.fillchars:append({ diff = " " }) -- Simpler alternative to consider: vim.o.fillchars = "diff: "
+
+--#1 Project root detection
+-- Default LazyVim spec + `.proj_root` as a custom universal root marker that takes precedence over the rest.
+vim.g.root_spec = { ".proj_root", "lsp", { ".git", "lua" }, "cwd" }
 
 --#1 Globals for vimscript plugins HACK:
 require('config.vimplugins_globals')

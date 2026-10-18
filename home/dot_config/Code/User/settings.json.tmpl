@@ -3,7 +3,11 @@
         "asvetliakov.vscode-neovim": 1
     },
     "workbench.colorTheme": "Tokyo Night Storm",
+{{- if eq .machine "home_notebook"               }}
     "clangd.path": "/home/hunter/.config/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/22.1.0/clangd_22.1.0/bin/clangd",
+{{- else if eq .machine "work_mac" "work_mac_vm" }}
+    "clangd.path": "/Users/michalgz/Library/Application Support/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/22.1.6/clangd_22.1.6/bin/clangd",
+{{- end                                          }}
     "clangd.arguments": [
         "--background-index",
         "--clang-tidy",

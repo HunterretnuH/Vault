@@ -5,7 +5,12 @@
     tool = nvimdiff
 [difftool]
     prompt = false
+[merge]
+    tool = nvimdiff
+[mergetool]
+    prompt = false
+    keepBackup = false
 [safe]
     directory = /mnt/NAS/Wiki
-[mergetool "vimdiff"]
-    layout = LOCAL,MERGED,REMOTE
+[color]
+    ui = auto

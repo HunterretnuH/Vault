@@ -25,6 +25,7 @@ return {
                 { "<leader>s", group = "SEARCH" },
                 { "<leader>m", group = "Marks" },
                 { "<leader>M", group = "MODIFY" },
+                { "<leader>,", group = "CUSTOM (LOCAL)" },
                 { "<leader>f", group = "FIND/FILE" },
                 { "<leader>d", group = "DIFF" },
                     { "<leader>do", group = "OVERLAY (mini.diff)" },

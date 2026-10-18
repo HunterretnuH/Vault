@@ -363,8 +363,9 @@
         fi
 
         # 1-line AWK splits file by '# --- ' delimiter into: name <TAB> flattened_body
+        # Blocks named with a leading '_' (e.g. '# --- _config') are hidden from the list.
         local selected
-        selected=$(awk -v RS="# --- " 'NR>1 { name=$1; body=$0; gsub(/\n/, " ", body); print name "\t" body }' "$path"/*.sh 2>/dev/null | fzf \
+        selected=$(awk -v RS="# --- " 'FNR>1 { name=$1; if (name ~ /^_/) next; body=$0; gsub(/\n/, " ", body); print name "\t" body }' "$path"/*.sh 2>/dev/null | fzf \
             -d '\t' \
             --with-nth 1 \
             --height=40% \

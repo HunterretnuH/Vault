@@ -22,28 +22,11 @@ return {
             },
             markdown = {
                 list_items = {
-                    -- Fix to remove first indent from lists
-                    marker_minus = {
-                        add_padding = function(_, item)
-                            return item.indent > 1
-                        end,
-                    },
-                    marker_plus = {
-                        add_padding = function(_, item)
-                            return item.indent > 1
-                        end,
-                    },
-                    marker_star = {
-                        add_padding = function(_, item)
-                            return item.indent > 1
-                        end,
-                    },
-                    -- Numbered lists
-                    marker_dot = {
-                        add_padding = function(_, item)
-                            return item.indent > 1
-                        end,
-                    },
+                    marker_minus       = { add_padding = false },
+                    marker_plus        = { add_padding = false },
+                    marker_star        = { add_padding = false },
+                    marker_dot         = { add_padding = false },
+                    marker_parenthesis = { add_padding = false },
                 },
                 tables = {
                     parts = {

@@ -90,6 +90,7 @@
 
 --#1 Deleted Lazyvim Keymaps
     -- Buffer control mappings
+    vim.keymap.del({"n"}, "<leader>,")
     vim.keymap.del({"n"}, "<leader>bb")
     vim.keymap.del({"n"}, "<leader>bd")
     vim.keymap.del({"n"}, "<leader>bD")

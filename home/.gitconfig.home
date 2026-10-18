@@ -1,11 +1,14 @@
 [user]
-	email = m.gzela@gmail.com
-	name = HunterretnuH
+    email = m.gzela@gmail.com
+    name = HunterretnuH
 [diff]
-	tool = nvimdiff
+    tool = nvimdiff
 [difftool]
-	prompt = false
+    prompt = false
+[merge]
+    tool = nvimdiff
+[mergetool]
+    prompt = false
+    keepBackup = false
 [safe]
-	directory = /mnt/NAS/Wiki
-[mergetool "vimdiff"]
-    layout = LOCAL,MERGED,REMOTE
+    directory = /mnt/NAS/Wiki
