@@ -44,6 +44,12 @@ return {
         open_for_directories = false,
         keymaps = {
             show_help = "<f1>",
+            -- yazi.nvim registers a terminal-mode (`t`) buffer-local map for
+            -- `cycle_open_buffers` on <Tab> (default). That map intercepts
+            -- <Tab> inside the yazi float and uses it to cycle Neovim buffers,
+            -- so <Tab> never reaches Yazi itself. Disable it so <Tab> is passed
+            -- through to Yazi, where keymap.toml defines the <Tab> tab-leader.
+            cycle_open_buffers = false,
         },
     },
     -- -- 👇 if you use `open_for_directories=true`, this is recommended

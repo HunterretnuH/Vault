@@ -223,7 +223,7 @@ return {
             -- Default provider pinned to Claude Sonnet 5.5 (was plain
             -- `kiro-cli acp` = Auto). Overrides the built-in kiro-acp so new
             -- default sessions use a known model instead of server-selected.
-            ["kiro-acp"] = {
+            ["kiro-acp-claude-sonnet-5.5"] = {
                 name = "Kiro (Claude Sonnet 5.5)",
                 command = "kiro-cli",
                 args = { "acp", "--model", "claude-sonnet-5.5" },
@@ -322,6 +322,68 @@ return {
                 end, { buffer = ev.buf, desc = "Agentic: stop generation" })
             end,
             desc = "Agentic: bind <C-c> to stop_generation in widget buffers",
+        })
+
+        -- Keep the chat/prompt heights stable around full-width splits.
+        --
+        -- WHY: snacks terminals open with `botright split` (full width), which
+        -- steals rows from the agentic sidebar column too — `winfixheight` is
+        -- ignored then. When the terminal closes, Neovim hands the freed rows to
+        -- the column's bottom window = the prompt (AgenticInput), so it balloons
+        -- (e.g. 10 -> 27 rows) and the chat stays shrunk. Re-pin the prompt to
+        -- its configured height; the chat panel above absorbs the difference.
+        --
+        -- Only for right/left layouts: in the "bottom" layout the prompt sits
+        -- BESIDE the chat (vertical split), so setting its height is wrong.
+        -- Checks both the configured default (Config.windows.position) and the
+        -- live widget position, because <leader>iL (rotate_layout) only updates
+        -- widget.current_position, not Config.
+        --
+        -- EVENTS: WinResized fires once per redraw AFTER the layout settles, so
+        -- it covers opening a split (prompt squeezed), closing one (prompt
+        -- ballooned), snacks' scheduled equalize and `:wincmd =`. WinClosed is
+        -- kept as a belt-and-braces trigger. Cost is negligible: a loop over the
+        -- tab's few windows, no-op unless the height is off. `pending` collapses
+        -- bursts of events into a single scheduled fix. Our own set_height
+        -- re-fires WinResized, but the height then matches so it stops there.
+        -- Trade-off: a manual resize of the prompt gets snapped back to height.
+        local pending = false
+        local function pin_prompt_height()
+            pending = false
+            local Config = require("agentic.config")
+            if Config.windows.position == "bottom" then
+                return
+            end
+            local session = require("agentic.session_registry").visible_here()
+            if
+                session
+                and session.widget
+                and session.widget.current_position == "bottom"
+            then
+                return
+            end
+
+            local h = Config.windows.input.height
+            for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+                local buf = vim.api.nvim_win_get_buf(win)
+                if
+                    vim.bo[buf].filetype == "AgenticInput"
+                    and vim.api.nvim_win_get_height(win) ~= h
+                then
+                    pcall(vim.api.nvim_win_set_height, win, h)
+                end
+            end
+        end
+
+        vim.api.nvim_create_autocmd({ "WinResized", "WinClosed" }, {
+            callback = function()
+                if pending then
+                    return
+                end
+                pending = true
+                vim.schedule(pin_prompt_height)
+            end,
+            desc = "Agentic: keep prompt height fixed when splits open/close",
         })
 
         -- Replace agentic's disabled built-in @ picker with an ASYNC snacks
