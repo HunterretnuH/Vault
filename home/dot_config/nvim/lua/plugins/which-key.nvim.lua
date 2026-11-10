@@ -20,7 +20,7 @@ return {
                 { "<leader>u", group = "UI" },
                 { "<leader>q", group = "QUIT/SESSION" },
                 { "<leader>a", group = "ADMINISTRATION" },
-                { "<leader>n", group = "AI (codecompanion)" },
+                { "<leader>I", group = "AI (codecompanion)" },
                 { "<leader>i", group = "AI (agentic)" },
                 { "<leader>s", group = "SEARCH" },
                 { "<leader>m", group = "Marks" },

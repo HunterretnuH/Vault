@@ -36,6 +36,7 @@
 -- │     <leader>ira  Restore Kiro session, all dirs      (n)  <- --all-cwds     │
 -- │     <leader>irk  Restore Kiro session, cwd           (n)  <- kiro-cli list  │
 -- │     <leader>irr  Restore session (native picker)     (n)  <- needs listing  │
+-- │     <leader>irc  Restore Claude session (native)     (n)  <- no live needed │
 -- │   <leader>is  Select/switch live session             (n)                   │
 -- │   <leader>ip  Switch provider (this session)         (n)                   │
 -- │   <leader>iL  Rotate layout (right→bottom→left)       (n)                   │
@@ -209,6 +210,39 @@ local function restore_kiro_session(all_cwds)
     )
 end
 
+-- Native restore picker against Claude, even when no Claude session is open.
+--
+-- WHY: <leader>irr (restore_session -> SessionRestore.show_picker) picks its
+-- agent via a private resolve_context(): the current/most-recent session's
+-- agent, else Config.provider (= kiro-acp, which can't list sessions). So
+-- without a live Claude session it lists via Kiro and errors.
+-- resolve_context() runs synchronously at the very start of show_picker(), so
+-- for that one call we hide the current session and point Config.provider at
+-- Claude, then restore both. get_instance() spawns the Claude agent if needed
+-- and when_ready() waits for it before listing.
+-- Side effect: no "keep/destroy current session?" prompt — the restored Claude
+-- session opens alongside the existing ones.
+-- Relies on agentic internals; if an update breaks it you get the old
+-- "does not support listing" error, nothing subtle. pcall guarantees the
+-- patch is always undone.
+local function restore_claude_session()
+    local Config = require("agentic.config")
+    local Registry = require("agentic.session_registry")
+    local orig_provider, orig_current = Config.provider, Registry.current
+    Config.provider = "claude-agent-acp"
+    Registry.current = function()
+        return nil
+    end
+    local ok, err = pcall(require("agentic").restore_session)
+    Config.provider, Registry.current = orig_provider, orig_current
+    if not ok then
+        vim.notify(
+            "[agentic] Claude restore failed: " .. tostring(err),
+            vim.log.levels.ERROR
+        )
+    end
+end
+
 return {
     "carlos-algms/agentic.nvim",
     ---@type agentic.PartialUserConfig
@@ -216,13 +250,12 @@ return {
         -- Default provider that launches `kiro-cli acp`.
         provider = "kiro-acp",
 
-        -- Custom lightweight provider for the quick-ask chat: same kiro-cli acp,
-        -- but pinned to the cheapest customer-safe model (qwen3-coder-next,
-        -- 0.05x credits) and low effort. ~20x cheaper than the default "auto".
+        -- Extra providers on top of agentic's built-ins (all selectable via
+        -- <leader>iN / <leader>ip).
         acp_providers = {
-            -- Default provider pinned to Claude Sonnet 5.5 (was plain
-            -- `kiro-cli acp` = Auto). Overrides the built-in kiro-acp so new
-            -- default sessions use a known model instead of server-selected.
+            -- Kiro pinned to Claude Sonnet 5.5 instead of the server-selected
+            -- Auto model. Separate provider (pick via <leader>iN / <leader>ip);
+            -- the default stays the built-in kiro-acp (Auto).
             ["kiro-acp-claude-sonnet-5.5"] = {
                 name = "Kiro (Claude Sonnet 5.5)",
                 command = "kiro-cli",
@@ -230,6 +263,23 @@ return {
                 env = {},
                 initial_model = "claude-sonnet-5.5",
             },
+            -- Claude Code: use agentic's BUILT-IN "claude-agent-acp" provider
+            -- (command `claude-agent-acp`, already sets
+            -- CLAUDE_CODE_ENTRYPOINT=agentic-nvim so sessions show up in the
+            -- terminal `claude --resume` picker). No custom entry is needed.
+            -- Install (pinned; npm's global prefix is the read-only Nix store,
+            -- so it goes to ~/.local/bin which is on PATH):
+            --   npm i -g --prefix ~/.local @agentclientprotocol/claude-agent-acp@0.101.0
+            -- Bedrock auth: the adapter (v0.101.0) always loads
+            -- settingSources = { "user", "project", "local" }, so the `env` block
+            -- of ~/.claude/settings.json (CLAUDE_CODE_USE_BEDROCK, AWS_PROFILE,
+            -- AWS_REGION, ...) plus awsAuthRefresh apply. agentic also passes
+            -- Neovim's full environment to the agent process.
+            -- Unlike kiro, this agent supports session listing, so the native
+            -- <leader>irr picker works for Claude sessions.
+            -- Quick-ask chat (<leader>ic): same kiro-cli acp, pinned to the
+            -- cheapest customer-safe model (qwen3-coder-next, 0.05x credits)
+            -- and low effort. ~20x cheaper than the default "auto".
             ["kiro-lite"] = {
                 name = "Kiro Lite (quick-ask)",
                 command = "kiro-cli",
@@ -288,6 +338,7 @@ return {
         { "<leader>irK", function() restore_kiro_session(true) end,                          desc = "Restore Kiro session (all dirs)", mode = { "n" } },
         { "<leader>irk", function() restore_kiro_session() end,                               desc = "Restore Kiro session (cwd)", mode = { "n" } },
         { "<leader>irr", function() require("agentic").restore_session() end,                 desc = "Restore session (native)", mode = { "n" } },
+        { "<leader>irc", restore_claude_session,                                              desc = "Restore Claude session (native)", mode = { "n" } },
         { "<leader>is", function() require("agentic").select_session() end,                   desc = "Select session",          mode = { "n" } },
         { "<leader>ip", function() require("agentic").switch_provider() end,                  desc = "Switch provider",         mode = { "n" } },
         { "<leader>iL", function() require("agentic").rotate_layout() end,                     desc = "Rotate layout",           mode = { "n" } },
@@ -388,45 +439,28 @@ return {
 
         -- Replace agentic's disabled built-in @ picker with an ASYNC snacks
         -- files picker, scoped to the prompt buffer (AgenticInput). Typing @ in
-        -- insert mode inserts the literal @ (kept, for consistency with agentic's
-        -- convention in case they add @-handling later) and opens Snacks.picker.
-        -- On confirm, the chosen file's cwd-relative path is inserted right after
-        -- the @, yielding "@relative/path". No main-loop blocking, no freeze.
+        -- insert mode inserts a literal @ as a visible trigger and opens
+        -- Snacks.picker; the picked file's cwd-relative path REPLACES the @
+        -- (cancel keeps it). No main-loop blocking, no freeze.
+        -- Same snippet as in codecompanion.nvim.lua.
         vim.api.nvim_create_autocmd("FileType", {
             pattern = "AgenticInput",
             callback = function(ev)
                 vim.keymap.set("i", "@", function()
-                    -- Insert the literal "@" first (kept as the trigger char).
                     vim.api.nvim_put({ "@" }, "c", false, true)
-
-                    local ok, Snacks = pcall(require, "snacks")
-                    if not ok or not Snacks.picker then
-                        -- snacks unavailable: leave the bare "@" (no picker).
-                        return
-                    end
-
-                    local target_buf = ev.buf
+                    local row, col = unpack(vim.api.nvim_win_get_cursor(0)) -- col: just after the @
                     Snacks.picker.files({
                         confirm = function(picker, item)
-                            picker:close()
-                            if not item then
-                                return
-                            end
-                            -- item.file is the picked path; make it cwd-relative.
-                            local path = item.file or item.text
-                            if not path then
-                                return
-                            end
-                            local rel = vim.fn.fnamemodify(path, ":.")
-                            -- Insert the path after the "@" at the cursor, in the
-                            -- prompt buffer, and return to insert mode there.
-                            if vim.api.nvim_buf_is_valid(target_buf) then
-                                local win = vim.fn.bufwinid(target_buf)
-                                if win ~= -1 then
-                                    vim.api.nvim_set_current_win(win)
-                                end
-                                vim.api.nvim_put({ rel }, "c", false, true)
-                                vim.cmd("startinsert!")
+                            picker:close() -- refocuses the prompt window
+                            if item then
+                                local path = vim.fn.fnamemodify(item.file, ":.")
+                                vim.api.nvim_buf_set_text(ev.buf, row - 1, col - 1, row - 1, col, { path })
+                                -- Scheduled keys run after snacks has left insert mode (like snacks'
+                                -- own paste action): cursor on the path's last char, then append.
+                                local keys = ("<Cmd>call cursor(%d, %d)<CR>a"):format(row, col - 1 + #path)
+                                vim.schedule(function()
+                                    vim.api.nvim_feedkeys(vim.keycode(keys), "n", false)
+                                end)
                             end
                         end,
                     })
