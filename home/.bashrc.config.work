@@ -1,10 +1,5 @@
 ############################### COMMON CONFIG BASHRC ###############################
 
-#####################    ENVIRONEMENT    #####################
-#--1
-export MY_ENV="WORK" # Set environement. Valid values: HOME, WORK.
-#++#++#++#++#++#++#++# ENVIRONEMENT END #++#++#++#++#++#++#++#
-
 ########################    CONFIG    ########################
 #--1 XDG SESSION TYPE
 export XDG_SESSION_TYPE=x11
